@@ -1,0 +1,14 @@
+<script>
+    document.write(
+        '<script type="text/javascript" src="../build/webpack.assets.js?v=' +
+        Math.random() +
+        '"><\/script>'
+    );
+</script>
+<script>
+    document.write(
+        '<script src="../build/' +
+        window.WEBPACK_ASSETS["main"].js +
+        '"><\/script>'
+    );
+</script>

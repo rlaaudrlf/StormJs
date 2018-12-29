@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b24d7456-88bb-4dcd-997c-8c0f5448e762}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>global.d.ts</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="index2.html" />
+    <Content Include="script\Assets\html.txt" />
+    <Content Include="script\Assets\icon\directory.png" />
+    <Content Include="script\Assets\icon\directoryOpen.png" />
+    <Content Include="script\Assets\icon\file.png" />
+    <Content Include="script\Assets\package.txt" />
+    <Content Include="script\Assets\webpackConfig.txt" />
+    <Content Include="test.html" />
+    <Content Include="package.json" />
+    <Content Include="task.json" />
+    <Content Include="tsconfig.json" />
+    <TypeScriptCompile Include="global.d.ts" />
+    <Content Include="colorPicker-master\info.txt" />
+    <Content Include="colorPicker-master\index.html" />
+    <Content Include="colorPicker-master\index.css" />
+    <Content Include="colorPicker-master\package.json" />
+    <Content Include="colorPicker-master\LICENSE.md" />
+    <Content Include="colorPicker-master\README.md" />
+    <Content Include="Themes\button.html" />
+    <Content Include="Themes\directory.html" />
+    <Content Include="Themes\div.html" />
+    <Content Include="Themes\file.html" />
+    <Content Include="Themes\image.html" />
+    <Content Include="Themes\Input.html" />
+    <Content Include="Themes\Label.html" />
+    <Content Include="Themes\list.html" />
+    <Content Include="Themes\ScrollView.html" />
+    <TypeScriptCompile Include="build\dist\main.d.ts" />
+    <TypeScriptCompile Include="build\dist\ProjectManager.d.ts" />
+    <TypeScriptCompile Include="build\dist\toorbar.d.ts" />
+    <TypeScriptCompile Include="build\dist\WorkItem.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\DomElement.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\DoubleBind.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\EventLithener.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\main.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\SaveFormat.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\SerializeHelper.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\Storm.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\StormComponent.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\StormLoader.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\StormObject.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\StormPool.d.ts" />
+    <TypeScriptCompile Include="build\dist\Core\TextParser.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\Component.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\Div.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\ElementBase.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\Input.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\Label.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\List.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\ListView.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\ListViewBase.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\StackPanel.d.ts" />
+    <TypeScriptCompile Include="build\dist\Element\TreeView.d.ts" />
+    <TypeScriptCompile Include="build\dist\modules\AutoSaver.d.ts" />
+    <TypeScriptCompile Include="build\dist\modules\Container.d.ts" />
+    <TypeScriptCompile Include="build\dist\modules\DataTranslater.d.ts" />
+    <TypeScriptCompile Include="build\dist\modules\ProjectBuilder.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\ElementList.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\PanelAttributes.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\panelRoot.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\PanelWorking.d.ts" />
+    <TypeScriptCompile Include="build\dist\ResourceLoader\themeLoader.d.ts" />
+    <TypeScriptCompile Include="build\dist\Utils\ConsoleUtils.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\PanelExplorer\ComponentDirectory.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\PanelExplorer\ComponentFile.d.ts" />
+    <TypeScriptCompile Include="build\dist\Panels\PanelExplorer\PanelExplorer.d.ts" />
+    <Content Include="colorPicker-master\developer\colorPicker.html" />
+    <Content Include="colorPicker-master\developer\fusion.html" />
+    <Content Include="colorPicker-master\developer\patches.html" />
+    <Content Include="colorPicker-master\developer\colorPicker.css" />
+    <Content Include="colorPicker-master\developer\colorPicker.sys.css" />
+    <Content Include="colorPicker-master\developer\_bgs.png" />
+    <Content Include="colorPicker-master\developer\_blank.png" />
+    <Content Include="colorPicker-master\developer\_horizontal.png" />
+    <Content Include="colorPicker-master\developer\_icons.png" />
+    <Content Include="colorPicker-master\developer\_patches.png" />
+    <Content Include="colorPicker-master\developer\_vertical.png" />
+    <Content Include="colorPicker-master\images\screen-shot-all.png" />
+    <Content Include="colorPicker-master\images\screen-shot-L.png" />
+    <Content Include="colorPicker-master\images\screen-shot-M.png" />
+    <Content Include="colorPicker-master\images\screen-shot-XS.png" />
+    <Content Include="colorPicker-master\images\screen-shot-XXS.png" />
+    <Content Include="colorPicker-master\images\_bgs.png" />
+    <Content Include="colorPicker-master\images\_blank.png" />
+    <Content Include="colorPicker-master\images\_horizontal.png" />
+    <Content Include="colorPicker-master\images\_icons.png" />
+    <Content Include="colorPicker-master\images\_patches.png" />
+    <Content Include="colorPicker-master\images\_vertical.png" />
+    <Content Include="colorPicker-master\images\favicon.ico" />
+    <Content Include="colorPicker-master\javascript_implementation\index.html" />
+    <Content Include="colorPicker-master\javascript_implementation\jsColor.css" />
+    <Content Include="colorPicker-master\javascript_implementation\README.md" />
+    <Content Include="colorPicker-master\jQuery_implementation\index.html" />
+    <Content Include="colorPicker-master\jQuery_implementation\jqColor.css" />
+    <Content Include="colorPicker-master\jQuery_implementation\README.md" />
+    <TypeScriptCompile Include="script\Core\Action\Action.ts" />
+    <TypeScriptCompile Include="script\Core\Animation\AnimationAlpha.ts" />
+    <TypeScriptCompile Include="script\Core\Animation\AnimationBase.ts" />
+    <TypeScriptCompile Include="script\Core\Animation\AnimationColor.ts" />
+    <TypeScriptCompile Include="script\Core\Animation\AnimationData.ts" />
+    <TypeScriptCompile Include="script\Core\Animation\AnimationMove.ts" />
+    <TypeScriptCompile Include="script\Core\Animation\AnimationScale.ts" />
+    <TypeScriptCompile Include="script\Core\Attributes\StyleAttributes.ts" />
+    <TypeScriptCompile Include="script\Core\Attributes\Transform.ts" />
+    <TypeScriptCompile Include="script\Core\Behaviours.ts" />
+    <TypeScriptCompile Include="script\Core\Behaviour\BehaviourBase.ts" />
+    <TypeScriptCompile Include="script\Core\Behaviour\BehaviourColloctor.ts" />
+    <TypeScriptCompile Include="script\Core\Behaviour\BehaviourRequest.ts" />
+    <TypeScriptCompile Include="script\Core\Behaviour\BehaviourRoute.ts" />
+    <TypeScriptCompile Include="script\Core\Components\Button.ts" />
+    <TypeScriptCompile Include="script\Core\Components\CheckBoxGroup.ts" />
+    <TypeScriptCompile Include="script\Core\Components\CheckBoxList.ts" />
+    <TypeScriptCompile Include="script\Core\Components\ComponentList.ts" />
+    <TypeScriptCompile Include="script\Core\Components\ComponentsBase.ts" />
+    <TypeScriptCompile Include="script\Core\Components\DropDownList.ts" />
+    <TypeScriptCompile Include="script\Core\Components\Image.ts" />
+    <TypeScriptCompile Include="script\Core\Components\Label.ts" />
+    <TypeScriptCompile Include="script\Core\Components\LayoutGrid.ts" />
+    <TypeScriptCompile Include="script\Core\Components\LayoutStack.ts" />
+    <TypeScriptCompile Include="script\Core\Components\List.ts" />
+    <TypeScriptCompile Include="script\Core\Components\StormCheckBox.ts" />
+    <TypeScriptCompile Include="script\Core\Components\StormCollector.ts" />
+    <TypeScriptCompile Include="script\Core\Components\StormList.ts" />
+    <TypeScriptCompile Include="script\Core\Components\StormStackList.ts" />
+    <TypeScriptCompile Include="script\Core\Components\TreeView.ts" />
+    <TypeScriptCompile Include="script\Core\Controller\Controller.ts" />
+    <TypeScriptCompile Include="script\Core\Core.ts" />
+    <TypeScriptCompile Include="script\Core\DomElement.ts" />
+    <TypeScriptCompile Include="script\Core\DoubleBind.ts" />
+    <TypeScriptCompile Include="script\Core\EventLithener.ts" />
+    <TypeScriptCompile Include="script\Core\EventManager.ts" />
+    <TypeScriptCompile Include="script\Core\main.ts" />
+    <TypeScriptCompile Include="script\Core\Mapper.ts" />
+    <TypeScriptCompile Include="script\Core\SaveFormat.ts" />
+    <TypeScriptCompile Include="script\Core\SerializeHelper.ts" />
+    <TypeScriptCompile Include="script\Core\State.ts" />
+    <TypeScriptCompile Include="script\Core\StateManager.ts" />
+    <TypeScriptCompile Include="script\Core\Storm.ts" />
+    <TypeScriptCompile Include="script\Core\StormComponent.ts" />
+    <TypeScriptCompile Include="script\Core\StormLoader.ts" />
+    <TypeScriptCompile Include="script\Core\StormObject.ts" />
+    <TypeScriptCompile Include="script\Core\StormPool.ts" />
+    <TypeScriptCompile Include="script\Core\StyleCacher.ts" />
+    <TypeScriptCompile Include="script\Core\TextParser.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Anchor.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Behaviourtest.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\DeepCloner.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\ListAlignment.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\PageRouter.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererBase.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererButton.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererContainer.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererImage.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererLabel.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererScrollView.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererText.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Renderer\RendererType.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\StormLifeCycle.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\StormObject.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\StormPage.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\StormPageRouter.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\Vector2.ts" />
+    <TypeScriptCompile Include="script\Core\Widgets\WidgetLifeCycle.ts" />
+    <TypeScriptCompile Include="script\Editor\ElementList.ts" />
+    <TypeScriptCompile Include="script\Editor\Modules\AutoSaver.ts" />
+    <TypeScriptCompile Include="script\Editor\Modules\Container.ts" />
+    <TypeScriptCompile Include="script\Editor\Modules\DataTranslater.ts" />
+    <TypeScriptCompile Include="script\Editor\Modules\ProjectBuilder.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelAttributes.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelBase.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelComponent.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelExplorer\ComponentDirectory.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelExplorer\ComponentFile.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelExplorer\PanelExplorer.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelLog.ts" />
+    <TypeScriptCompile Include="script\Editor\panelRoot.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelRuntime.ts" />
+    <TypeScriptCompile Include="script\Editor\PanelWorking.ts" />
+    <TypeScriptCompile Include="script\Editor\ResourceLoader\themeLoader.ts" />
+    <TypeScriptCompile Include="script\Element\AutoContainer.ts" />
+    <TypeScriptCompile Include="script\Element\Carousel.ts" />
+    <TypeScriptCompile Include="script\Element\Cascader.ts" />
+    <TypeScriptCompile Include="script\Element\Collapse.ts" />
+    <TypeScriptCompile Include="script\Element\ColorPicker.ts" />
+    <TypeScriptCompile Include="script\Element\Component.ts" />
+    <TypeScriptCompile Include="script\Element\DatePicker.ts" />
+    <TypeScriptCompile Include="script\Element\DropDownList.ts" />
+    <TypeScriptCompile Include="script\Element\ElementBase.ts" />
+    <TypeScriptCompile Include="script\Element\Enviroment.ts" />
+    <TypeScriptCompile Include="script\Element\InputNumber.ts" />
+    <TypeScriptCompile Include="script\Element\ListViewBase.ts" />
+    <TypeScriptCompile Include="script\Element\MessageBox.ts" />
+    <TypeScriptCompile Include="script\Element\Notification.ts" />
+    <TypeScriptCompile Include="script\Element\Pagination.ts" />
+    <TypeScriptCompile Include="script\Element\ProgressBar.ts" />
+    <TypeScriptCompile Include="script\Element\Rate.ts" />
+    <TypeScriptCompile Include="script\Element\Slider.ts" />
+    <TypeScriptCompile Include="script\Element\StackPanel.ts" />
+    <TypeScriptCompile Include="script\Element\steps.ts" />
+    <TypeScriptCompile Include="script\Element\Table.ts" />
+    <TypeScriptCompile Include="script\Element\ToolTip.ts" />
+    <TypeScriptCompile Include="script\Element\TreeView.ts" />
+    <TypeScriptCompile Include="script\EventDispather.ts" />
+    <TypeScriptCompile Include="script\GlobalData.ts" />
+    <TypeScriptCompile Include="script\main.ts" />
+    <TypeScriptCompile Include="script\ProjectManager.ts" />
+    <TypeScriptCompile Include="script\Renderer\Renderer.ts" />
+    <TypeScriptCompile Include="script\Renderer\RenderItemBase.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebButton.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebContainer.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebImage.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebInput.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebItemBase.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebLabel.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebLoader.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebPage.ts" />
+    <TypeScriptCompile Include="script\Renderer\Web\WebScrollView.ts" />
+    <TypeScriptCompile Include="script\Storage.ts" />
+    <TypeScriptCompile Include="script\toorbar.ts" />
+    <TypeScriptCompile Include="script\Utils\ArrrayUtils.d.ts" />
+    <TypeScriptCompile Include="script\Utils\ArrrayUtils.ts" />
+    <TypeScriptCompile Include="script\Utils\ConsoleUtils.ts" />
+    <TypeScriptCompile Include="script\WorkItem.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build" />
+    <Folder Include="build\dist" />
+    <Folder Include="build\dist\Core" />
+    <Folder Include="build\dist\Element" />
+    <Folder Include="build\dist\modules" />
+    <Folder Include="build\dist\Panels" />
+    <Folder Include="build\dist\Panels\PanelExplorer" />
+    <Folder Include="build\dist\ResourceLoader" />
+    <Folder Include="build\dist\Utils" />
+    <Folder Include="colorPicker-master" />
+    <Folder Include="colorPicker-master\developer" />
+    <Folder Include="colorPicker-master\images" />
+    <Folder Include="colorPicker-master\javascript_implementation" />
+    <Folder Include="colorPicker-master\jQuery_implementation" />
+    <Folder Include="script\" />
+    <Folder Include="script\Assets\" />
+    <Folder Include="script\Assets\icon\" />
+    <Folder Include="script\Core\" />
+    <Folder Include="script\Core\Action\" />
+    <Folder Include="script\Core\Animation\" />
+    <Folder Include="script\Core\Attributes\" />
+    <Folder Include="script\Core\Behaviour\" />
+    <Folder Include="script\Core\Components\" />
+    <Folder Include="script\Core\Controller\" />
+    <Folder Include="script\Core\Loader\" />
+    <Folder Include="script\Core\Router\" />
+    <Folder Include="script\Core\State\" />
+    <Folder Include="script\Core\Widgets\" />
+    <Folder Include="script\Core\Widgets\Renderer\" />
+    <Folder Include="script\Editor\" />
+    <Folder Include="script\Editor\Modules\" />
+    <Folder Include="script\Editor\PanelExplorer\" />
+    <Folder Include="script\Editor\ResourceLoader\" />
+    <Folder Include="script\Element\" />
+    <Folder Include="script\Renderer\" />
+    <Folder Include="script\Renderer\Android\" />
+    <Folder Include="script\Renderer\Ios\" />
+    <Folder Include="script\Renderer\Web\" />
+    <Folder Include="script\Renderer\WxSmallAPP\" />
+    <Folder Include="script\Utils\" />
+    <Folder Include="Storm" />
+    <Folder Include="Storm\Storm" />
+    <Folder Include="Themes" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28315.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Storm", "Storm.njsproj", "{B24D7456-88BB-4DCD-997C-8C0F5448E762}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B24D7456-88BB-4DCD-997C-8C0F5448E762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24D7456-88BB-4DCD-997C-8C0F5448E762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24D7456-88BB-4DCD-997C-8C0F5448E762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24D7456-88BB-4DCD-997C-8C0F5448E762}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A73616FB-5E38-4502-8BD7-EC9FF3114A10}
+	EndGlobalSection
+EndGlobal

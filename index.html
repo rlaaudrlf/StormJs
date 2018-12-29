@@ -1,0 +1,131 @@
+<html>
+
+<head> </head>
+
+<body>
+	<style>
+		body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			#dad {
+				display: flex;
+				height: calc(100% - 250px);
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			#left {
+				display: flex;
+				height: 100%;
+				background: brown;
+				width: 20%;
+				flex-direction: column;
+			}
+
+			#middle {
+				display: flex;
+				height: calc(100% - 360px);
+				width: 100%;
+			}
+
+			#right {
+				display: flex;
+				height: 100%;
+				background: cornsilk;
+				width: 100%;
+				margin-left: auto;
+			}
+
+			.toolbar {
+				width: calc(100% - 6px);
+				height: 30px;
+				background: #252526;
+				box-shadow: #111111 0px 2px 0px 0px;
+				border: 1px solid black;
+				color: aliceblue;
+				align-items: center;
+				display: flex;
+				padding-left: 4px;
+			}
+		</style>
+	<div id="toolbar" style="width: 100%;height: 30px;background: #252526;box-shadow:darkgrey 2px 2px 2px 2px;border-bottom:1px solid black"></div>
+	<div id="dad">
+		<div id="left">
+			<div class="toolbar">控件</div>
+		</div>
+		<div style="display: flex;height: 100%;width:  calc(80% - 100px);  flex-direction: column">
+			<div class="toolbar" style="">拖放区</div>
+			<div id="middle" ondragover="allowDrop(event)" style="position:relative;left: 0%;top: 0%"></div>
+			<div class="toolbar">即时渲染</div>
+			<div id="runTime" style="width:100%;height:300px;background:#1e1e1e;overflow:scroll"></div>
+		</div>
+		<div style="width: 25%;height: 100%;">
+			<div class="toolbar">属性</div>
+			<div id="right">
+
+			</div>
+		</div>
+
+	</div>
+
+	<div style="width:100%;height:200px;display: flex;background:#252526">
+		<div style="width:30%;height: 100%">
+			<div class="toolbar">文件夹</div>
+			<div id="File" style="width:100%;height:  calc( 100% - 32px);background: 1e1e1e;overflow-y: scroll;">
+
+			</div>
+		</div>
+
+		<div style="width:40%;height: 100%;">
+			<div class="toolbar">文件</div>
+			<div id="file2" style="width:100%;height: calc( 100% - 32px);overflow-y: scroll;background: 1e1e1e">
+
+			</div>
+		</div>
+
+		<div style=" width:30%;height: 100%;">
+			<div class="toolbar">输出</div>
+			<div style="width:100%;height: calc( 100% - 32px);overflow-y: scroll;display: flex;flex-direction: column;color: aliceblue"
+			 id="log">
+
+			</div>
+		</div>
+
+	</div>
+
+	<div style="height:20px;width:100%;background:#007acc "></div>
+	<script>
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("Text");
+			ev.target.appendChild(document.getElementById(data));
+		}
+	</script>
+	<script>
+		document.write(
+			'<script type="text/javascript" src="./build/dist/webpack.assets.js?v=' +
+			Math.random() +
+			'"><\/script>'
+		);
+	</script>
+	<script>
+		document.write(
+			'<script src="./build/dist/' +
+			window.WEBPACK_ASSETS["index"].js +
+			'"><\/script>'
+		);
+	</script>
+	<script type="text/javascript" src="./colorPicker-master/color.all.min.js"></script>
+	<script type="text/javascript" src="./colorPicker-master/javascript_implementation/jsColor.js"></script>
+</body>
+<!DOCTYPE html>
+
+</html>
