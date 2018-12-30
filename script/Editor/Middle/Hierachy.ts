@@ -15,21 +15,23 @@ export class Hierachy {
 		let container = new StormObject();
 		container.setRenderer(RendererContainer);
 		container.transfrom.Parent = parent.transfrom;
-		container.getRenderer<RendererContainer>().background.setHex(0x00ff00);
+		container.getRenderer<RendererContainer>().background.setHex(0x252526);
 		let border = new Border();
 		container.getRenderer<RendererContainer>().border = border;
-		border.color.setHex(ColorKeywords.red);
+		border.color.setHex(0x353536);
 		container.transfrom.anchor.top.target = parent.transfrom;
 		container.transfrom.Height = 30;
+		container.transfrom.Width = 200;
 
 		let label = new StormObject();
 		label.setRenderer(RendererLabel);
 		label.transfrom.Parent = parent.transfrom;
 		label.getRenderer<RendererLabel>().text = "控件";
-		label.getRenderer<RendererLabel>().color.setHex(0x000000);
+		label.getRenderer<RendererLabel>().color.setHex(0xeeeeee);
 		label.transfrom.anchor.top.target = parent.transfrom;
 		label.transfrom.Height = 30;
 		label.getRenderer<RendererLabel>().verticalAlign = EVerticalAlign.center;
+		label.transfrom.Width = 200;
 
 		let scroll = new StormObject();
 		scroll.setRenderer(RendererScrollView);

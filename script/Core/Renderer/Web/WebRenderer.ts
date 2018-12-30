@@ -37,7 +37,6 @@ export class WebRenderer extends Renderer {
 			element.appendChild(this.root.element);
 			window.onresize = () => {
 				if (this.renderer != null) {
-					console.log(123);
 					this.renderer.transform.Width = this.parent.offsetWidth;
 					this.renderer.transform.Height = this.parent.offsetHeight;
 				}

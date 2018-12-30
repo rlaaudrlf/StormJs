@@ -1,9 +1,9 @@
 import { StormObject } from "../../Core/Widgets/StormObject";
 import { RendererContainer } from "../../Core/Renderer/Virtual/RendererContainer";
 import { EBorder } from "../../Core/Widgets/Anchor";
-import { Hierachy } from './Hierachy';
-import { WorkZone } from './WorkZone';
-import { AttribbutesZone } from './AttribbutesZone';
+import { Hierachy } from "./Hierachy";
+import { WorkZone } from "./WorkZone";
+import { AttribbutesZone } from "./AttribbutesZone";
 export class MiddleArea {
 	init(parent: StormObject) {
 		let middle = new StormObject();
@@ -19,6 +19,7 @@ export class MiddleArea {
 
 		left.transfrom.anchor.top.target = parent.transfrom;
 		left.transfrom.anchor.bottom.target = parent.transfrom;
+		left.transfrom.Width = 200;
 
 		middle.transfrom.anchor.top.target = parent.transfrom;
 		middle.transfrom.anchor.bottom.target = parent.transfrom;
@@ -32,19 +33,19 @@ export class MiddleArea {
 		right.transfrom.anchor.right.target = parent.transfrom;
 		right.transfrom.anchor.left.target = parent.transfrom;
 		right.transfrom.anchor.left.border = EBorder.right;
-		right.transfrom.anchor.left.value = 100;
+		right.transfrom.anchor.left.value = 200;
 
 		left.getRenderer<RendererContainer>().background.setHex(0x007acc);
 		middle.getRenderer<RendererContainer>().background.setHex(0x252526);
 		right.getRenderer<RendererContainer>().background.setHex(0x007acc);
 
-		let hierachy=new Hierachy()
-		hierachy.init(left)
+		let hierachy = new Hierachy();
+		hierachy.init(left);
 
-		let workZone=new WorkZone()
-		workZone.init(middle)
+		let workZone = new WorkZone();
+		workZone.init(middle);
 
-		let attribbutesZone=new AttribbutesZone()
-		attribbutesZone.init(right)
+		let attribbutesZone = new AttribbutesZone();
+		attribbutesZone.init(right);
 	}
 }

@@ -19,6 +19,7 @@ export class BottomArea {
 
 		left.transfrom.anchor.top.target = parent.transfrom;
 		left.transfrom.anchor.bottom.target = parent.transfrom;
+		left.transfrom.Width = 200;
 
 		middle.transfrom.anchor.top.target = parent.transfrom;
 		middle.transfrom.anchor.bottom.target = parent.transfrom;
@@ -32,7 +33,7 @@ export class BottomArea {
 		right.transfrom.anchor.right.target = parent.transfrom;
 		right.transfrom.anchor.left.target = parent.transfrom;
 		right.transfrom.anchor.left.border = EBorder.right;
-		right.transfrom.anchor.left.value = 100;
+		right.transfrom.anchor.left.value = 200;
 
 		left.getRenderer<RendererContainer>().background.setHex(0x007acc);
 		middle.getRenderer<RendererContainer>().background.setHex(0x252526);
