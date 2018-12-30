@@ -21,12 +21,12 @@ export class WebContainer extends WebItemBase {
 			borderSize = this.renderer.border.size;
 		}
 
-		if (this.isValidateValue("width", scale.x - borderSize)) {
-			this.element.style.width = (scale.x - borderSize).toString();
+		if (this.isValidateValue("width", scale.x - borderSize * 2)) {
+			this.element.style.width = (scale.x - borderSize * 2).toString();
 		}
 
-		if (this.isValidateValue("height", scale.y - borderSize)) {
-			this.element.style.height = (scale.y - borderSize).toString();
+		if (this.isValidateValue("height", scale.y - borderSize * 2)) {
+			this.element.style.height = (scale.y - borderSize * 2).toString();
 		}
 	}
 
@@ -48,10 +48,12 @@ export class WebContainer extends WebItemBase {
 			this.element.style.borderWidth = border.size.toString();
 			this.element.style.borderStyle = "solid";
 			this.element.style.width = (
-				this.element.offsetWidth - border.size
+				this.element.offsetWidth -
+				border.size * 2
 			).toString();
 			this.element.style.height = (
-				this.element.offsetHeight - border.size
+				this.element.offsetHeight -
+				border.size * 2
 			).toString();
 			this.element.style.borderColor = "#" + border.color.getHexString();
 		}

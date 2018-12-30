@@ -10,6 +10,9 @@ import { WebRenderer } from "../Core/Renderer/Web/WebRenderer";
 import { MiddleArea } from "./Middle/MiddleArea";
 import { BottomArea } from "./Bottom/BottomArea";
 import { Enviroment } from "../Components/Enviroment";
+import { StormStackList } from "../Components/BasicComponents/StormStackList";
+import { Storm } from "../Core/Storm";
+import { Behaviour } from "../Core/Behaviours";
 export class PanelMain {
 	start(element: HTMLElement) {
 		Enviroment.rendererTarget = RendererTarget.Web;
@@ -29,8 +32,13 @@ export class PanelMain {
 		navBar.transfrom.anchor.right.target = panel.transfrom;
 		navBar.setRenderer(RendererContainer);
 		navBar.getRenderer<RendererContainer>().background.setHex(0x252526);
-		navBar.addBehaviour(Behaviourtest);
 		panel.transfrom.appendChild(navBar.transfrom);
+
+		let buttons = new StormObject();
+		buttons.setRenderer(RendererContainer);
+		buttons.transfrom.Parent = navBar.transfrom;
+		buttons.addBehaviour(Behaviourtest);
+		buttons.addBehaviour(StormStackList);
 
 		let middle = new StormObject();
 		let bottom = new StormObject();

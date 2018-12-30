@@ -187,7 +187,7 @@ export class Transform {
 				current.localScale = current.localScale.copy();
 			}
 
-			current = stack.pop();
+			current = stack.shift();
 		}
 	}
 
@@ -236,7 +236,7 @@ export class Transform {
 
 	updateW2LPostion() {
 		if (this.parent != null) {
-			this.localPositon = this.parent.worldPosition.sub(this.worldPosition);
+			this.localPositon = this.worldPosition.sub(this.parent.worldPosition);
 		} else {
 			this.localPositon = this.worldPosition;
 		}

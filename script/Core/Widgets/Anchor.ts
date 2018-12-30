@@ -1,6 +1,5 @@
-import { StormObject } from "./StormObject";
 import { Transform, TransFormAttributes } from "../Attributes/Transform";
-import { EditableVector2 } from "../Math/Vector2";
+import { EditableVector2, Vector2 } from "../Math/Vector2";
 export class Anchor {
 	left: AnchorTarget = new AnchorTarget();
 	right: AnchorTarget = new AnchorTarget();
@@ -36,24 +35,30 @@ export class Anchor {
 			this.left.target != null &&
 			this.left.anchorFrame != Anchor.AnchorFrame
 		) {
-			let thisTransform = <TransFormAttributes>(<any>this.transform);
+			let thisTransform = this.transform;
 			this.left.anchorFrame = Anchor.AnchorFrame;
 			this.left.target.anchor.updateLeftAnchor();
-			let targetAttributs = <TransFormAttributes>(<any>this.left.target);
+			let targetAttributs = this.left.target;
 
 			if (this.left.border == EBorder.left) {
 				let x =
-					targetAttributs.worldPosition.x +
+					targetAttributs.WorldPosition.x +
 					targetAttributs.WorldWidth * this.left.percentage +
 					this.left.value;
-				(<EditableVector2>thisTransform.worldPosition).x = x;
+				thisTransform.WorldPosition = new Vector2(
+					x,
+					thisTransform.WorldPosition.y
+				);
 			} else if (this.left.border == EBorder.right) {
 				let x =
-					targetAttributs.worldPosition.x +
+					targetAttributs.WorldPosition.x +
 					targetAttributs.WorldWidth -
 					targetAttributs.WorldWidth * this.left.percentage -
 					this.left.value;
-				(<EditableVector2>thisTransform.worldPosition).x = x;
+				thisTransform.WorldPosition = new Vector2(
+					x,
+					thisTransform.WorldPosition.y
+				);
 			}
 		}
 	}
@@ -65,24 +70,24 @@ export class Anchor {
 		) {
 			this.right.anchorFrame = Anchor.AnchorFrame;
 			this.right.target.anchor.udpateRightAnchor();
-			let thisTransform = <TransFormAttributes>(<any>this.transform);
-			let targetAttributs = <TransFormAttributes>(<any>this.right.target);
+			let thisTransform = this.transform;
+			let targetAttributs = this.right.target;
 
 			if (this.right.border == EBorder.left) {
 				let width =
-					targetAttributs.worldPosition.x +
+					targetAttributs.WorldPosition.x +
 					targetAttributs.WorldWidth * this.right.percentage +
 					this.right.value -
-					thisTransform.worldPosition.x;
-				thisTransform.Width = width / thisTransform.worldScale.x;
+					thisTransform.WorldPosition.x;
+				thisTransform.Width = width / thisTransform.WorldScale.x;
 			} else if (this.right.border == EBorder.right) {
 				let width =
-					targetAttributs.worldPosition.x +
+					targetAttributs.WorldPosition.x +
 					targetAttributs.WorldWidth -
 					targetAttributs.WorldWidth * this.right.percentage -
 					this.right.value -
-					thisTransform.worldPosition.x;
-				thisTransform.Width = width / thisTransform.worldScale.x;
+					thisTransform.WorldPosition.x;
+				thisTransform.Width = width / thisTransform.WorldScale.x;
 			}
 		}
 	}
@@ -90,22 +95,29 @@ export class Anchor {
 	udpateTopAnchor() {
 		if (this.top.target != null && this.top.anchorFrame != Anchor.AnchorFrame) {
 			this.top.anchorFrame != Anchor.AnchorFrame;
-			let thisTransform = <TransFormAttributes>(<any>this.transform);
+			let thisTransform = this.transform;
 			this.top.target.anchor.udpateTopAnchor();
-			let targetAttributs = <TransFormAttributes>(<any>this.top.target);
+			let targetAttributs = this.top.target;
 			if (this.top.border == EBorder.top) {
 				let y =
-					targetAttributs.worldPosition.y +
+					targetAttributs.WorldPosition.y +
 					targetAttributs.Height * this.top.percentage +
 					this.top.value;
-				(<EditableVector2>thisTransform.worldPosition).y = y;
+				thisTransform.WorldPosition = new Vector2(
+					thisTransform.WorldPosition.x,
+					y
+				);
 			} else if (this.top.border == EBorder.bottom) {
 				let y =
-					targetAttributs.worldPosition.y +
+					targetAttributs.WorldPosition.y +
 					targetAttributs.Height -
 					targetAttributs.Height * this.top.percentage -
 					this.top.value;
-				(<EditableVector2>thisTransform.worldPosition).y = y;
+
+				thisTransform.WorldPosition = new Vector2(
+					thisTransform.WorldPosition.x,
+					y
+				);
 			}
 		}
 	}
@@ -115,25 +127,25 @@ export class Anchor {
 			this.bottom.target != null &&
 			this.bottom.anchorFrame != Anchor.AnchorFrame
 		) {
-			let thisTransform = <TransFormAttributes>(<any>this.transform);
+			let thisTransform = this.transform;
 			this.bottom.target.anchor.udpateBottomAnchor();
-			let targetAttributs = <TransFormAttributes>(<any>this.bottom.target);
+			let targetAttributs = this.bottom.target;
 
 			if (this.bottom.border == EBorder.top) {
 				let height =
-					targetAttributs.worldPosition.y +
+					targetAttributs.WorldPosition.y +
 					targetAttributs.Height * this.bottom.percentage +
 					this.bottom.value -
-					thisTransform.worldPosition.y;
-				thisTransform.Height = height / thisTransform.worldScale.y;
+					thisTransform.WorldPosition.y;
+				thisTransform.Height = height / thisTransform.WorldScale.y;
 			} else if (this.bottom.border == EBorder.bottom) {
 				let height =
-					targetAttributs.worldPosition.y +
+					targetAttributs.WorldPosition.y +
 					targetAttributs.Height -
 					targetAttributs.Height * this.bottom.percentage -
 					this.bottom.value -
-					thisTransform.worldPosition.y;
-				thisTransform.Height = height / thisTransform.worldScale.y;
+					thisTransform.WorldPosition.y;
+				thisTransform.Height = height / thisTransform.WorldScale.y;
 			}
 		}
 	}

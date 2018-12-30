@@ -41,7 +41,7 @@ export class Input {
 		let objs = this.FindTopObject<IClickable>(stormObject, mouseEvent);
 		let obj = objs.pop();
 
-		if (obj != undefined) {
+		if (obj != undefined && obj.onClick != undefined) {
 			obj.onClick();
 		}
 	}

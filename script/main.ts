@@ -7,6 +7,16 @@ import { consoleUtils } from "./Core/Utils/ConsoleUtils";
 import { PanelLog } from "./Editor/PanelLog";
 import { PanelRuntime } from "./Editor/PanelRuntime";
 import { PanelExplorer } from "./Editor/PanelExplorer/PanelExplorer";
+import { PanelMain } from "./Editor/PanelMain";
+import { ElementBase } from "./Components/ElementBase";
+import { StormObject } from "./Core/Widgets/StormObject";
+import { RendererContainer } from "./Core/Renderer/Virtual/RendererContainer";
+import { WebRenderer } from "./Core/Renderer/Web/WebRenderer";
+import { RendererPanel } from "./Core/Renderer/Virtual/RendererPanel";
+import { RendererTarget } from "./Core/Renderer/RendererTarget";
+import { Enviroment } from "./Components/Enviroment";
+import { WebLoader } from "./Core/Renderer/Web/WebLoader";
+import { Vector2 } from "./Core/Math/Vector2";
 require("./Core/Utils/ArrrayUtils");
 
 export class Main {
@@ -22,40 +32,65 @@ export class Main {
 
 	public start() {
 		this.RegistTools();
-		this.panelComponent = new PanelComponent();
-		this.panelWorking = new PanelWorking();
-		this.toobar = new ToolBar();
-		this.panelRoot = new PanelRoot();
-		const left = document.getElementById("left");
-		const middle = document.getElementById("middle");
-		const right = document.getElementById("right");
-		const tooBar = document.getElementById("toolbar");
-		const root = document.getElementById("dad");
+		let panel=new PanelMain()
+		panel.start(document.getElementById("middle"))
+		// Enviroment.rendererTarget = RendererTarget.Web;
+		// new WebLoader().load();
 
-		const log = document.getElementById("log");
-		const runTime = document.getElementById("runTime");
-		this.panelRoot.SetDiv(root);
-		this.toobar.setDiv(tooBar);
-		this.panelComponent.SetDiv(left);
-		this.panelComponent.LoadComponent();
-		this.panelWorking.SetDiv(middle);
-		this.panelWorking.init();
-		this.panelAttribute = new PanelAttribute();
-		this.panelAttribute.setDiv(right);
+		// let panel = new StormObject();
+		// panel.setRenderer(RendererPanel);
+		// panel.getRenderer<RendererPanel>().background.setHex(0xff0000);
 
-		this.panelExplorer = new PanelExplorer();
-		this.panelExplorer.start();
-		this.panelLog = new PanelLog();
-		this.panelLog.SetDiv(log);
+		// let a = new StormObject();
+		// a.transfrom.Parent = panel.transfrom;
+		// a.setRenderer(RendererContainer);
+		// a.transfrom.WorldPosition = new Vector2(100, 10);
+		// a.getRenderer<RendererContainer>().background.setHex(0x000000);
 
-		this.panelRuntime = new PanelRuntime();
-		this.panelRuntime.SetDiv(runTime);
+		// let b = new StormObject();
+		// b.setRenderer(RendererContainer);
+		// b.transfrom.WorldPosition = new Vector2(200, 10);
+		// b.transfrom.Parent = a.transfrom;
+		// b.transfrom.anchor.left.target = a.transfrom;
 
-		this.panelWorking.OnWorkItemClick((item: any) =>
-			this.HandlePanelWorkingItemClick(item)
-		);
+		// let webRenderer = new WebRenderer();
+		// webRenderer.mount("middle");
+		// webRenderer.Render(panel.getRenderer());
 
-		Main.main = this;
+		// this.panelComponent = new PanelComponent();
+		// this.panelWorking = new PanelWorking();
+		// this.toobar = new ToolBar();
+		// this.panelRoot = new PanelRoot();
+		// const left = document.getElementById("left");
+		// const middle = document.getElementById("middle");
+		// const right = document.getElementById("right");
+		// const tooBar = document.getElementById("toolbar");
+		// const root = document.getElementById("dad");
+
+		// const log = document.getElementById("log");
+		// const runTime = document.getElementById("runTime");
+		// this.panelRoot.SetDiv(root);
+		// this.toobar.setDiv(tooBar);
+		// this.panelComponent.SetDiv(left);
+		// this.panelComponent.LoadComponent();
+		// this.panelWorking.SetDiv(middle);
+		// this.panelWorking.init();
+		// this.panelAttribute = new PanelAttribute();
+		// this.panelAttribute.setDiv(right);
+
+		// this.panelExplorer = new PanelExplorer();
+		// this.panelExplorer.start();
+		// this.panelLog = new PanelLog();
+		// this.panelLog.SetDiv(log);
+
+		// this.panelRuntime = new PanelRuntime();
+		// this.panelRuntime.SetDiv(runTime);
+
+		// this.panelWorking.OnWorkItemClick((item: any) =>
+		// 	this.HandlePanelWorkingItemClick(item)
+		// );
+
+		// Main.main = this;
 	}
 
 	private RegistTools() {

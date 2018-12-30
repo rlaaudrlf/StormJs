@@ -2,14 +2,28 @@ import { StormObject } from "../../Core/Widgets/StormObject";
 import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
 import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollView";
 import { EBorder } from "../../Core/Widgets/Anchor";
-import { RendererContainer } from "../../Core/Renderer/Virtual/RendererContainer";
+import { RendererContainer, Border } from '../../Core/Renderer/Virtual/RendererContainer';
+import { Vector2 } from '../../Core/Math/Vector2';
 export class WorkZone {
 	init(parent: StormObject) {
+		let container = new StormObject();
+		container.setRenderer(RendererContainer);
+		container.transfrom.Parent = parent.transfrom;
+		container.getRenderer<RendererContainer>().background.setHex(0x252526);
+		let border = new Border();
+		container.getRenderer<RendererContainer>().border = border;
+		border.color.setHex(0x353536);
+		container.transfrom.anchor.top.target = parent.transfrom;
+		container.transfrom.anchor.left.target = parent.transfrom;
+		container.transfrom.anchor.right.target = parent.transfrom;
+		container.transfrom.Height = 30;
+
 		let label = new StormObject();
 		label.setRenderer(RendererLabel);
 
 		label.transfrom.Parent = parent.transfrom;
 		label.getRenderer<RendererLabel>().text = "拖放区";
+		label.getRenderer<RendererLabel>().color.setHex(0xeeeeee)
 		label.transfrom.anchor.top.target = parent.transfrom;
 		label.transfrom.Height = 30;
 		label.transfrom.anchor.left.target = parent.transfrom;
@@ -26,5 +40,12 @@ export class WorkZone {
 		scroll.getRenderer<RendererScrollView>().showVerticalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().showHorizontalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().background.setHex(0x252526);
+
+
+
+		let test=new StormObject()
+		test.transfrom.Parent=scroll.transfrom
+		test.transfrom.LocalPositon=new Vector2(10,10)
+		test.setRenderer(RendererContainer)
 	}
 }

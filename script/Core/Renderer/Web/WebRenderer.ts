@@ -37,7 +37,6 @@ export class WebRenderer extends Renderer {
 			element.appendChild(this.root.element);
 			window.onresize = () => {
 				if (this.renderer != null) {
-					console.log(123);
 					this.renderer.transform.Width = this.parent.offsetWidth;
 					this.renderer.transform.Height = this.parent.offsetHeight;
 				}
@@ -148,9 +147,11 @@ export class WebRenderer extends Renderer {
 		this.executeBehaviour(stormObject);
 		this.executeBehaviourLateUpdate(stormObject);
 
-		stormObject.transfrom.updateWorldTransform();
+		// stormObject.transfrom.updateWorldTransform();
 		this.executeUpdateAnchor(stormObject);
-		stormObject.transfrom.UpdateLocalTransform();
+		// stormObject.transfrom.updateWorldTransform();
+		// stormObject.transfrom.UpdateLocalTransform();
+
 
 		while (currentStorm != undefined) {
 			for (const child of currentStorm.transfrom.Children) {

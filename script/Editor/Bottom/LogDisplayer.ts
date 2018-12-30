@@ -2,8 +2,21 @@ import { StormObject } from "../../Core/Widgets/StormObject";
 import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
 import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollView";
 import { EBorder } from "../../Core/Widgets/Anchor";
+import { RendererContainer, Border } from '../../Core/Renderer/Virtual/RendererContainer';
 export class LogDisplayer {
 	init(parent: StormObject) {
+		let container = new StormObject();
+		container.setRenderer(RendererContainer);
+		container.transfrom.Parent = parent.transfrom;
+		container.getRenderer<RendererContainer>().background.setHex(0x252526);
+		let border = new Border();
+		container.getRenderer<RendererContainer>().border = border;
+		border.color.setHex(0x353536);
+		container.transfrom.anchor.top.target = parent.transfrom;
+		container.transfrom.anchor.left.target = parent.transfrom;
+		container.transfrom.anchor.right.target = parent.transfrom;
+		container.transfrom.Height = 30;
+
 		let label = new StormObject();
 		label.setRenderer(RendererLabel);
 

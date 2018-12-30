@@ -3,6 +3,7 @@ import { ListAlignment } from "../../Core/Widgets/ListAlignment";
 import { ComponentBase } from "./ComponentsBase";
 import { RendererContainer } from "../../Core/Renderer/Virtual/RendererContainer";
 import { Vector2 } from "../../Core/Math/Vector2";
+import { debug } from "util";
 
 export class StormStackList extends ComponentBase {
 	datas: any;
@@ -12,12 +13,6 @@ export class StormStackList extends ComponentBase {
 	alignment: ListAlignment = ListAlignment.horizontal;
 	items: StormObject[] = [];
 	renderItem: selectablePrefab | null = null;
-	thisNode: StormObject;
-
-	awake() {
-		this.thisNode = new StormObject();
-		this.thisNode.setRenderer(RendererContainer);
-	}
 
 	setCompData(data: any) {
 		this.datas = data;
@@ -26,11 +21,9 @@ export class StormStackList extends ComponentBase {
 
 	computeSelfSize() {
 		if (this.alignment == ListAlignment.horizontal) {
-			this.thisNode.transfrom.Width =
-				this.size + this.padding * this.datas.length;
+			this.transform.Width = this.size + this.padding * this.datas.length;
 		} else {
-			this.thisNode.transfrom.Height =
-				this.size + this.padding * this.datas.length;
+			this.transform.Height = this.size + this.padding * this.datas.length;
 		}
 	}
 
@@ -51,7 +44,7 @@ export class StormStackList extends ComponentBase {
 				newItem = StormObject.Instantiate(this.item);
 			}
 
-			newItem.transfrom.Parent = this.thisNode.transfrom;
+			newItem.transfrom.Parent = this.transform;
 
 			let behaviours = newItem.getBehaviours();
 
@@ -62,14 +55,14 @@ export class StormStackList extends ComponentBase {
 			}
 
 			if (this.alignment == ListAlignment.horizontal) {
-				newItem.transfrom.Height = this.thisNode.transfrom.Height;
+				newItem.transfrom.Height = this.transform.Height;
 				newItem.transfrom.Width = this.size;
 				newItem.transfrom.LocalPositon = new Vector2(
 					this.size * index + index * this.padding,
 					0
 				);
 			} else {
-				newItem.transfrom.Width = this.thisNode.transfrom.Width;
+				newItem.transfrom.Width = this.transform.Width;
 				newItem.transfrom.Height = this.size;
 				newItem.transfrom.LocalPositon = new Vector2(
 					0,
