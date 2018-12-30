@@ -3,6 +3,7 @@ import { StormObject } from "../Widgets/StormObject";
 import { Matrix3 } from "../Math/Matrix3";
 import { Anchor } from "../Widgets/Anchor";
 import { Rect } from "../Math/Rect";
+import { GUID } from '../Widgets/DeepCloner';
 
 // 	updateMatrix() {
 // 		if (this.mountedElement == undefined) {
@@ -67,6 +68,7 @@ export class Transform {
 	private child: Transform[] = [];
 	private isDirty: boolean = false;
 	readonly anchor: Anchor = new Anchor();
+	hash: GUID = new GUID();
 
 	destroy() {}
 

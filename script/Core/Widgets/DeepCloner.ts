@@ -1,9 +1,6 @@
-import { Md5 } from "ts-md5";
-
-export class DeepCloneInfo {
-	source;
-	cloned;
-}
+import { StormObject } from "./StormObject";
+import { Behaviour } from "../Behaviours";
+import { Transform } from "../Attributes/Transform";
 
 export class GUID {
 	private str: string;
@@ -30,71 +27,220 @@ export class GUID {
 }
 
 export class DeepCloner {
-	static getGuid(): string {
-		let hash = Md5.hashStr(Date.now().toString()).toString();
-		return hash;
+	static newObj(target, key, srcValue) {
+		if (target[key] == null) {
+			let proto = Reflect.getPrototypeOf(srcValue);
+			let obj = Reflect.construct(proto.constructor, []);
+			target[key] = obj;
+		}
 	}
-	static Clone(obj: Object): Object {
-		if (obj == null || obj == undefined) {
-			return;
-		}
-		let map = {};
-		let copyObjList = [];
-		let objStack: DeepCloneInfo[] = [];
-		let dci = new DeepCloneInfo();
-		dci.source = obj;
-		let proto = Reflect.getPrototypeOf(obj);
-		let newWidget = Reflect.construct(proto.constructor, []);
-		dci.cloned = newWidget;
-		objStack.push(dci);
-		let currentObj: DeepCloneInfo = objStack.pop();
-		if (currentObj.source.hash == undefined) {
-			currentObj.source.hash = new GUID();
-		}
-		copyObjList.push(currentObj.cloned);
-		map[currentObj.source.hash] = copyObjList.length - 1;
-		while (currentObj != undefined) {
-			let keys = Reflect.ownKeys(currentObj.source);
-			let cloneObj = currentObj.cloned;
-			for (const key of keys) {
-				if (key == "hash") {
+
+	static deepClone(
+		src: Object,
+		target: Object,
+		srcStormObjectMap: {},
+		srcTransformMap: {},
+		srcBehaviourMap: {},
+		refMap: {}
+	) {
+		let keys = Reflect.ownKeys(src);
+
+		for (const key in keys) {
+			let srcValue = src[key];
+			let srcValueType = typeof srcValue;
+
+			if (
+				srcValueType == "boolean" ||
+				srcValueType == "number" ||
+				srcValueType == "string" ||
+				srcValueType == "symbol" ||
+				srcValueType == "undefined"
+			) {
+				target[key] = srcValue;
+			} else if (srcValueType == "object") {
+				if (srcValue == null) {
+					target[key] = null;
 					continue;
 				}
-				let value = currentObj.source[key];
-				let valueType = typeof value;
-				if (
-					valueType == "boolean" ||
-					valueType == "number" ||
-					valueType == "string"
-				) {
-					cloneObj[key] = value;
-				} else if (valueType == "object") {
-					if (value == null) {
-						cloneObj[key] = null;
-						continue;
-					}
-					if (value.hash == undefined) {
-						value.hash = new GUID();
-					}
-					if (map[value.hash] != undefined) {
-						cloneObj[key] = copyObjList[map[value.hash]];
-						continue;
-					}
-					let subDci = new DeepCloneInfo();
-					subDci.source = value;
-					if (cloneObj[key] != null && cloneObj[key] != undefined) {
-						subDci.cloned = cloneObj[key];
-						objStack.push(subDci);
-						copyObjList.push(subDci.cloned);
-						map[value.hash] = copyObjList.length - 1;
+				if (srcValue instanceof GUID) {
+					continue;
+				}
+
+				if (srcValue instanceof Behaviour) {
+					if (
+						srcStormObjectMap[srcValue.stormObject.hash.toString()] != undefined
+					) {
+						if (refMap[srcValue.hash.toString()] == undefined) {
+							let behaviour = srcBehaviourMap[srcValue.hash.toString()];
+							target[key] = behaviour;
+							refMap[srcValue.hash.toString()] = target[key];
+							this.deepClone(
+								srcValue,
+								target[key],
+								srcStormObjectMap,
+								srcTransformMap,
+								srcBehaviourMap,
+								refMap
+							);
+						} else {
+							target[key] = refMap[srcValue.hash.toString()];
+						}
 					} else {
-						subDci.cloned = value;
-						cloneObj[key] = value;
+						target[key] = srcValue;
+					}
+				} else if (srcValue instanceof StormObject) {
+					if (srcStormObjectMap[srcValue.hash.toString()] == undefined) {
+						if (refMap[srcValue.hash.toString()] != undefined) {
+							let behaviour = srcStormObjectMap[srcValue.hash.toString()];
+							target[key] = behaviour;
+							refMap[srcValue.hash.toString()] = target[key];
+							this.deepClone(
+								srcValue,
+								target[key],
+								srcStormObjectMap,
+								srcTransformMap,
+								srcBehaviourMap,
+								refMap
+							);
+						} else {
+							target[key] = refMap[srcValue.hash.toString()];
+						}
+					} else {
+						target[key] = srcValue;
+					}
+				} else if (srcValue instanceof Transform) {
+					if (
+						srcStormObjectMap[srcValue.StormObject.hash.toString()] != undefined
+					) {
+						if (refMap[srcValue.hash.toString()] == undefined) {
+							let behaviour = srcTransformMap[srcValue.hash.toString()];
+							target[key] = behaviour;
+							refMap[srcValue.hash.toString()] = target[key];
+							this.deepClone(
+								srcValue,
+								target[key],
+								srcStormObjectMap,
+								srcTransformMap,
+								srcBehaviourMap,
+								refMap
+							);
+						} else {
+							target[key] = refMap[srcValue.hash.toString()];
+						}
+					} else {
+						target[key] = srcValue;
+					}
+				} else {
+					if (srcValue["hash"] == undefined) {
+						srcValue["hash"] = new GUID();
+					}
+					if (refMap[srcValue["hash"]] != undefined) {
+						target[key] = refMap[srcValue["hash"]];
+					} else {
+						this.newObj(target, key, srcValue);
+						refMap[srcValue["hash"]] = target[key];
+						this.deepClone(
+							srcValue,
+							target[key],
+							srcStormObjectMap,
+							srcTransformMap,
+							srcBehaviourMap,
+							refMap
+						);
 					}
 				}
 			}
-			currentObj = objStack.pop();
 		}
-		return copyObjList[0];
+	}
+
+	static Clone(stormObject: StormObject): StormObject {
+		let transformMap: { [key: string]: Transform } = {};
+
+		let srcStack: StormObject[] = [];
+		let copyStack: StormObject[] = [];
+
+		let srcCurrentNode: StormObject = stormObject;
+		let copyRoot: StormObject = new StormObject();
+		let copyCurrentNode = copyRoot;
+
+		let srcBehaviours: Behaviour[] = [];
+		let copyBehaviours: Behaviour[] = [];
+
+		let srcBehaviourMap: {} = {};
+		let srcTransformMap: {} = {};
+		let srcStormObjectMap: {} = {};
+
+		while (srcCurrentNode != undefined) {
+			for (const child of srcCurrentNode.transfrom.Children) {
+				srcStack.push(child.StormObject);
+				let obj = new StormObject();
+				obj.transfrom.Parent = copyCurrentNode.transfrom;
+
+				copyStack.push(obj);
+			}
+
+			transformMap[srcCurrentNode.transfrom.hash.toString()] =
+				srcCurrentNode.transfrom;
+
+			let renderer = srcCurrentNode.getRenderer();
+			if (renderer != undefined) {
+				let proto = Reflect.getPrototypeOf(renderer);
+				copyCurrentNode.setRenderer(<any>proto.constructor);
+				srcBehaviours.push(renderer);
+				copyBehaviours.push(copyCurrentNode.getRenderer());
+			}
+
+			let behaviours = srcCurrentNode.getBehaviours();
+
+			for (let index = 0; index < behaviours.length; index++) {
+				let behaviour = behaviours[index];
+				let proto = Reflect.getPrototypeOf(behaviour);
+				copyCurrentNode.addBehaviour(<any>proto.constructor);
+
+				srcBehaviours.push(behaviour);
+				copyBehaviours.push(copyCurrentNode.getBehaviours()[index]);
+			}
+
+			srcTransformMap[srcCurrentNode.transfrom.hash.toString()] =
+				copyCurrentNode.transfrom;
+			srcStormObjectMap[srcCurrentNode.hash.toString()] = copyCurrentNode;
+
+			srcCurrentNode = srcStack.pop();
+			copyCurrentNode = copyStack.pop();
+		}
+
+		for (let index = 0; index < srcBehaviours.length; index++) {
+			let transform = srcBehaviours[index];
+			srcBehaviourMap[transform.hash.toString()] = copyBehaviours[index];
+		}
+
+		srcStack = [];
+		copyStack = [];
+		copyCurrentNode = copyRoot;
+		srcCurrentNode = stormObject;
+		let refMap = {};
+		
+		while (srcCurrentNode != undefined) {
+			for (const child of srcCurrentNode.transfrom.Children) {
+				srcStack.push(child.StormObject);
+			}
+			for (const child of srcCurrentNode.transfrom.Children) {
+				copyStack.push(child.StormObject);
+			}
+
+			this.deepClone(
+				srcCurrentNode,
+				copyCurrentNode,
+				srcStormObjectMap,
+				srcTransformMap,
+				srcBehaviourMap,
+				refMap
+			);
+
+			srcCurrentNode = srcStack.pop();
+			copyCurrentNode = copyStack.pop();
+		}
+
+		return copyRoot;
 	}
 }

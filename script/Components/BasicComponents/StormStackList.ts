@@ -1,9 +1,7 @@
 import { StormObject } from "../../Core/Widgets/StormObject";
 import { ListAlignment } from "../../Core/Widgets/ListAlignment";
 import { ComponentBase } from "./ComponentsBase";
-import { RendererContainer } from "../../Core/Renderer/Virtual/RendererContainer";
 import { Vector2 } from "../../Core/Math/Vector2";
-import { debug } from "util";
 
 export class StormStackList extends ComponentBase {
 	datas: any;
@@ -43,6 +41,8 @@ export class StormStackList extends ComponentBase {
 			} else {
 				newItem = StormObject.Instantiate(this.item);
 			}
+
+			console.log(newItem.hash);
 
 			newItem.transfrom.Parent = this.transform;
 
