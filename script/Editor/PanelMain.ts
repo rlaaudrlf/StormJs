@@ -3,7 +3,10 @@ import { RendererTarget } from "../Core/Renderer/RendererTarget";
 import { WebLoader } from "../Core/Renderer/Web/WebLoader";
 import { RendererPanel } from "../Core/Renderer/Virtual/RendererPanel";
 import { ColorKeywords } from "../Core/Math/Color";
-import { RendererContainer } from "../Core/Renderer/Virtual/RendererContainer";
+import {
+	RendererContainer,
+	Border
+} from "../Core/Renderer/Virtual/RendererContainer";
 import { Behaviourtest } from "../Core/Widgets/Behaviourtest";
 import { EBorder } from "../Core/Widgets/Anchor";
 import { WebRenderer } from "../Core/Renderer/Web/WebRenderer";
@@ -13,6 +16,7 @@ import { Enviroment } from "../Components/Enviroment";
 import { StormStackList } from "../Components/BasicComponents/StormStackList";
 import { Storm } from "../Core/Storm";
 import { Behaviour } from "../Core/Behaviours";
+import { TransFormAttributes } from "../Core/Attributes/Transform";
 export class PanelMain {
 	start(element: HTMLElement) {
 		Enviroment.rendererTarget = RendererTarget.Web;
@@ -37,6 +41,11 @@ export class PanelMain {
 		let buttons = new StormObject();
 		buttons.setRenderer(RendererContainer);
 		buttons.transfrom.Parent = navBar.transfrom;
+		buttons.transfrom.anchor.left.target = navBar.transfrom;
+		buttons.transfrom.anchor.left.border = EBorder.right;
+		buttons.transfrom.anchor.left.value = 320;
+		buttons.transfrom.Height = 30;
+		buttons.transfrom.anchor.right.target = navBar.transfrom;
 		buttons.addBehaviour(Behaviourtest);
 		buttons.addBehaviour(StormStackList);
 

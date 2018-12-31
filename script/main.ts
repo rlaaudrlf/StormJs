@@ -17,6 +17,9 @@ import { RendererTarget } from "./Core/Renderer/RendererTarget";
 import { Enviroment } from "./Components/Enviroment";
 import { WebLoader } from "./Core/Renderer/Web/WebLoader";
 import { Vector2 } from "./Core/Math/Vector2";
+import { Behaviourtest } from "./Core/Widgets/Behaviourtest";
+import { StormStackList } from "./Components/BasicComponents/StormStackList";
+import { EBorder } from "./Core/Widgets/Anchor";
 require("./Core/Utils/ArrrayUtils");
 
 export class Main {
@@ -34,6 +37,8 @@ export class Main {
 		this.RegistTools();
 		let panel=new PanelMain()
 		panel.start(document.getElementById("middle"))
+
+
 		// Enviroment.rendererTarget = RendererTarget.Web;
 		// new WebLoader().load();
 
@@ -48,10 +53,14 @@ export class Main {
 		// a.getRenderer<RendererContainer>().background.setHex(0x000000);
 
 		// let b = new StormObject();
-		// b.setRenderer(RendererContainer);
+		// // b.setRenderer(RendererContainer);
 		// b.transfrom.WorldPosition = new Vector2(200, 10);
 		// b.transfrom.Parent = a.transfrom;
-		// b.transfrom.anchor.left.target = a.transfrom;
+		// b.transfrom.anchor.left.target = panel.transfrom;
+		// b.transfrom.anchor.left.border = EBorder.right;
+		// b.transfrom.anchor.left.value = 320;
+		// b.addBehaviour(StormStackList);
+		// b.addBehaviour(Behaviourtest);
 
 		// let webRenderer = new WebRenderer();
 		// webRenderer.mount("middle");

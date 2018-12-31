@@ -19,9 +19,11 @@ export class StormStackList extends ComponentBase {
 
 	computeSelfSize() {
 		if (this.alignment == ListAlignment.horizontal) {
-			this.transform.Width = this.size + this.padding * this.datas.length;
+			this.transform.Width =
+				this.size * this.datas.length + this.padding * (this.datas.length - 1);
 		} else {
-			this.transform.Height = this.size + this.padding * this.datas.length;
+			this.transform.Height =
+				this.size ** this.datas.length + this.padding * (this.datas.length - 1);
 		}
 	}
 
@@ -41,8 +43,6 @@ export class StormStackList extends ComponentBase {
 			} else {
 				newItem = StormObject.Instantiate(this.item);
 			}
-
-			console.log(newItem.hash);
 
 			newItem.transfrom.Parent = this.transform;
 

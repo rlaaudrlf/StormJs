@@ -12,11 +12,14 @@ export class Behaviourtest extends Behaviour implements IClickable {
 	awake() {
 		this.stackList = this.stormObject.getBehaviour(StormStackList);
 		let obj = new StormObject();
+		obj.name='123'
 		obj.setRenderer(RendererText);
 		this.stackList.item = obj;
 		let data=['min','max','close']
 		this.stackList.padding=2
 		this.stackList.setCompData(data)
+
+		
 		// this.stormObject.transfrom.localPosition = new Vector2(100, 10);
 		// this.stormObject.transfrom.scale = new Vector2(100, 200);
 	}

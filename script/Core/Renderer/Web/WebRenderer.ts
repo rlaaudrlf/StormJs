@@ -11,6 +11,8 @@ import { TransFormAttributes } from "../../Attributes/Transform";
 import { Anchor } from "../../Widgets/Anchor";
 import { RendererPanel } from "../Virtual/RendererPanel";
 import { RendererBase } from "../Virtual/RendererBase";
+import { debug } from "util";
+import { RendererText } from '../Virtual/RendererText';
 
 export const enum EStormLifeCycle {
 	awake = 1,
@@ -147,11 +149,9 @@ export class WebRenderer extends Renderer {
 		this.executeBehaviour(stormObject);
 		this.executeBehaviourLateUpdate(stormObject);
 
-		// stormObject.transfrom.updateWorldTransform();
+		stormObject.transfrom.updateWorldTransform();
 		this.executeUpdateAnchor(stormObject);
-		// stormObject.transfrom.updateWorldTransform();
 		// stormObject.transfrom.UpdateLocalTransform();
-
 
 		while (currentStorm != undefined) {
 			for (const child of currentStorm.transfrom.Children) {
@@ -172,15 +172,37 @@ export class WebRenderer extends Renderer {
 				this.renderItems[renderer.hash.toString()] = nativeRenderer;
 			}
 
-			let parent = renderer.stormObject.getParentRenderer();
-			if (parent == undefined) {
+			// let parent = renderer.stormObject.getParentRenderer();
+			// if (parent == undefined) {
+			// 	nativeRenderer.setParent(this.root);
+			// } else {
+			
+			// }
+
+			let item;
+			let render = currentStorm.transfrom.Parent;
+
+			// if(currentStorm.getRenderer() instanceof RendererText){
+			// 	debugger
+			// }
+
+			while (render != undefined) {
+				if (render.StormObject.getRenderer() != undefined) {
+					item = this.renderItems[
+						render.StormObject.getRenderer().hash.toString()
+					];
+					break;
+				}
+
+				render = render.Parent;
+			}
+
+			if (item == null || item == undefined) {
 				nativeRenderer.setParent(this.root);
 			} else {
-				let item = this.renderItems[
-					parent.stormObject.getRenderer().hash.toString()
-				];
 				nativeRenderer.setParent(item);
 			}
+
 
 			nativeRenderer.setRenderer(renderer);
 
@@ -192,7 +214,23 @@ export class WebRenderer extends Renderer {
 				(<any>currentStorm.transfrom)
 			);
 
-			nativeRenderer.setPosition(transFormAttributes.localPositon);
+			let currentObj: StormObject = currentStorm;
+			let position = currentObj.transfrom.LocalPositon.copy();
+
+			while (
+				currentObj.transfrom.Parent != null ||
+				currentObj.transfrom.Parent != undefined
+			) {
+				currentObj = currentObj.transfrom.Parent.StormObject;
+				let renderer = currentObj.getRenderer();
+				if (renderer == null || renderer == undefined) {
+					position = position.add(currentObj.transfrom.LocalPositon);
+				} else {
+					break;
+				}
+			}
+
+			nativeRenderer.setPosition(position);
 
 			nativeRenderer.setScale(
 				new Vector2(
