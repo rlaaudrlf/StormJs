@@ -82,11 +82,13 @@ export class StormObject {
 		return this.active;
 	}
 
-	addBehaviour<T extends Behaviour>(c: new () => T) {
+	addBehaviour<T extends Behaviour>(c: new () => T): T {
 		let behaviour = new c();
 		behaviour.stormObject = this;
 		behaviour.transform = this.transfrom;
 		this.behaviours.push(behaviour);
+
+		return behaviour;
 	}
 
 	getBehaviour<T extends Behaviour>(type): undefined | T {

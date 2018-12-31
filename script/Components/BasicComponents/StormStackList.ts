@@ -2,6 +2,9 @@ import { StormObject } from "../../Core/Widgets/StormObject";
 import { ListAlignment } from "../../Core/Widgets/ListAlignment";
 import { ComponentBase } from "./ComponentsBase";
 import { Vector2 } from "../../Core/Math/Vector2";
+import { UIEventListhenner } from "./UIEventListhenner";
+import { StyleAttributes } from "../../Core/Attributes/StyleAttributes";
+import { EventManager } from "../../Core/EventManager";
 
 export class StormStackList extends ComponentBase {
 	datas: any;
@@ -11,6 +14,7 @@ export class StormStackList extends ComponentBase {
 	alignment: ListAlignment = ListAlignment.horizontal;
 	items: StormObject[] = [];
 	renderItem: selectablePrefab | null = null;
+	onItemClick: EventManager = new EventManager();
 
 	setCompData(data: any) {
 		this.datas = data;
@@ -25,6 +29,10 @@ export class StormStackList extends ComponentBase {
 			this.transform.Height =
 				this.size ** this.datas.length + this.padding * (this.datas.length - 1);
 		}
+	}
+
+	handleItemClick(target, value, value2) {
+		this.onItemClick.Call(this, value);
 	}
 
 	render() {
@@ -53,6 +61,20 @@ export class StormStackList extends ComponentBase {
 					behaviour.setCompData(data);
 				}
 			}
+
+			let uiEvent: UIEventListhenner = newItem.getBehaviour<UIEventListhenner>(
+				UIEventListhenner
+			);
+
+			if (uiEvent == undefined) {
+				uiEvent = newItem.addBehaviour(UIEventListhenner);
+			}
+			uiEvent.OnClick.remove((target, value, value2) => {
+				this.handleItemClick(target, value, value2);
+			});
+			uiEvent.OnClick.Regist((target, value, value2) => {
+				this.handleItemClick(target, value, value2);
+			}, data);
 
 			if (this.alignment == ListAlignment.horizontal) {
 				newItem.transfrom.Height = this.transform.Height;

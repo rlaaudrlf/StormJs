@@ -26,7 +26,7 @@ export class Input {
 				if (
 					behaviour.transform
 						.getGlobalRect()
-						.IsIncluded(new Vector2(mouseEvent.offsetX, mouseEvent.offsetY))
+						.IsIncluded(new Vector2(mouseEvent.x, mouseEvent.y))
 				) {
 					result.push(behaviour);
 				}

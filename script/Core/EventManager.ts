@@ -12,9 +12,9 @@ export class EventManager {
 				continue;
 			}
 			if (datas == undefined) {
-				callbackInfo.callback(sender, callbackInfo.args);
+				callbackInfo.callback(sender, ...callbackInfo.args);
 			} else {
-				callbackInfo.callback(sender, datas, callbackInfo.args);
+				callbackInfo.callback(sender, ...datas, ...callbackInfo.args);
 			}
 		}
 	}

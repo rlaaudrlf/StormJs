@@ -39,7 +39,6 @@ export class PanelMain {
 		panel.transfrom.appendChild(navBar.transfrom);
 
 		let buttons = new StormObject();
-		buttons.setRenderer(RendererContainer);
 		buttons.transfrom.Parent = navBar.transfrom;
 		buttons.transfrom.anchor.left.target = navBar.transfrom;
 		buttons.transfrom.anchor.left.border = EBorder.right;
