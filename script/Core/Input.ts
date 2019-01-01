@@ -63,7 +63,6 @@ export class Input {
 
 	HandleMouseDown(stormObject: StormObject, inputEvent: InputEvent) {
 		let objs = this.FindTopObject<IMouseDown>(stormObject, inputEvent);
-		console.log(objs)
 		inputEvent.objects = <Behaviour[]>(<any>objs);
 		let obj = objs
 			.filter(item => {
