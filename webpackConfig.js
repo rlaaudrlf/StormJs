@@ -4,8 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = {
 	entry: {
-		index: path.resolve(__dirname, './script/main.ts'),
-		runTime: path.resolve(__dirname, './script/Core/StormLoader.ts')
+		index: path.resolve(__dirname, './Src/main.ts'),
+		runTime: path.resolve(__dirname, './Src/Core/StormLoader.ts')
 	},
 	mode: "development", // "production" | "development" | "none"
 	output: {

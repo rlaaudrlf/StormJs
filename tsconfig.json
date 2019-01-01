@@ -35,5 +35,5 @@
   "exclude": [
     "node_modules",
   ],
-  "include": ["./script/**/*.ts", ],
+  "include": ["./Src/**/*.ts", ],
 }
