@@ -44,10 +44,11 @@ export class Hierachy {
 		scroll.transfrom.Parent = parent.transfrom;
 		scroll.getRenderer<RendererScrollView>().showVerticalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().background.setHex(0x252526);
+		scroll.addBehaviour(BehaviourHierachy);
+
 
 		let hierachy = new StormObject();
 		hierachy.setRenderer(RendererContainer);
-		hierachy.addBehaviour(BehaviourHierachy);
 		hierachy.transfrom.Parent = scroll.transfrom;
 		hierachy.transfrom.anchor.left.target = scroll.transfrom;
 		hierachy.transfrom.anchor.right.target = scroll.transfrom;
