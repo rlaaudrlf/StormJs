@@ -5,13 +5,18 @@ import { InputEvent } from "../../Core/InputEvent";
 export class UIEventListhenner extends StormComponent
 	implements IClickable, IMouseDown, IMouseUp {
 	OnClick: EventManager = new EventManager();
+	OnMouseUp: EventManager = new EventManager();
+	OnMouseDown: EventManager = new EventManager();
 
 	onClick(inputEvent: InputEvent) {
-		this.OnClick.Call(this);
+		console.log(inputEvent)
+		this.OnClick.Call(this, inputEvent);
 	}
 	onMouseUP(inputEvent: InputEvent) {
-        console.log(inputEvent)
-    }
+		this.OnMouseUp.Call(this, inputEvent);
+	}
 
-	onMouseDown(inputEvent: InputEvent) {}
+	onMouseDown(inputEvent: InputEvent) {
+		this.OnMouseDown.Call(this, inputEvent);
+	}
 }
