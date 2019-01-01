@@ -1,6 +1,7 @@
 interface Array<T> {
 	remove(T: any): Array<T>;
 	first(): T;
+	copy(): T[];
 }
 
 Array.prototype.remove = function<T>(this: T[], element: T): T[] {
@@ -17,4 +18,13 @@ Array.prototype.first = function<T>(this: T[]): T {
 	}
 
 	return null;
+};
+
+Array.prototype.copy = function<T>(this: T[]): T[] {
+	let result = [];
+	for (const value of this) {
+		result.push(value);
+	}
+
+	return result;
 };

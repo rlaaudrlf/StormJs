@@ -2,7 +2,6 @@ import { Renderer } from "../Renderer";
 import { StormObject } from "../../Widgets/StormObject";
 import { WebPage } from "./WebPage";
 import { Vector2 } from "../../Math/Vector2";
-import { StyleAttributes } from "../../Attributes/StyleAttributes";
 import { RenderItemBase } from "../RenderItemBase";
 import { Updater } from "../../Utils/Updater";
 import { Time } from "../../Time";
@@ -11,8 +10,7 @@ import { TransFormAttributes } from "../../Attributes/Transform";
 import { Anchor } from "../../Widgets/Anchor";
 import { RendererPanel } from "../Virtual/RendererPanel";
 import { RendererBase } from "../Virtual/RendererBase";
-import { debug } from "util";
-import { RendererText } from '../Virtual/RendererText';
+import { Dictionary } from "../../Utils/Dictionary ";
 
 export const enum EStormLifeCycle {
 	awake = 1,
@@ -26,11 +24,25 @@ export interface BehaviourLifeCycle {
 	__currentLife: EStormLifeCycle;
 }
 
+class RenderItemInfo {
+	renderItem: RenderItemBase;
+	renderFrame: number;
+}
+
 export class WebRenderer extends Renderer {
 	root: WebPage = new WebPage();
 	parent: HTMLElement;
-	renderItems: { [key: string]: RenderItemBase } = {};
+	renderItems: Dictionary<string, RenderItemInfo> = new Dictionary<
+		string,
+		RenderItemInfo
+	>();
 	renderer: RendererBase | null = null;
+	renderFrame: number = 0;
+
+	updateRenderFrame() {
+		this.renderFrame++;
+		this.renderFrame %= 10000000;
+	}
 
 	mount(id: string) {
 		let element = document.getElementById(id);
@@ -136,6 +148,7 @@ export class WebRenderer extends Renderer {
 	private RenderImp(stormObject: StormObject) {
 		Time.deltaTime = new Date().getTime() - this.recordTime;
 		Time.deltaTime /= 1000;
+		this.updateRenderFrame();
 
 		if (this.recordTime == 0) {
 			Time.deltaTime = 0;
@@ -165,32 +178,27 @@ export class WebRenderer extends Renderer {
 				continue;
 			}
 
-			let nativeRenderer = this.renderItems[renderer.hash.toString()];
+			let renderItemInfo: RenderItemInfo = this.renderItems.Get(
+				renderer.hash.toString()
+			);
 
-			if (nativeRenderer == undefined) {
-				nativeRenderer = renderer.renderItem();
-				this.renderItems[renderer.hash.toString()] = nativeRenderer;
+			if (renderItemInfo == undefined) {
+				renderItemInfo = new RenderItemInfo();
+				renderItemInfo.renderFrame = this.renderFrame;
+				renderItemInfo.renderItem = renderer.renderItem();
+				this.renderItems.Add(renderer.hash.toString(), renderItemInfo);
 			}
 
-			// let parent = renderer.stormObject.getParentRenderer();
-			// if (parent == undefined) {
-			// 	nativeRenderer.setParent(this.root);
-			// } else {
-			
-			// }
+			renderItemInfo.renderFrame = this.renderFrame;
 
-			let item;
+			let item: RenderItemInfo;
 			let render = currentStorm.transfrom.Parent;
-
-			// if(currentStorm.getRenderer() instanceof RendererText){
-			// 	debugger
-			// }
 
 			while (render != undefined) {
 				if (render.StormObject.getRenderer() != undefined) {
-					item = this.renderItems[
+					item = this.renderItems.Get(
 						render.StormObject.getRenderer().hash.toString()
-					];
+					);
 					break;
 				}
 
@@ -198,16 +206,15 @@ export class WebRenderer extends Renderer {
 			}
 
 			if (item == null || item == undefined) {
-				nativeRenderer.setParent(this.root);
+				renderItemInfo.renderItem.setParent(this.root);
 			} else {
-				nativeRenderer.setParent(item);
+				renderItemInfo.renderItem.setParent(item.renderItem);
 			}
 
-
-			nativeRenderer.setRenderer(renderer);
+			renderItemInfo.renderItem.setRenderer(renderer);
 
 			renderer.stormObject.onActiveChange.Regist((sender, visible) => {
-				nativeRenderer.setVisible(visible);
+				renderItemInfo.renderItem.setVisible(visible);
 			});
 
 			let transFormAttributes = <TransFormAttributes>(
@@ -230,17 +237,32 @@ export class WebRenderer extends Renderer {
 				}
 			}
 
-			nativeRenderer.setPosition(position);
+			renderItemInfo.renderItem.setPosition(position);
 
-			nativeRenderer.setScale(
+			renderItemInfo.renderItem.setScale(
 				new Vector2(
 					transFormAttributes.WorldWidth,
 					transFormAttributes.WorldHeight
 				)
 			);
-			nativeRenderer.setRotate(transFormAttributes.worldDegree);
+			renderItemInfo.renderItem.setRotate(transFormAttributes.worldDegree);
 
 			currentStorm = stormList.shift();
+		}
+
+		this.destroyUnusedRenderItem();
+	}
+
+	private destroyUnusedRenderItem() {
+		let keys = this.renderItems.Keys();
+
+		for (const key of keys) {
+			let value = this.renderItems[key.toString()];
+
+			if (value.renderFrame != this.renderFrame) {
+				value.renderItem.destroy();
+				this.renderItems.Remove(key.toString());
+			}
 		}
 	}
 

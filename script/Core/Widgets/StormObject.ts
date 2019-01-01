@@ -3,7 +3,6 @@ import { Behaviour } from "../Behaviours";
 import { GUID, DeepCloner } from "./DeepCloner";
 import { RendererBase } from "../Renderer/Virtual/RendererBase";
 import { Transform } from "../Attributes/Transform";
-import { Action } from "../Action/Action";
 import { Layer } from "../Layer";
 import { EventManager } from "../EventManager";
 
@@ -21,7 +20,6 @@ export class StormObject {
 	transfrom: Transform;
 	drag: DragDrop | null = null;
 	drop: DragDrop | null = null;
-	action: Action = new Action();
 	layer: Layer = Layer.default;
 	onActiveChange: EventManager = new EventManager();
 
@@ -110,8 +108,14 @@ export class StormObject {
 			child.StormObject.destroy();
 		}
 
+		this.transfrom.destroy()
+
 		for (const behaviour of this.behaviours) {
 			behaviour.dispose();
+		}
+
+		if (this.widget != undefined) {
+			this.widget.dispose();
 		}
 
 		if (this.widget != undefined) {

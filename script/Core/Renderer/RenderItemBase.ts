@@ -1,8 +1,7 @@
-import { Action } from "../Action/Action";
 import { StyleAttributes } from "../Attributes/StyleAttributes";
 import { Vector2 } from "../Math/Vector2";
-import { DoubleBind } from "../DoubleBind";
 import { RendererBase } from "./Virtual/RendererBase";
+
 export class RenderItemBase {
 	attributes: StyleAttributes;
 	setParent(parent: RenderItemBase) {}
