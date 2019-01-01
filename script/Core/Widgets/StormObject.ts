@@ -12,7 +12,7 @@ import {
 } from "../Renderer/Web/WebRenderer";
 
 export class StormObject {
-	private widget: RendererBase | undefined = undefined;
+	private renderer: RendererBase | undefined = undefined;
 	private active: boolean = true;
 	behaviours: Behaviour[] = [];
 	hash: GUID = new GUID();
@@ -33,7 +33,7 @@ export class StormObject {
 			return undefined;
 		}
 
-		let renderer: RendererBase = this.transfrom.Parent.StormObject.widget;
+		let renderer: RendererBase = this.transfrom.Parent.StormObject.renderer;
 
 		if (renderer == undefined) {
 			renderer = this.transfrom.Parent.StormObject.getRenderer();
@@ -43,12 +43,12 @@ export class StormObject {
 	}
 
 	setRenderer<T extends RendererBase>(c: new () => T) {
-		this.widget = new c();
-		this.widget.setStromObject(this);
+		this.renderer = new c();
+		this.renderer.setStromObject(this);
 	}
 
 	getRenderer<T extends RendererBase>() {
-		return <T>(<any>this.widget);
+		return <T>(<any>this.renderer);
 	}
 
 	setActive(visible: boolean) {
@@ -111,15 +111,11 @@ export class StormObject {
 		this.transfrom.destroy()
 
 		for (const behaviour of this.behaviours) {
-			behaviour.dispose();
+			behaviour.destroy();
 		}
 
-		if (this.widget != undefined) {
-			this.widget.dispose();
-		}
-
-		if (this.widget != undefined) {
-			this.widget.destroy();
+		if (this.renderer != undefined) {
+			this.renderer.destroy();
 		}
 	}
 

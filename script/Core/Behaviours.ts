@@ -22,7 +22,7 @@ export class Behaviour {
 
 	onDestroy() {}
 
-	dispose() {
+	destroy() {
 		this.onDestroy();
 		this.isDisposed = true;
 	}
