@@ -9,6 +9,8 @@ export class BehaviourHierachy extends StormComponent implements IMouseDown {
 	onMouseDown(inputEvent: InputEvent) {
 		if (this.panel != undefined) {
 			this.panel.destroy();
+			this.panel = undefined;
+			return;
 		}
 		let stormObject: StormObject = new StormObject();
 		stormObject.setRenderer(RendererContainer);

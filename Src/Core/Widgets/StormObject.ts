@@ -105,11 +105,11 @@ export class StormObject {
 	}
 
 	destroy() {
+		this.transfrom.destroy();
+
 		for (const child of this.transfrom.Children) {
 			child.StormObject.destroy();
 		}
-
-		this.transfrom.destroy()
 
 		for (const behaviour of this.behaviours) {
 			behaviour.destroy();

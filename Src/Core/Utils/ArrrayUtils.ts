@@ -22,8 +22,8 @@ Array.prototype.first = function<T>(this: T[]): T {
 
 Array.prototype.copy = function<T>(this: T[]): T[] {
 	let result = [];
-	for (const value of this) {
-		result.push(value);
+	for (let index = 0; index < this.length; index++) {
+		result.push(this[index]);
 	}
 
 	return result;

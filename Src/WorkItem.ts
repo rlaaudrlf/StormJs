@@ -1,4 +1,3 @@
-import { GlobalData } from "./GlobalData";
 import { StormObject } from "./Core/StormObject";
 
 export class WorkItem {
