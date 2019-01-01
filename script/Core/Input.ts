@@ -1,8 +1,18 @@
 import { StormObject } from "./Widgets/StormObject";
 import { Vector2 } from "./Math/Vector2";
+import { InputEvent } from "./InputEvent";
+import { Behaviour } from "./Behaviours";
 
 export class IClickable {
-	onClick() {}
+	onClick(inputEvent: InputEvent) {}
+}
+
+export class IMouseDown {
+	onMouseDown(inputEvent: InputEvent) {}
+}
+
+export class IMouseUp {
+	onMouseUP(inputEvent: InputEvent) {}
 }
 
 export class Input {
@@ -10,7 +20,7 @@ export class Input {
 
 	private constructor() {}
 
-	FindTopObject<T>(stormObject: StormObject, mouseEvent: MouseEvent): T[] {
+	FindTopObject<T>(stormObject: StormObject, inputEvent: InputEvent): T[] {
 		let result = [];
 		let stormList: StormObject[] = [];
 		stormList.push(stormObject);
@@ -26,7 +36,7 @@ export class Input {
 				if (
 					behaviour.transform
 						.getGlobalRect()
-						.IsIncluded(new Vector2(mouseEvent.x, mouseEvent.y))
+						.IsIncluded(new Vector2(inputEvent.x, inputEvent.y))
 				) {
 					result.push(behaviour);
 				}
@@ -37,12 +47,46 @@ export class Input {
 		return result;
 	}
 
-	HandleClick(stormObject: StormObject, mouseEvent: MouseEvent) {
-		let objs = this.FindTopObject<IClickable>(stormObject, mouseEvent);
-		let obj = objs.pop();
+	HandleClick(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IClickable>(stormObject, inputEvent);
+		inputEvent.objects = <Behaviour[]>(<any>objs);
+		let obj = objs
+			.filter(item => {
+				return item.onClick != undefined;
+			})
+			.first();
 
-		if (obj != undefined && obj.onClick != undefined) {
-			obj.onClick();
+		if (obj != null) {
+			obj.onClick(inputEvent);
+		}
+	}
+
+	HandleMouseDown(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IMouseDown>(stormObject, inputEvent);
+		console.log(objs)
+		inputEvent.objects = <Behaviour[]>(<any>objs);
+		let obj = objs
+			.filter(item => {
+				return item.onMouseDown != undefined;
+			})
+			.first();
+
+		if (obj != null) {
+			obj.onMouseDown(inputEvent);
+		}
+	}
+
+	HandleMouseUp(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IMouseUp>(stormObject, inputEvent);
+		inputEvent.objects = <Behaviour[]>(<any>objs);
+		let obj = objs
+			.filter(item => {
+				return item.onMouseUP != undefined;
+			})
+			.first();
+
+		if (obj != null) {
+			obj.onMouseUP(inputEvent);
 		}
 	}
 }
