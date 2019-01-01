@@ -1,7 +1,7 @@
-import { ComponentBase } from "./ComponentsBase";
+import { StormComponent } from "../../Core/StormComponent";
 import { DoubleBind } from "../../Core/DoubleBind";
 import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
-export class Label extends ComponentBase {
+export class Label extends StormComponent {
 	text: string = "";
 	label: RendererLabel;
 

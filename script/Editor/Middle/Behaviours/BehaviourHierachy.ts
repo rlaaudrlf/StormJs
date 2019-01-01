@@ -1,10 +1,10 @@
-import { ComponentBase } from "../../../Components/BasicComponents/ComponentsBase";
+import { StormComponent } from "../../../Core/StormComponent";
 import { IMouseDown } from "../../../Core/Input";
 import { InputEvent } from "../../../Core/InputEvent";
 import { StormObject } from "../../../Core/Widgets/StormObject";
 import { RendererContainer } from "../../../Core/Renderer/Virtual/RendererContainer";
 import { StormStackList } from "../../../Components/BasicComponents/StormStackList";
-export class BehaviourHierachy extends ComponentBase implements IMouseDown {
+export class BehaviourHierachy extends StormComponent implements IMouseDown {
 	panel: StormObject;
 	onMouseDown(inputEvent: InputEvent) {
 		if (this.panel != undefined) {

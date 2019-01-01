@@ -1,9 +1,6 @@
-import { StormObject } from "./StormObject";
-
-import { JsonProperty, Serializable } from "./SerializeHelper";
-
-@Serializable()
-export class StormComponent {
-	@JsonProperty()
-	public stormObject: StormObject | null = null;
+import { Behaviour } from './Behaviours';
+import { Action } from './Action/Action';
+export class StormComponent extends Behaviour {
+	action:Action=new Action()
+	setCompData(data: any) {}
 }

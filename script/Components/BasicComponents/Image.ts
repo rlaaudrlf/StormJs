@@ -1,8 +1,8 @@
-import { ComponentBase } from "./ComponentsBase";
+import { StormComponent } from "../../Core/StormComponent";
 import { DoubleBind } from "../../Core/DoubleBind";
 import { RendererImage } from "../../Core/Renderer/Virtual/RendererImage";
 
-export class Image extends ComponentBase {
+export class Image extends StormComponent {
 	img: RendererImage;
 
 	constructor() {

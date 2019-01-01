@@ -1,5 +1,5 @@
-import { ComponentBase } from "./ComponentsBase";
-export class LayoutGrid extends ComponentBase {
+import { StormComponent } from "../../Core/StormComponent";
+export class LayoutGrid extends StormComponent {
 	raw: number = 1;
 	column: number = 1;
 	rawPadding: number = 0;

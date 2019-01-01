@@ -1,9 +1,9 @@
 import { DoubleBind } from "../../Core/DoubleBind";
 import { Vector2, EditableVector2 } from "../../Core/Math/Vector2";
-import { ComponentBase } from "./ComponentsBase";
+import { StormComponent } from "../../Core/StormComponent";
 import { StormObject } from "../../Core/Widgets/StormObject";
 
-export class List extends ComponentBase {
+export class List extends StormComponent {
 	data: any[] | null = null;
 	itemWidth: number = 100;
 	itemHeight: number = 100;
@@ -144,7 +144,7 @@ export class List extends ComponentBase {
 		let behaviours = item.getBehaviours();
 
 		for (const behaviour of behaviours) {
-			if (behaviour instanceof ComponentBase) {
+			if (behaviour instanceof StormComponent) {
 				behaviour.setCompData(this.data[index]);
 			}
 		}

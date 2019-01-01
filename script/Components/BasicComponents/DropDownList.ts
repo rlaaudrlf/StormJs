@@ -1,7 +1,7 @@
 import { Button } from './Button';
-import { ComponentBase } from './ComponentsBase';
+import { StormComponent } from '../../Core/StormComponent';
 import { StormStackList } from './StormStackList';
-export class DropDownList extends  ComponentBase{
+export class DropDownList extends  StormComponent{
 	button: Button;
 	list: StormStackList;
 	isDroped: boolean = false;

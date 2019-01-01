@@ -1,5 +1,5 @@
-import { ComponentBase } from "./ComponentsBase";
-export class TreeView extends ComponentBase {
+import { StormComponent } from "../../Core/StormComponent";
+export class TreeView extends StormComponent {
 	datas: any;
 	RenderItemBase() {
 		// let constructor = CallMapper<RenderItemConstructor>(

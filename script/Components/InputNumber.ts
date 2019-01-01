@@ -1,2 +1,2 @@
-import { ComponentBase } from './BasicComponents/ComponentsBase';
-export class InputNumber extends ComponentBase {}
+import { StormComponent } from '../Core/StormComponent';
+export class InputNumber extends StormComponent {}

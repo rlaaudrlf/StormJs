@@ -1,8 +1,8 @@
 import { StormCheckBox } from "./StormCheckBox";
-import { ComponentBase } from "./ComponentsBase";
+import { StormComponent } from "../../Core/StormComponent";
 import { ComponentList } from "./ComponentList";
 @ComponentList('Components/CheckBoxGroup')
-export class CheckBoxGroup extends ComponentBase {
+export class CheckBoxGroup extends StormComponent {
 	checkBoxes: StormCheckBox[] = [];
 	canCheckCount = 1;
 	currentSelectedItems: StormCheckBox[] = [];

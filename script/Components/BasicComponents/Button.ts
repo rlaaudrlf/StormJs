@@ -1,4 +1,4 @@
-import { ComponentBase } from './ComponentsBase';
-export class Button extends ComponentBase{
+import { StormComponent } from '../../Core/StormComponent';
+export class Button extends StormComponent{
 
 }

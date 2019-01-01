@@ -1,4 +1,4 @@
-import { ComponentBase } from './ComponentsBase';
-export class StormList extends ComponentBase{
+import { StormComponent } from '../../Core/StormComponent';
+export class StormList extends StormComponent{
 
 }

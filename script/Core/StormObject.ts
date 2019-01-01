@@ -41,7 +41,7 @@ export class StormObject {
 
 	public startLife() {
 		for (const component of this.components) {
-			component.stormObject = this;
+			// component.stormObject = this;
 		}
 	}
 

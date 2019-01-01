@@ -1,12 +1,12 @@
 import { StormObject } from "../../Core/Widgets/StormObject";
 import { ListAlignment } from "../../Core/Widgets/ListAlignment";
-import { ComponentBase } from "./ComponentsBase";
+import { StormComponent } from "../../Core/StormComponent";
 import { Vector2 } from "../../Core/Math/Vector2";
 import { UIEventListhenner } from "./UIEventListhenner";
 import { StyleAttributes } from "../../Core/Attributes/StyleAttributes";
 import { EventManager } from "../../Core/EventManager";
 
-export class StormStackList extends ComponentBase {
+export class StormStackList extends StormComponent {
 	datas: any;
 	item: StormObject;
 	size: number = 100;
@@ -57,7 +57,7 @@ export class StormStackList extends ComponentBase {
 			let behaviours = newItem.getBehaviours();
 
 			for (const behaviour of behaviours) {
-				if (behaviour instanceof ComponentBase) {
+				if (behaviour instanceof StormComponent) {
 					behaviour.setCompData(data);
 				}
 			}
