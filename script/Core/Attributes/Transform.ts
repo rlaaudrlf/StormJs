@@ -3,7 +3,7 @@ import { StormObject } from "../Widgets/StormObject";
 import { Matrix3 } from "../Math/Matrix3";
 import { Anchor } from "../Widgets/Anchor";
 import { Rect } from "../Math/Rect";
-import { GUID } from "../Widgets/DeepCloner";
+import { GUID } from "../Utils/GUID";
 
 // 	updateMatrix() {
 // 		if (this.mountedElement == undefined) {
@@ -74,6 +74,8 @@ export class Transform {
 		if (this.parent != null) {
 			this.parent.Children.remove(this);
 		}
+
+		this.parent = null;
 	}
 
 	get Children() {

@@ -1,6 +1,6 @@
 import { StormObject } from "./Widgets/StormObject";
 import { Transform } from "./Attributes/Transform";
-import { GUID } from './Widgets/DeepCloner';
+import { GUID } from "./Utils/GUID";
 export class Behaviour {
 	isDisposed: boolean = false;
 	stormObject: StormObject;

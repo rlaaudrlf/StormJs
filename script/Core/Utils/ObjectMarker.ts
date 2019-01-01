@@ -1,4 +1,4 @@
-import { GUID } from "../Widgets/DeepCloner";
+import { GUID } from "./GUID";
 
 export interface MarkedObject {
 	___Hash___: string;

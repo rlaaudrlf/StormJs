@@ -1,6 +1,7 @@
 import { Behaviour } from "../Behaviours";
 
-import { GUID, DeepCloner } from "./DeepCloner";
+import { DeepCloner } from "./DeepCloner";
+import { GUID } from "../Utils/GUID";
 import { RendererBase } from "../Renderer/Virtual/RendererBase";
 import { Transform } from "../Attributes/Transform";
 import { Layer } from "../Layer";
