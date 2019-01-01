@@ -1,9 +1,8 @@
-import { Behaviour } from "../Behaviours";
-import { IClickable } from "../Input";
+import { Behaviour } from "../../Core/Behaviours";
 import { StormStackList } from "../../Components/BasicComponents/StormStackList";
-import { StormObject } from "./StormObject";
-import { RendererButton } from "../Renderer/Virtual/RendererButton";
-export class Behaviourtest extends Behaviour implements IClickable {
+import { StormObject } from "../../Core/Widgets/StormObject";
+import { RendererButton } from "../../Core/Renderer/Virtual/RendererButton";
+export class Behaviourtest extends Behaviour {
 	isDown = 3;
 	stackList: StormStackList;
 	awake() {
@@ -30,23 +29,5 @@ export class Behaviourtest extends Behaviour implements IClickable {
 		});
 		this.stackList.setCompData(data);
 		this.transform.anchor.left.value = 94;
-
-		// this.stormObject.transfrom.localPosition = new Vector2(100, 10);
-		// this.stormObject.transfrom.scale = new Vector2(100, 200);
-	}
-
-	update() {
-		// this.stormObject.transfrom.rotation += 3;
-		// this.stormObject.transfrom.localPosition.y += this.isDown;
-		// if (this.transform.localPosition.y > 100) {
-		// 	this.isDown = -3;
-		// }
-		// if (this.transform.localPosition.y < 0) {
-		// 	this.isDown = 3;
-		// }
-	}
-
-	onClick() {
-		console.log(123);
 	}
 }

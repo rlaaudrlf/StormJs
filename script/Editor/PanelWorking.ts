@@ -10,7 +10,7 @@ import { RendererText } from "../Core/Renderer/Virtual/RendererText";
 import { RendererContainer } from "../Core/Renderer/Virtual/RendererContainer";
 import { RendererPanel } from "../Core/Renderer/Virtual/RendererPanel";
 import { Transform, TransFormAttributes } from "../Core/Attributes/Transform";
-import { Behaviourtest } from "../Core/Widgets/Behaviourtest";
+import { Behaviourtest } from "./Behaviours/NavBarButtonGroup";
 import { Vector2, EditableVector2 } from "../Core/Math/Vector2";
 import { SSL_OP_ALL } from "constants";
 import { ColorKeywords } from "../Core/Math/Color";

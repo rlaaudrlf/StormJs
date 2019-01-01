@@ -17,7 +17,7 @@ import { RendererTarget } from "./Core/Renderer/RendererTarget";
 import { Enviroment } from "./Components/Enviroment";
 import { WebLoader } from "./Core/Renderer/Web/WebLoader";
 import { Vector2 } from "./Core/Math/Vector2";
-import { Behaviourtest } from "./Core/Widgets/Behaviourtest";
+import { Behaviourtest } from "./Editor/Behaviours/NavBarButtonGroup";
 import { StormStackList } from "./Components/BasicComponents/StormStackList";
 import { EBorder } from "./Core/Widgets/Anchor";
 require("./Core/Utils/ArrrayUtils");

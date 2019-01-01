@@ -36,7 +36,6 @@ export class WebLabel extends WebItemBase {
 			let verticalAlign = renderer.verticalAlign;
 			let offset = this.element.offsetHeight - this.labelElement.offsetHeight;
 			if (verticalAlign == EVerticalAlign.center) {
-				console.log(offset);
 				if (offset > 0) {
 					this.labelElement.style.top = (offset * 0.5).toString();
 				} else {

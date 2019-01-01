@@ -7,7 +7,7 @@ import {
 	RendererContainer,
 	Border
 } from "../Core/Renderer/Virtual/RendererContainer";
-import { Behaviourtest } from "../Core/Widgets/Behaviourtest";
+import { Behaviourtest } from "./Behaviours/NavBarButtonGroup";
 import { EBorder } from "../Core/Widgets/Anchor";
 import { WebRenderer } from "../Core/Renderer/Web/WebRenderer";
 import { MiddleArea } from "./Middle/MiddleArea";
