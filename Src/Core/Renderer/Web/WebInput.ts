@@ -1,13 +1,12 @@
-import { WebItemBase } from "./WebItemBase";
+import { WebItemEmpty } from "./WebItemEmpty";
 import { Action } from "../../Action/Action";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
 @DefineMapper(RendererType.Text, RendererTarget.Web)
-export class WebInput extends WebItemBase {
+export class WebInput extends WebItemEmpty {
 	text = "";
-	constructor() {
-		super();
+	init() {
 		this.element = document.createElement("input");
 		this.initElement();
 	}

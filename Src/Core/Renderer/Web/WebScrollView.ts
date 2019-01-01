@@ -1,19 +1,18 @@
-import { WebItemBase } from "./WebItemBase";
+import { WebItemEmpty } from "./WebItemEmpty";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
-import { RendererBase } from "../Virtual/RendererBase";
+import { RendererEmpty } from "../Virtual/RendererEmpty";
 import { RendererScrollView } from "../Virtual/RendererScrollView";
 
 @DefineMapper(RendererType.ScrollView, RendererTarget.Web)
-export class WebScrollView extends WebItemBase {
-	constructor() {
-		super();
+export class WebScrollView extends WebItemEmpty {
+	init() {
 		this.element = document.createElement("div");
 		this.initElement();
 	}
 
-	setRenderer(rendererBase: RendererBase) {
+	setRenderer(rendererBase: RendererEmpty) {
 		let renderer = <RendererScrollView>rendererBase;
 		let showVerticalScrolBar = <boolean>rendererBase["showVerticalScrolBar"];
 		let showHorizontalScrolBar = <boolean>(

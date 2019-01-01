@@ -1,16 +1,15 @@
-import { WebItemBase } from "./WebItemBase";
+import { WebItemEmpty } from "./WebItemEmpty";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
 import { RendererContainer } from "../Virtual/RendererContainer";
-import { RendererBase } from "../Virtual/RendererBase";
+import { RendererEmpty } from "../Virtual/RendererEmpty";
 import { Vector2 } from "../../Math/Vector2";
 
 @DefineMapper(RendererType.Container, RendererTarget.Web)
-export class WebContainer extends WebItemBase {
+export class WebContainer extends WebItemEmpty {
 	renderer: RendererContainer;
-	constructor() {
-		super();
+	init() {
 		this.element = document.createElement("div");
 		this.initElement();
 	}
@@ -30,7 +29,8 @@ export class WebContainer extends WebItemBase {
 		}
 	}
 
-	setRenderer(rendererBase: RendererBase) {
+	setRenderer(rendererBase: RendererEmpty) {
+		super.setRenderer(rendererBase);
 		let renderer = <RendererContainer>rendererBase;
 		this.renderer = renderer;
 
@@ -40,6 +40,7 @@ export class WebContainer extends WebItemBase {
 				"#" + renderer.background.getHexString()
 			)
 		) {
+			this.element.style.opacity = (renderer.background.a * 100).toString();
 			this.element.style.background = "#" + renderer.background.getHexString();
 		}
 

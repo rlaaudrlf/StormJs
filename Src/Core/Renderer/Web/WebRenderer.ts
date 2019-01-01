@@ -9,7 +9,7 @@ import { WebEvent } from "./WebEvent";
 import { TransFormAttributes } from "../../Attributes/Transform";
 import { Anchor } from "../../Widgets/Anchor";
 import { RendererPanel } from "../Virtual/RendererPanel";
-import { RendererBase } from "../Virtual/RendererBase";
+import { RendererEmpty } from "../Virtual/RendererEmpty";
 import { Dictionary } from "../../Utils/Dictionary ";
 
 export const enum EStormLifeCycle {
@@ -36,7 +36,7 @@ export class WebRenderer extends Renderer {
 		string,
 		RenderItemInfo
 	>();
-	renderer: RendererBase | null = null;
+	renderer: RendererEmpty | null = null;
 	renderFrame: number = 0;
 
 	updateRenderFrame() {

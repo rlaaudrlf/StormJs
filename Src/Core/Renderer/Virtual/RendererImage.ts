@@ -1,4 +1,4 @@
-import { RendererBase } from "./RendererBase";
+import { RendererEmpty } from "./RendererEmpty";
 import {
 	RenderItemConstructor,
 	RenderItemBase
@@ -7,7 +7,7 @@ import { Enviroment } from "../../../Components/Enviroment";
 import { CallMapper } from "../../Mapper";
 import { DoubleBind } from "../../DoubleBind";
 import { RendererType } from "./RendererType";
-export class RendererImage extends RendererBase {
+export class RendererImage extends RendererEmpty {
 	src: string = "";
 	renderItem(): RenderItemBase {
 		let constructor = CallMapper<RenderItemConstructor>(

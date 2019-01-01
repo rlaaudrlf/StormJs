@@ -6,8 +6,8 @@ export class StormCheckBox extends StormComponent {
 	widgetNormal: StormObject | null = null;
 
 	awake() {
-		this.widgetSelected.getRenderer().action.onclick.Regist(this.handleClick);
-		this.widgetNormal.getRenderer().action.onclick.Regist(this.handleClick);
+		// this.widgetSelected.getRenderer().action.onclick.Regist(this.handleClick);
+		// this.widgetNormal.getRenderer().action.onclick.Regist(this.handleClick);
 	}
 
 	handleClick() {

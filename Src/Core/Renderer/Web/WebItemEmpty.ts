@@ -2,20 +2,34 @@ import { StyleAttributes } from "../../Attributes/StyleAttributes";
 import { Action } from "../../Action/Action";
 import { RenderItemBase } from "../RenderItemBase";
 import { Vector2 } from "../../Math/Vector2";
-import { BindData } from "../../DoubleBind";
 import { Color } from "../../Math/Color";
-import { RendererBase } from "../Virtual/RendererBase";
-export class WebItemBase extends RenderItemBase {
+import { RendererEmpty } from "../Virtual/RendererEmpty";
+import { DefineMapper } from "../../Mapper";
+import { RendererTarget } from "../RendererTarget";
+import { RendererType } from "../Virtual/RendererType";
+
+@DefineMapper(RendererType.Empty, RendererTarget.Web)
+export class WebItemEmpty extends RenderItemBase {
 	action: Action;
 	data: any;
 	element: HTMLElement;
-	parent: WebItemBase | undefined = undefined;
-	child: WebItemBase[] = [];
+	parent: WebItemEmpty | undefined = undefined;
+	child: WebItemEmpty[] = [];
 	childNode: HTMLElement;
 	degree: number = 0;
 	private position: Vector2 = new Vector2();
 	private rotation: number = 0;
 	private scale: Vector2 = new Vector2();
+
+	constructor() {
+		super();
+		this.init();
+	}
+
+	init() {
+		this.element = document.createElement("div");
+		this.initElement();
+	}
 
 	static load() {}
 
@@ -38,7 +52,7 @@ export class WebItemBase extends RenderItemBase {
 			return;
 		}
 
-		let webItemBase = <WebItemBase>parent;
+		let webItemBase = <WebItemEmpty>parent;
 		let currentParent = this.parent;
 
 		if (currentParent != undefined) {
@@ -77,7 +91,9 @@ export class WebItemBase extends RenderItemBase {
 		}
 	}
 
-	setRenderer(rendererBase: RendererBase) {}
+	setRenderer(rendererBase: RendererEmpty) {
+		this.element.setAttribute("name", rendererBase.stormObject.name);
+	}
 
 	setRotate(degree) {
 		if (degree == this.degree) {
@@ -88,7 +104,7 @@ export class WebItemBase extends RenderItemBase {
 	}
 
 	setChild(child: RenderItemBase) {
-		let webItemBase = <WebItemBase>child;
+		let webItemBase = <WebItemEmpty>child;
 		let parent = webItemBase.parent;
 
 		if (parent != undefined) {

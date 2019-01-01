@@ -1,4 +1,4 @@
-import { RendererBase } from "./RendererBase";
+import { RendererEmpty } from "./RendererEmpty";
 import { RenderItemConstructor, RenderItemBase } from "../RenderItemBase";
 import { CallMapper } from "../../Mapper";
 import { Enviroment } from "../../../Components/Enviroment";
@@ -17,7 +17,7 @@ export const enum EHorzontalAlign {
 	right
 }
 
-export class RendererLabel extends RendererBase {
+export class RendererLabel extends RendererEmpty {
 	text: string = "";
 	color: Color = new Color();
 	verticalAlign: EVerticalAlign = EVerticalAlign.center;

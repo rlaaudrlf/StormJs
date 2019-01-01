@@ -1,4 +1,5 @@
 export const enum RendererType {
+	Empty,
 	Container,
 	Button,
 	Label,

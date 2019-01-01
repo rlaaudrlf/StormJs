@@ -1,10 +1,10 @@
-import { RendererBase } from "./RendererBase";
+import { RendererEmpty } from "./RendererEmpty";
 import { RenderItemConstructor, RenderItemBase } from "../RenderItemBase";
 import { Enviroment } from "../../../Components/Enviroment";
 import { CallMapper } from "../../Mapper";
 import { RendererType } from "./RendererType";
 import { Color } from '../../Math/Color';
-export class RendererScrollView extends RendererBase {
+export class RendererScrollView extends RendererEmpty {
 	showVerticalScrolBar: boolean = false;
 	showHorizontalScrolBar: boolean = false;
 	background:Color=new Color()

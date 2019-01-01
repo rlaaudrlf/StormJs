@@ -1,15 +1,14 @@
-import { WebItemBase } from "./WebItemBase";
+import { WebItemEmpty } from "./WebItemEmpty";
 import { StyleAttributes } from "../../Attributes/StyleAttributes";
 import { Action } from "../../Action/Action";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
 @DefineMapper(RendererType.Image, RendererTarget.Web)
-export class WebImage extends WebItemBase {
+export class WebImage extends WebItemEmpty {
 	src: string = "";
 	img: HTMLElement;
-	constructor() {
-		super();
+	init() {
 		this.element = document.createElement("div");
 		this.img = document.createElement("img");
 		this.initElement();

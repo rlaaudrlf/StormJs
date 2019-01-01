@@ -1,19 +1,18 @@
-import { WebItemBase } from "./WebItemBase";
+import { WebItemEmpty } from "./WebItemEmpty";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
-import { RendererBase } from "../Virtual/RendererBase";
+import { RendererEmpty } from "../Virtual/RendererEmpty";
 import {
 	RendererLabel,
 	EVerticalAlign,
 	EHorzontalAlign
 } from "../Virtual/RendererLabel";
 @DefineMapper(RendererType.Label, RendererTarget.Web)
-export class WebLabel extends WebItemBase {
+export class WebLabel extends WebItemEmpty {
 	cache = {};
 	labelElement: HTMLElement;
-	constructor() {
-		super();
+	init() {
 		this.element = document.createElement("div");
 		this.labelElement = document.createElement("div");
 		this.element.appendChild(this.labelElement);
@@ -25,7 +24,7 @@ export class WebLabel extends WebItemBase {
 
 	setStyle() {}
 
-	setRenderer(rendererBase: RendererBase) {
+	setRenderer(rendererBase: RendererEmpty) {
 		let renderer = <RendererLabel>rendererBase;
 		if (this.isValidateValue("text", renderer.text)) {
 			let text = renderer.text;

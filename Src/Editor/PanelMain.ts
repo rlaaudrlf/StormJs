@@ -2,11 +2,8 @@ import { StormObject } from "../Core/Widgets/StormObject";
 import { RendererTarget } from "../Core/Renderer/RendererTarget";
 import { WebLoader } from "../Core/Renderer/Web/WebLoader";
 import { RendererPanel } from "../Core/Renderer/Virtual/RendererPanel";
-import { ColorKeywords } from "../Core/Math/Color";
-import {
-	RendererContainer,
-	Border
-} from "../Core/Renderer/Virtual/RendererContainer";
+import { ColorKeywords, Color } from "../Core/Math/Color";
+import { RendererContainer } from "../Core/Renderer/Virtual/RendererContainer";
 import { Behaviourtest } from "./Behaviours/NavBarButtonGroup";
 import { EBorder } from "../Core/Widgets/Anchor";
 import { WebRenderer } from "../Core/Renderer/Web/WebRenderer";
@@ -14,10 +11,10 @@ import { MiddleArea } from "./Middle/MiddleArea";
 import { BottomArea } from "./Bottom/BottomArea";
 import { Enviroment } from "../Components/Enviroment";
 import { StormStackList } from "../Components/BasicComponents/StormStackList";
-import { Storm } from "../Core/Storm";
-import { Behaviour } from "../Core/Behaviours";
-import { TransFormAttributes } from "../Core/Attributes/Transform";
+import { RendererEmpty } from "../Core/Renderer/Virtual/RendererEmpty";
 export class PanelMain {
+	static maskLayer: StormObject;
+
 	start(element: HTMLElement) {
 		Enviroment.rendererTarget = RendererTarget.Web;
 		new WebLoader().load();
@@ -85,6 +82,16 @@ export class PanelMain {
 		middle.transfrom.Parent = panel.transfrom;
 		bottom.transfrom.Parent = panel.transfrom;
 		bottomBar.transfrom.Parent = panel.transfrom;
+
+		let maskLayer = new StormObject();
+		maskLayer.name = "maskLayer";
+		maskLayer.setRenderer(RendererEmpty);
+		maskLayer.transfrom.anchor.left.target = panel.transfrom;
+		maskLayer.transfrom.anchor.right.target = panel.transfrom;
+		maskLayer.transfrom.anchor.top.target = panel.transfrom;
+		maskLayer.transfrom.anchor.bottom.target = panel.transfrom;
+		maskLayer.transfrom.Parent = panel.transfrom;
+		PanelMain.maskLayer = maskLayer;
 
 		let middleArea = new MiddleArea();
 		middleArea.init(middle);

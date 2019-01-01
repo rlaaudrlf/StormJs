@@ -1,4 +1,4 @@
-import { RendererBase } from "./RendererBase";
+import { RendererEmpty } from "./RendererEmpty";
 import { RenderItemConstructor, RenderItemBase } from "../RenderItemBase";
 import { CallMapper } from "../../Mapper";
 import { Enviroment } from "../../../Components/Enviroment";
@@ -15,7 +15,7 @@ class Shader {
 	size: number = 1;
 }
 
-export class RendererContainer extends RendererBase {
+export class RendererContainer extends RendererEmpty {
 	background: Color = new Color();
 	border: Border | null = null;
 	shader: Shader = new Shader();

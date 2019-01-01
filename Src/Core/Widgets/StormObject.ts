@@ -2,7 +2,7 @@ import { Behaviour } from "../Behaviours";
 
 import { DeepCloner } from "./DeepCloner";
 import { GUID } from "../Utils/GUID";
-import { RendererBase } from "../Renderer/Virtual/RendererBase";
+import { RendererEmpty } from "../Renderer/Virtual/RendererEmpty";
 import { Transform } from "../Attributes/Transform";
 import { Layer } from "../Layer";
 import { EventManager } from "../EventManager";
@@ -13,7 +13,7 @@ import {
 } from "../Renderer/Web/WebRenderer";
 
 export class StormObject {
-	private renderer: RendererBase | undefined = undefined;
+	private renderer: RendererEmpty | undefined = undefined;
 	private active: boolean = true;
 	behaviours: Behaviour[] = [];
 	hash: GUID = new GUID();
@@ -29,12 +29,12 @@ export class StormObject {
 		this.transfrom.StormObject = this;
 	}
 
-	getParentRenderer(): RendererBase {
+	getParentRenderer(): RendererEmpty {
 		if (this.transfrom.Parent == undefined) {
 			return undefined;
 		}
 
-		let renderer: RendererBase = this.transfrom.Parent.StormObject.renderer;
+		let renderer: RendererEmpty = this.transfrom.Parent.StormObject.renderer;
 
 		if (renderer == undefined) {
 			renderer = this.transfrom.Parent.StormObject.getRenderer();
@@ -43,12 +43,12 @@ export class StormObject {
 		return renderer;
 	}
 
-	setRenderer<T extends RendererBase>(c: new () => T) {
+	setRenderer<T extends RendererEmpty>(c: new () => T) {
 		this.renderer = new c();
 		this.renderer.setStromObject(this);
 	}
 
-	getRenderer<T extends RendererBase>() {
+	getRenderer<T extends RendererEmpty>() {
 		return <T>(<any>this.renderer);
 	}
 

@@ -4,10 +4,10 @@ import {
 	RenderItemBase
 } from "../RenderItemBase";
 import { Enviroment } from "../../../Components/Enviroment";
-import { RendererBase } from "./RendererBase";
+import { RendererEmpty } from "./RendererEmpty";
 import { RendererType } from "./RendererType";
 
-export class RendererText extends RendererBase {
+export class RendererText extends RendererEmpty {
 	text: string = "";
 
 	renderItem(): RenderItemBase {

@@ -1,15 +1,14 @@
-import { WebItemBase } from "./WebItemBase";
+import { WebItemEmpty } from "./WebItemEmpty";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
 import { RendererPanel } from "../Virtual/RendererPanel";
-import { RendererBase } from "../Virtual/RendererBase";
+import { RendererEmpty } from "../Virtual/RendererEmpty";
 
 @DefineMapper(RendererType.Panel, RendererTarget.Web)
-export class WebPanel extends WebItemBase {
+export class WebPanel extends WebItemEmpty {
 	renderer;
-	constructor() {
-		super();
+	init() {
 		this.element = document.createElement("div");
 		this.initElement();
 		this.element.style.width = "100%";
@@ -18,7 +17,7 @@ export class WebPanel extends WebItemBase {
 		this.element.style.padding = "0";
 	}
 
-	setRenderer(rendererBase: RendererBase) {
+	setRenderer(rendererBase: RendererEmpty) {
 		let renderer = <RendererPanel>rendererBase;
 		this.renderer = renderer;
 

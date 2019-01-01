@@ -1,6 +1,6 @@
 import { StyleAttributes } from "../Attributes/StyleAttributes";
 import { Vector2 } from "../Math/Vector2";
-import { RendererBase } from "./Virtual/RendererBase";
+import { RendererEmpty } from "./Virtual/RendererEmpty";
 
 export class RenderItemBase {
 	attributes: StyleAttributes;
@@ -13,7 +13,7 @@ export class RenderItemBase {
 	setVisible(visible: boolean) {}
 	relativePositon: Vector2 = new Vector2(0, 0);
 	setTransform(postion, degree, scale) {}
-	setRenderer(rendererBase: RendererBase) {}
+	setRenderer(rendererBase: RendererEmpty) {}
 }
 
 export interface RenderItemConstructor {
