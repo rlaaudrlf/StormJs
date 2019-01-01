@@ -25,7 +25,6 @@ export class Behaviourtest extends Behaviour {
 				const { ipcRenderer } = require("electron");
 				ipcRenderer.send("window-all-closed");
 			}
-			console.log(data);
 		});
 		this.stackList.setCompData(data);
 		this.transform.anchor.left.value = 94;

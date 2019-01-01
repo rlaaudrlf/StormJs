@@ -32,7 +32,8 @@ export class StormStackList extends StormComponent {
 	}
 
 	handleItemClick(target, value, value2) {
-		this.onItemClick.Call(this, value);
+		console.log(value2)
+		this.onItemClick.Call(this, value2);
 	}
 
 	render() {

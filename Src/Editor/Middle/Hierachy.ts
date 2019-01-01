@@ -52,6 +52,5 @@ export class Hierachy {
 		hierachy.transfrom.Parent = scroll.transfrom;
 		hierachy.transfrom.anchor.left.target = scroll.transfrom;
 		hierachy.transfrom.anchor.right.target = scroll.transfrom;
-		
 	}
 }
