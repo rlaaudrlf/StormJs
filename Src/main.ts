@@ -20,7 +20,8 @@ import { Vector2 } from "./Core/Math/Vector2";
 import { Behaviourtest } from "./Editor/Behaviours/NavBarButtonGroup";
 import { StormStackList } from "./Components/BasicComponents/StormStackList";
 import { EBorder } from "./Core/Widgets/Anchor";
-import { Dictionary } from './Core/Utils/Dictionary ';
+import { Dictionary } from "./Core/Utils/Dictionary ";
+import { GUID } from "./Core/Utils/GUID";
 require("./Core/Utils/ArrrayUtils");
 
 export class Main {
@@ -36,8 +37,13 @@ export class Main {
 
 	public start() {
 		this.RegistTools();
-		let panel=new PanelMain()
-		panel.start(document.getElementById("middle"))
+		let panel = new PanelMain();
+		panel.start(document.getElementById("middle"));
+
+		let id = new GUID();
+		let a = {};
+		a[id.toString()] = id;
+		console.log(a[id.toString()]);
 
 		// Enviroment.rendererTarget = RendererTarget.Web;
 		// new WebLoader().load();

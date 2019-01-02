@@ -8,6 +8,13 @@ import { PanelMain } from "../../PanelMain";
 import { Vector2 } from "../../../Core/Math/Vector2";
 import { PanelAttribute } from "../../PanelAttributes";
 import { UIEventListhenner } from "../../../Components/BasicComponents/UIEventListhenner";
+import { RenderItemBase } from "../../../Core/Renderer/RenderItemBase";
+import { ListAlignment } from "../../../Core/Widgets/ListAlignment";
+import { RendererButton } from "../../../Core/Renderer/Virtual/RendererButton";
+import { serialize } from "../../../Core/SerializeHelper";
+import { RendererLabel } from "../../../Core/Renderer/Virtual/RendererLabel";
+import { Label } from "../../../Components/BasicComponents/Label";
+import { Button } from "../../../Components/BasicComponents/Button";
 export class BehaviourHierachy extends StormComponent implements IMouseDown {
 	panel: StormObject;
 	onMouseDown(inputEvent: InputEvent) {
@@ -39,7 +46,29 @@ export class BehaviourHierachy extends StormComponent implements IMouseDown {
 				this.panel = undefined;
 			});
 
-		let stormStack = stormObject.getBehaviour(StormStackList);
+		let stormStack: StormStackList = stormObject.getBehaviour(StormStackList);
+
+		let item = new StormObject();
+		let label = new StormObject();
+
+		label.transfrom.Parent = item.transfrom;
+		label.transfrom.Width = 100;
+		label.transfrom.Height = 30;
+
+		label.setRenderer(RendererLabel);
+		label.addBehaviour(Label);
+
+		item.setRenderer(RendererButton);
+		item.addBehaviour(Button);
+		item.getBehaviour<Button>(Button).label = label.getBehaviour(Label);
+
+		stormStack.item = item;
+		stormStack.alignment = ListAlignment.column;
+		console.log(item)
+
+		stormStack.size = 30;
+		stormStack.setCompData([1, 2, 3, 4]);
+
 
 		this.panel = background;
 

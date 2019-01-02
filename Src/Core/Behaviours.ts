@@ -5,8 +5,12 @@ export class Behaviour {
 	isDisposed: boolean = false;
 	stormObject: StormObject;
 	transform: Transform;
-	hash: GUID = new GUID();
+	_hash: GUID = new GUID();
 	constructor() {}
+
+	get hash(): GUID {
+		return this._hash;
+	}
 
 	awake() {}
 

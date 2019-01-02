@@ -27,7 +27,7 @@ export class StormStackList extends StormComponent {
 				this.size * this.datas.length + this.padding * (this.datas.length - 1);
 		} else {
 			this.transform.Height =
-				this.size ** this.datas.length + this.padding * (this.datas.length - 1);
+				this.size * this.datas.length + this.padding * (this.datas.length - 1);
 		}
 	}
 
@@ -53,6 +53,8 @@ export class StormStackList extends StormComponent {
 				newItem = StormObject.Instantiate(this.item);
 			}
 
+			console.log(newItem)
+			console.log(this.item)
 			newItem.transfrom.Parent = this.transform;
 
 			let behaviours = newItem.getBehaviours();

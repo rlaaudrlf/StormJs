@@ -1,10 +1,11 @@
 export class GUID {
-	private str: string;
-	constructor(str?: string) {
-		this.str = str || GUID.getNewGUIDString();
-	}
+	private str: string = GUID.getNewGUIDString();
 	toString() {
 		return this.str;
+	}
+
+	public set(str) {
+		this.str = str;
 	}
 	private static getNewGUIDString() {
 		let d = new Date().getTime();
