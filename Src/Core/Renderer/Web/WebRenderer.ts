@@ -213,9 +213,9 @@ export class WebRenderer extends Renderer {
 
 			renderItemInfo.renderItem.setRenderer(renderer);
 
-			renderer.stormObject.onActiveChange.Regist((sender, visible) => {
-				renderItemInfo.renderItem.setVisible(visible);
-			});
+			// renderer.stormObject.onActiveChange.Regist((sender, visible) => {
+			// 	renderItemInfo.renderItem.setVisible(visible);
+			// });
 
 			let transFormAttributes = <TransFormAttributes>(
 				(<any>currentStorm.transfrom)
