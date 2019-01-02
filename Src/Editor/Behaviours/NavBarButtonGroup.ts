@@ -27,9 +27,7 @@ export class Behaviourtest extends Behaviour {
 			}
 		});
 
-		console.log(obj)
 		this.stackList.setCompData(data);
-		console.log(this.stackList.items[0])
 		this.transform.anchor.left.value = 94;
 	}
 }

@@ -3,7 +3,7 @@ import { Behaviour } from "../Behaviours";
 import { Transform } from "../Attributes/Transform";
 import { GUID } from "../Utils/GUID";
 import { Label } from "../../Components/BasicComponents/Label";
-import { isArray } from "util";
+import { isArray, inspect } from 'util';
 console.log(213);
 
 let log
@@ -159,12 +159,6 @@ export class DeepCloner {
 				copyCurrentNode.addBehaviour(<any>proto.constructor);
 				let beh = copyCurrentNode.getBehaviours()[index];
 				srcMap[behaviour.hash.toString()] = beh;
-
-				if (behaviour instanceof Label) {
-					// log=
-					console.log(beh.hash);
-					console.log(behaviour.hash);
-				}
 			}
 
 			srcMap[srcCurrentNode.transfrom.hash.toString()] =

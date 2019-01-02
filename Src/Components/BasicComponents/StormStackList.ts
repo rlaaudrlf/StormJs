@@ -53,8 +53,6 @@ export class StormStackList extends StormComponent {
 				newItem = StormObject.Instantiate(this.item);
 			}
 
-			console.log(newItem)
-			console.log(this.item)
 			newItem.transfrom.Parent = this.transform;
 
 			let behaviours = newItem.getBehaviours();
