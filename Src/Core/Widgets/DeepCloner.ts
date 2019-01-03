@@ -15,7 +15,7 @@ export class DeepCloner {
 	static deepClone(
 		src: Object,
 		target: Object,
-		srcStormObjectMap: {},
+		src2CloneMap: {},
 		refMap: {}
 	) {
 		let currentSrc = src;
@@ -25,6 +25,8 @@ export class DeepCloner {
 		let cloneStack = [];
 
 		while (currentSrc != undefined) {
+			refMap[currentSrc["hash"].toString()] = currentClone;
+
 			let keys = Reflect.ownKeys(currentSrc);
 
 			for (const key of keys) {
@@ -61,12 +63,11 @@ export class DeepCloner {
 						} else if (srcValue instanceof Transform) {
 							hash = srcValue.StormObject.hash.toString();
 						}
-						if (srcStormObjectMap[hash] != undefined)
+						if (src2CloneMap[hash] != undefined)
 							if (refMap[srcValue.hash.toString()] == undefined) {
-								let behaviour = srcStormObjectMap[srcValue.hash.toString()];
+								let behaviour = src2CloneMap[srcValue.hash.toString()];
 
 								currentClone[key] = behaviour;
-								refMap[srcValue.hash.toString()] = currentClone[key];
 								srcStack.push(srcValue);
 								cloneStack.push(currentClone[key]);
 							} else {
@@ -84,7 +85,6 @@ export class DeepCloner {
 							currentClone[key] = refMap[srcValue["hash"].toString()];
 						} else {
 							this.newObj(currentClone, key, srcValue);
-							refMap[srcValue["hash"].toString()] = currentClone[key];
 
 							srcStack.push(srcValue);
 							cloneStack.push(currentClone[key]);
@@ -96,21 +96,14 @@ export class DeepCloner {
 			currentClone = cloneStack.shift();
 		}
 
-		// 	if (
-		// 		srcStormObjectMap[srcValue.StormObject.hash.toString()] != undefined
-		// 	) {
 		// 		if (refMap[srcValue.hash.toString()] == undefined) {
-		// 			let behaviour = srcStormObjectMap[srcValue.hash.toString()];
+		// 			let behaviour = src2CloneMap[srcValue.hash.toString()];
 		// 			target[key] = behaviour;
 		// 			refMap[srcValue.hash.toString()] = target[key];
-		// 			this.deepClone(srcValue, target[key], srcStormObjectMap, refMap);
+		// 			this.deepClone(srcValue, target[key], src2CloneMap, refMap);
 		// 		} else {
 		// 			target[key] = refMap[srcValue.hash.toString()];
 		// 		}
-		// 	} else {
-		// 		target[key] = srcValue;
-		// 	}
-		// }
 	}
 
 	static Clone(stormObject: StormObject): StormObject {
