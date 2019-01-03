@@ -2,11 +2,6 @@ import { StormObject } from "./StormObject";
 import { Behaviour } from "../Behaviours";
 import { Transform } from "../Attributes/Transform";
 import { GUID } from "../Utils/GUID";
-import { Label } from "../../Components/BasicComponents/Label";
-import { isArray, inspect } from 'util';
-console.log(213);
-
-let log
 
 export class DeepCloner {
 	static newObj(target, key, srcValue) {
