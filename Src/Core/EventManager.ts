@@ -7,16 +7,20 @@ export class EventManager {
 		for (const callbackInfo of this.callbacks) {
 			tempCallback.push(callbackInfo);
 		}
+
+		let result = undefined;
 		for (const callbackInfo of tempCallback) {
 			if (callbackInfo.callback == null) {
 				continue;
 			}
 			if (datas == undefined) {
-				callbackInfo.callback(sender, ...callbackInfo.args);
+				result = callbackInfo.callback(sender, ...callbackInfo.args);
 			} else {
-				callbackInfo.callback(sender, ...datas, ...callbackInfo.args);
+				result = callbackInfo.callback(sender, ...datas, ...callbackInfo.args);
 			}
 		}
+
+		return result;
 	}
 
 	public Regist(callback: Function, ...args: any[] | undefined) {
