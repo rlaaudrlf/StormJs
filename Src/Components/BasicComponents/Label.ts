@@ -1,7 +1,7 @@
 import { StormComponent } from "../../Core/StormComponent";
-import { DoubleBind } from "../../Core/DoubleBind";
 import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
-import { GUID } from "../../Core/Utils/GUID";
+import { HierachyItem } from "../HierachyItem";
+
 export class Label extends StormComponent {
 	text: string = "";
 	label: RendererLabel;

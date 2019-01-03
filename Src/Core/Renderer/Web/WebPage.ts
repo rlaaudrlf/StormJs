@@ -1,5 +1,4 @@
 import { WebItemEmpty } from "./WebItemEmpty";
-import { StyleAttributes } from "../../Attributes/StyleAttributes";
 import { DefineMapper } from "../../Mapper";
 import { RendererTarget } from "../RendererTarget";
 import { RendererType } from "../Virtual/RendererType";
@@ -7,10 +6,12 @@ import { RendererType } from "../Virtual/RendererType";
 export class WebPage extends WebItemEmpty {
 	init() {
 		this.element = document.createElement("div");
+
+		this.initElement();
+
 		this.element.style.width = "100%";
 		this.element.style.height = "100%";
 		this.element.style.margin = "0";
 		this.element.style.padding = "0";
-		this.initElement();
 	}
 }

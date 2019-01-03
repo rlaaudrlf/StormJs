@@ -2,6 +2,7 @@ import { StormObject } from "./Widgets/StormObject";
 import { Vector2 } from "./Math/Vector2";
 import { InputEvent } from "./InputEvent";
 import { Behaviour } from "./Behaviours";
+import { TransFormAttributes } from "./Attributes/Transform";
 
 export class IClickable {
 	onClick(inputEvent: InputEvent) {}
@@ -23,9 +24,8 @@ export class Input {
 	FindTopObject<T>(stormObject: StormObject, inputEvent: InputEvent): T[] {
 		let result = [];
 		let stormList: StormObject[] = [];
-		stormList.push(stormObject);
+		let currentStorm = stormObject;
 
-		let currentStorm = stormList.pop();
 		while (currentStorm != undefined) {
 			for (const child of currentStorm.transfrom.Children) {
 				stormList.push(child.StormObject);
@@ -38,10 +38,10 @@ export class Input {
 						.getGlobalRect()
 						.IsIncluded(new Vector2(inputEvent.x, inputEvent.y))
 				) {
-					result.push(behaviour);
+					result.unshift(behaviour);
 				}
 			}
-			currentStorm = stormList.pop();
+			currentStorm = stormList.shift();
 		}
 
 		return result;

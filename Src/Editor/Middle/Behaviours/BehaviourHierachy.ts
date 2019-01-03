@@ -62,13 +62,16 @@ export class BehaviourHierachy extends StormComponent implements IMouseDown {
 
 		item.setRenderer(RendererButton);
 		item.addBehaviour(Binder)
-		// item.addBehaviour(Button);
+
 		item.getBehaviour<Binder>(Binder).pathcer.Add('key',label.getBehaviour(Label))
-		// item.getBehaviour<Button>(Button).label = label.getBehaviour(Label);
 		label.getRenderer<RendererLabel>().color.setHex(0x000000);
 
 		stormStack.item = item;
 		stormStack.alignment = ListAlignment.column;
+		stormStack.onItemClick.Regist((sender,data)=>{
+			console.log(1234)
+			console.log(data)
+		})
 
 		stormStack.size = 30;
 
