@@ -6,12 +6,14 @@ import { RendererEmpty } from "../Renderer/Virtual/RendererEmpty";
 import { Transform } from "../Attributes/Transform";
 import { Layer } from "../Layer";
 import { EventManager } from "../EventManager";
+import { HierachyItem } from "../../Components/HierachyItem";
 
 import {
 	BehaviourLifeCycle,
 	EStormLifeCycle
 } from "../Renderer/Web/WebRenderer";
 
+@HierachyItem("StormObject")
 export class StormObject {
 	private renderer: RendererEmpty | undefined = undefined;
 	private active: boolean = true;

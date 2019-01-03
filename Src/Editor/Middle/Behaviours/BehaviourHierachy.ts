@@ -15,6 +15,8 @@ import { serialize } from "../../../Core/SerializeHelper";
 import { RendererLabel } from "../../../Core/Renderer/Virtual/RendererLabel";
 import { Label } from "../../../Components/BasicComponents/Label";
 import { Button } from "../../../Components/BasicComponents/Button";
+import { GetHierachyItem } from '../../../Components/HierachyItem';
+import { Binder } from '../../../Components/Binder';
 export class BehaviourHierachy extends StormComponent implements IMouseDown {
 	panel: StormObject;
 	onMouseDown(inputEvent: InputEvent) {
@@ -59,15 +61,19 @@ export class BehaviourHierachy extends StormComponent implements IMouseDown {
 		label.addBehaviour(Label);
 
 		item.setRenderer(RendererButton);
-		item.addBehaviour(Button);
-		item.getBehaviour<Button>(Button).label = label.getBehaviour(Label);
+		item.addBehaviour(Binder)
+		// item.addBehaviour(Button);
+		item.getBehaviour<Binder>(Binder).pathcer.Add('key',label.getBehaviour(Label))
+		// item.getBehaviour<Button>(Button).label = label.getBehaviour(Label);
 		label.getRenderer<RendererLabel>().color.setHex(0x000000);
 
 		stormStack.item = item;
 		stormStack.alignment = ListAlignment.column;
 
 		stormStack.size = 30;
-		stormStack.setCompData([1, 2, 3, 4]);
+
+		console.log(GetHierachyItem().ToList())
+		stormStack.setCompData(GetHierachyItem().ToList());
 
 		this.panel = background;
 

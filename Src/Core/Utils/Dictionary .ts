@@ -78,4 +78,24 @@ export class Dictionary<
 
 		return this[strKey] != undefined;
 	}
+
+	ToList() {
+		let result = [];
+
+		for (let index = 0; index < this.keys.length; index++) {
+			const key = this.keys[index];
+			const value = this.values[index];
+			let keyValuePair = new KeyValuePair<TType, TValue>();
+			keyValuePair.key = key;
+			keyValuePair.value = value;
+			result.push(keyValuePair);
+		}
+
+		return result;
+	}
+}
+
+export class KeyValuePair<TType, TValue> {
+	key: TType;
+	value: TValue;
 }
