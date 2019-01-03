@@ -75,7 +75,7 @@ export class StormStackList extends StormComponent {
 			});
 			uiEvent.OnClick.Regist((target, value, value2) => {
 				this.handleItemClick(target, value, value2);
-			}, data);
+			}, null,data);
 
 			if (this.alignment == ListAlignment.horizontal) {
 				newItem.transfrom.Height = this.transform.Height;

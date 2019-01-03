@@ -2,11 +2,13 @@ import { StormObject } from "../../Core/Widgets/StormObject";
 import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
 import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollView";
 import { EBorder } from "../../Core/Widgets/Anchor";
+import { BehaviourAttributes } from './Behaviours/BehaviourAttributes';
 import {
 	RendererContainer,
 	Border
 } from "../../Core/Renderer/Virtual/RendererContainer";
 export class AttribbutesZone {
+	behaviourAttributes:BehaviourAttributes
 	init(parent: StormObject) {
 		let container = new StormObject();
 		container.setRenderer(RendererContainer);
@@ -39,5 +41,11 @@ export class AttribbutesZone {
 		scroll.transfrom.Parent = parent.transfrom;
 		scroll.getRenderer<RendererScrollView>().showVerticalScrolBar = true;
 		scroll.getRenderer<RendererContainer>().background.setHex(0x252526);
+		scroll.addBehaviour(BehaviourAttributes);
+		this.behaviourAttributes=scroll.getBehaviour<BehaviourAttributes>(BehaviourAttributes)
+	}
+
+	onFocustItem(item){
+		this.behaviourAttributes.onFocustItem(item)
 	}
 }

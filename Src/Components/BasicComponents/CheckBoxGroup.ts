@@ -1,7 +1,7 @@
 import { StormCheckBox } from "./StormCheckBox";
 import { StormComponent } from "../../Core/StormComponent";
 import { ComponentList } from "./ComponentList";
-@ComponentList('Components/CheckBoxGroup')
+@ComponentList("Components/CheckBoxGroup")
 export class CheckBoxGroup extends StormComponent {
 	checkBoxes: StormCheckBox[] = [];
 	canCheckCount = 1;
@@ -11,7 +11,7 @@ export class CheckBoxGroup extends StormComponent {
 
 	start() {
 		for (const checkBox of this.checkBoxes) {
-			checkBox.action.onChange.Regist(this.handleItemChange);
+			checkBox.action.onChange.Regist(this.handleItemChange, null);
 		}
 	}
 

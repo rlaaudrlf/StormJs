@@ -280,7 +280,7 @@ export class WebRenderer extends Renderer {
 			// this.parent.removeChild(this.root.element);
 			this.RenderImp(renderer.stormObject);
 			// this.parent.appendChild(this.root.element);
-		});
+		},null);
 
 		WebEvent.reigst(this.root.element, renderer.stormObject);
 		Updater.instance.start();

@@ -9,7 +9,6 @@ export class UIEventListhenner extends StormComponent
 	OnMouseDown: EventManager = new EventManager();
 
 	onClick(inputEvent: InputEvent) {
-		console.log(inputEvent)
 		this.OnClick.Call(this, inputEvent);
 	}
 	onMouseUP(inputEvent: InputEvent) {

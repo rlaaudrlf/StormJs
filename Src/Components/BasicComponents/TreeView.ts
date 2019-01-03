@@ -3,125 +3,251 @@ import { EventManager } from "../../Core/EventManager";
 import { StormObject } from "../../Core/Widgets/StormObject";
 import { Vector2 } from "../../Core/Math/Vector2";
 import { UIEventListhenner } from "./UIEventListhenner";
-import { Transform } from "../../Core/Attributes/Transform";
+import { isArray } from "util";
 
 export class TreeView extends StormComponent {
 	datas: any;
 	zonePrefab;
 	leafPrefab;
-	verticalPadding;
-	leafPadding;
+	verticalPadding: number = 0;
+	leafPadding: number = 0;
 	itemHeight: number = 30;
 	itemwidth: number = 30;
 	onItemClick: EventManager = new EventManager();
-	isZoneItem: EventManager = new EventManager();
-	private items: StormObject[] = [];
-	currentMaxZhanKai = 0;
-
-	computeSelfSize(itemCount, zhanKaiCount) {
-		this.transform.Height =
-			this.itemHeight * itemCount.length +
-			this.verticalPadding * (itemCount.length - 1);
-		this.transform.Width = zhanKaiCount * this.leafPadding + this.itemwidth;
-	}
+	getChildData: EventManager = new EventManager();
+	items: TreeItem[] = [];
 
 	handleItemClick(target, value, value2) {
-		this.onItemClick.Call(this);
+		let obj = <TreeItem>target;
 
-		let obj = <StormObject>target;
+		let treeItem = obj;
 
-		let treeItem = obj.getBehaviour<TreeItem>(TreeItem);
-
-		if (treeItem.isZhanKai) {
-			treeItem.isZhanKai = false;
-
-			for (const child of treeItem.transform.Children) {
-				this.items.remove(child.StormObject);
-				child.StormObject.destroy();
-			}
-			this.currentMaxZhanKai = Math.max(
-				this.currentMaxZhanKai,
-				treeItem.zhanKaiCount
-			);
-			this.computeSelfSize(this.items.length, this.currentMaxZhanKai);
-		} else {
-			treeItem.zhanKaiCount;
-			this.createItems(
-				treeItem.data,
-				treeItem.zhanKaiCount + 1,
-				treeItem.transform
-			);
-
-			treeItem.isZhanKai = true;
-
-			this.currentMaxZhanKai = Math.max(
-				this.currentMaxZhanKai,
-				treeItem.zhanKaiCount + 1
-			);
-			this.computeSelfSize(this.items.length, this.currentMaxZhanKai);
-		}
+		this.onItemClick.Call(this, treeItem.data);
 	}
 
-	createItems(datas, zhanKaiCount, parent: Transform) {
+	setCompData(datas) {
+		if (!isArray(datas)) {
+			return;
+		}
+
+		this.datas = datas;
+
+		for (const item of this.items) {
+			item.destroy();
+		}
+
 		for (let index = 0; index < datas.length; index++) {
 			let data = datas[index];
-			let item: StormObject;
-			let isZone = false;
-			if (this.isZoneItem.Call(this, data)) {
-				item = StormObject.Instantiate(this.zonePrefab);
-				isZone = true;
-			} else {
-				item = StormObject.Instantiate(this.leafPrefab);
-			}
-
-			item.transfrom.Parent = parent;
-
-			item.transfrom.Width = this.transform.Width;
-			item.transfrom.Height = this.itemHeight;
-			item.transfrom.LocalPositon = new Vector2(
-				0,
-				this.itemHeight * index + index * this.verticalPadding
-			);
-
-			let treeItem = item.addBehaviour(TreeItem);
-			treeItem.isZoneItem = isZone;
-			treeItem.zhanKaiCount = zhanKaiCount;
-
-			let behaivours = item.getBehaviours();
-
-			let uiEvent: UIEventListhenner = item.getBehaviour<UIEventListhenner>(
-				UIEventListhenner
-			);
-
-			if (uiEvent == undefined) {
-				uiEvent = item.addBehaviour(UIEventListhenner);
-			}
-			uiEvent.OnClick.remove((target, value, value2) => {
-				this.handleItemClick(target, value, value2);
-			});
-			uiEvent.OnClick.Regist((target, value, value2) => {
-				this.handleItemClick(target, value, value2);
-			}, data);
-
-			for (const behaivour of behaivours) {
-				if (behaivour instanceof StormComponent) {
-					behaivour.setCompData(data);
-				}
-			}
-
+			let item = new TreeItem();
+			item.treeView = this;
+			item.data = data;
+			item.index = index;
+			item.createSelf();
 			this.items.push(item);
 		}
 	}
-
-	setData(data: any) {
-		this.datas = data;
-		this.createItems(data, 0, this.transform);
-	}
 }
 
-export class TreeItem extends StormComponent {
+export class TreeItem {
 	isZoneItem: boolean = false;
-	isZhanKai: boolean = false;
+	isExpand: boolean = false;
 	data;
-	zhanKaiCount = 0;
+	expandCount: number = 0;
+	children: TreeItem[] = [];
+	parent: TreeItem | null = null;
+	item: StormObject;
+	treeView: TreeView | null;
+	isExpanded: boolean = false;
+	index: number = 0;
+	width: number;
+	height: number;
+
+	expand() {
+		if (this.isExpand) {
+			return;
+		}
+
+		this.expandImp();
+
+		for (const child of this.children) {
+			if (child.isExpand) {
+				child.expand();
+			}
+		}
+	}
+
+	resizeImp(treeItem) {
+		if (treeItem.isExpand) {
+			treeItem.width = treeItem.treeView.itemwidth;
+			let height = treeItem.treeView.itemHeight;
+
+			for (const child of treeItem.children) {
+				height += treeItem.treeView.verticalPadding;
+
+				child.item.transfrom.LocalPositon = new Vector2(
+					treeItem.treeView.leafPadding,
+					height
+				);
+
+				height += child.height;
+				treeItem.treeView.transform.Width = Math.max(
+					treeItem.width,
+					child.width + treeItem.treeView.leafPadding
+				);
+			}
+
+			treeItem.height = height;
+		} else {
+			treeItem.width = treeItem.treeView.itemwidth;
+			treeItem.height = treeItem.treeView.itemHeight;
+		}
+	}
+
+	resizeSelf() {
+		this.resizeImp(this);
+
+		if (this.parent == null) {
+			this.treeView.transform.Width = 0;
+			let height = 0;
+
+			for (const child of this.treeView.items) {
+				child.item.transfrom.LocalPositon = new Vector2(0, height);
+				height += this.treeView.verticalPadding;
+				height += child.height;
+				this.treeView.transform.Width = Math.max(
+					this.treeView.transform.Width,
+					child.width
+				);
+			}
+
+			this.treeView.transform.Height = height;
+		} else {
+			this.resizeImp(this.parent);
+		}
+	}
+
+	expandImp() {
+		if (this.isExpanded) {
+			for (const child of this.children) {
+				child.createSelf();
+			}
+		} else {
+			for (let index = 0; index < this.data.length; index++) {
+				let data = this.data[index];
+				let item = new TreeItem();
+				item.treeView = this.treeView;
+				item.data = data;
+				item.index = index;
+				item.parent = this;
+				item.createSelf();
+				this.children.push(item);
+			}
+
+			this.isExpanded = true;
+		}
+
+		this.isExpand = true;
+		this.resizeSelf();
+	}
+
+	closeImp() {
+		for (const child of this.children) {
+			child.item.destroy();
+			child.item = null;
+		}
+
+		this.isExpand = false;
+		this.resizeSelf();
+	}
+
+	destroy() {
+		this.close();
+		this.item.destroy();
+	}
+
+	close() {
+		if (!this.isExpand) {
+			return;
+		}
+
+		this.closeImp();
+
+		for (const child of this.children) {
+			child.close();
+		}
+	}
+
+	createSelf() {
+		let item: StormObject;
+		let childDatas = this.treeView.getChildData.Call(this, this.data);
+		if (childDatas != null && isArray(childDatas)) {
+			this.isZoneItem = true;
+			item = StormObject.Instantiate(this.treeView.zonePrefab);
+		} else {
+			item = StormObject.Instantiate(this.treeView.leafPrefab);
+		}
+
+		if (this.parent == null) {
+			item.transfrom.Parent = this.treeView.transform;
+		} else {
+			item.transfrom.Parent = this.parent.item.transfrom;
+		}
+
+		item.transfrom.Width = this.treeView.itemwidth;
+		item.transfrom.Height = this.treeView.itemHeight;
+		this.width = item.transfrom.Width;
+		this.height = item.transfrom.Height;
+
+		if (this.parent == null) {
+			item.transfrom.LocalPositon = new Vector2(
+				0,
+				this.treeView.itemHeight * this.index +
+					this.index * this.treeView.verticalPadding
+			);
+		} else {
+			item.transfrom.LocalPositon = new Vector2(
+				this.treeView.leafPadding,
+				this.treeView.itemHeight * this.index +
+					this.index * this.treeView.verticalPadding +
+					this.treeView.itemHeight
+			);
+		}
+
+		this.item = item;
+
+		let behaivours = item.getBehaviours();
+
+		let uiEvent: UIEventListhenner = item.getBehaviour<UIEventListhenner>(
+			UIEventListhenner
+		);
+
+		if (uiEvent == undefined) {
+			uiEvent = item.addBehaviour(UIEventListhenner);
+		}
+		uiEvent.OnClick.remove((target, value, value2) => {
+			this.treeView.handleItemClick(this, value, value2);
+		});
+
+		uiEvent.OnClick.Regist(
+			(target, value, value2) => {
+				if (this.isZoneItem) {
+					if (this.isExpand) {
+						this.close();
+					} else {
+						this.expand();
+					}
+				}
+
+				this.treeView.handleItemClick(this, value, value2);
+			},
+			null,
+			this.data
+		);
+
+		for (const behaivour of behaivours) {
+			if (behaivour instanceof StormComponent) {
+				behaivour.setCompData(this.data);
+			}
+		}
+	}
 }

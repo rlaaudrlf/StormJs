@@ -47,5 +47,9 @@ export class MiddleArea {
 
 		let attribbutesZone = new AttribbutesZone();
 		attribbutesZone.init(right);
+
+		hierachy.onItemClick.Regist((sender, data) => {
+			attribbutesZone.onFocustItem(data);
+		}, null);
 	}
 }

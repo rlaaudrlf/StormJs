@@ -8,20 +8,8 @@ import { PanelLog } from "./Editor/PanelLog";
 import { PanelRuntime } from "./Editor/PanelRuntime";
 import { PanelExplorer } from "./Editor/PanelExplorer/PanelExplorer";
 import { PanelMain } from "./Editor/PanelMain";
-import { ElementBase } from "./Components/ElementBase";
-import { StormObject } from "./Core/Widgets/StormObject";
-import { RendererContainer } from "./Core/Renderer/Virtual/RendererContainer";
-import { WebRenderer } from "./Core/Renderer/Web/WebRenderer";
-import { RendererPanel } from "./Core/Renderer/Virtual/RendererPanel";
-import { RendererTarget } from "./Core/Renderer/RendererTarget";
-import { Enviroment } from "./Components/Enviroment";
-import { WebLoader } from "./Core/Renderer/Web/WebLoader";
-import { Vector2 } from "./Core/Math/Vector2";
-import { Behaviourtest } from "./Editor/Behaviours/NavBarButtonGroup";
-import { StormStackList } from "./Components/BasicComponents/StormStackList";
-import { EBorder } from "./Core/Widgets/Anchor";
-import { Dictionary } from "./Core/Utils/Dictionary ";
 import { GUID } from "./Core/Utils/GUID";
+import { EventManager } from "./Core/EventManager";
 require("./Core/Utils/ArrrayUtils");
 
 export class Main {
@@ -44,6 +32,7 @@ export class Main {
 		let a = {};
 		a[id.toString()] = id;
 		console.log(a[id.toString()]);
+
 
 		// Enviroment.rendererTarget = RendererTarget.Web;
 		// new WebLoader().load();

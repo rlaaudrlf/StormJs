@@ -2,7 +2,6 @@ import { StormObject } from "./Widgets/StormObject";
 import { Vector2 } from "./Math/Vector2";
 import { InputEvent } from "./InputEvent";
 import { Behaviour } from "./Behaviours";
-import { StormStackList } from "../Components/BasicComponents/StormStackList";
 
 export class IClickable {
 	onClick(inputEvent: InputEvent) {}
@@ -35,13 +34,21 @@ export class StormIter {
 	stormObject: StormObject;
 }
 
+class InputTargetFinder {
+	behaviours: Behaviour[] = [];
+	objects: StormObject[] = [];
+}
+
 export class Input {
 	public static instance: Input = new Input();
 
 	private constructor() {}
 
-	FindTopObject<T>(stormObject: StormObject, inputEvent: InputEvent): T[] {
-		let result = [];
+	FindTopObject<T>(
+		stormObject: StormObject,
+		inputEvent: InputEvent
+	): InputTargetFinder {
+		let result = new InputTargetFinder();
 		let stormList: StormObject[] = [];
 		let IterStack: StormIter[] = [];
 		let currentStorm = stormObject;
@@ -75,14 +82,21 @@ export class Input {
 			currentStormIter = stack.pop();
 			let behaviours = currentStormIter.stormObject.getBehaviours();
 
-			for (const behaviour of behaviours) {
-				if (
-					behaviour.transform
-						.getGlobalRect()
-						.IsIncluded(new Vector2(inputEvent.x, inputEvent.y))
-				) {
-					result.push(behaviour);
+			if (
+				currentStormIter.stormObject.transfrom
+					.getGlobalRect()
+					.IsIncluded(new Vector2(inputEvent.x, inputEvent.y))
+			) {
+				for (const behaviour of behaviours) {
+					if (
+						behaviour.transform
+							.getGlobalRect()
+							.IsIncluded(new Vector2(inputEvent.x, inputEvent.y))
+					) {
+						result.behaviours.push(behaviour);
+					}
 				}
+				result.objects.push(currentStormIter.stormObject);
 			}
 
 			currentStormIter = stack.pop();
@@ -93,8 +107,9 @@ export class Input {
 
 	HandleClick(stormObject: StormObject, inputEvent: InputEvent) {
 		let objs = this.FindTopObject<IClickable>(stormObject, inputEvent);
-		inputEvent.objects = <Behaviour[]>(<any>objs);
-		let obj = objs
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IClickable[]>(<any>inputEvent.behaviours))
 			.filter(item => {
 				return item.onClick != undefined;
 			})
@@ -107,8 +122,9 @@ export class Input {
 
 	HandleMouseDown(stormObject: StormObject, inputEvent: InputEvent) {
 		let objs = this.FindTopObject<IMouseDown>(stormObject, inputEvent);
-		inputEvent.objects = <Behaviour[]>(<any>objs);
-		let obj = objs
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IMouseDown[]>(<any>inputEvent.behaviours))
 			.filter(item => {
 				return item.onMouseDown != undefined;
 			})
@@ -121,8 +137,9 @@ export class Input {
 
 	HandleMouseUp(stormObject: StormObject, inputEvent: InputEvent) {
 		let objs = this.FindTopObject<IMouseUp>(stormObject, inputEvent);
-		inputEvent.objects = <Behaviour[]>(<any>objs);
-		let obj = objs
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IMouseUp[]>(<any>inputEvent.behaviours))
 			.filter(item => {
 				return item.onMouseUP != undefined;
 			})

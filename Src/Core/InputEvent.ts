@@ -1,4 +1,5 @@
 import { Behaviour } from "./Behaviours";
+import { StormObject } from "./Widgets/StormObject";
 export const enum MouseKey {
 	left = 0,
 	middle,
@@ -9,5 +10,6 @@ export class InputEvent {
 	x: number;
 	y: number;
 	mouseKey: MouseKey;
-	objects: Behaviour[] = [];
+	behaviours: Behaviour[] = [];
+	objects: StormObject[] = [];
 }

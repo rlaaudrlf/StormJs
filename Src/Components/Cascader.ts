@@ -98,9 +98,13 @@ export class Cascader extends StormComponent {
 			uiEvent.OnClick.remove((target, value, value2) => {
 				this.handleItemClick(target, value, value2);
 			});
-			uiEvent.OnClick.Regist((target, value, value2) => {
-				this.handleItemClick(target, value, value2);
-			}, data);
+			uiEvent.OnClick.Regist(
+				(target, value, value2) => {
+					this.handleItemClick(target, value, value2);
+				},
+				null,
+				data
+			);
 
 			for (const behaivour of behaivours) {
 				if (behaivour instanceof StormComponent) {

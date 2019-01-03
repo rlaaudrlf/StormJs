@@ -18,7 +18,7 @@ export class Storm {
 
 		(<BindData>bindmodel).___eventListener.Regist(() => {
 			element.textContent = textParser.parse(bindmodel);
-		});
+		}, null);
 		this.model = bindmodel;
 		element.textContent = textParser.parse(bindmodel);
 	}

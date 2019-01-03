@@ -6,12 +6,14 @@ import {
 import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollView";
 import { EBorder } from "../../Core/Widgets/Anchor";
 import { BehaviourHierachy } from "./Behaviours/BehaviourHierachy";
+import { EventManager } from "../../Core/EventManager";
 import {
 	RendererContainer,
 	Border
 } from "../../Core/Renderer/Virtual/RendererContainer";
 
 export class Hierachy {
+	onItemClick: EventManager = new EventManager();
 	init(parent: StormObject) {
 		let container = new StormObject();
 		container.setRenderer(RendererContainer);
@@ -45,12 +47,16 @@ export class Hierachy {
 		scroll.getRenderer<RendererScrollView>().showVerticalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().background.setHex(0x252526);
 		scroll.addBehaviour(BehaviourHierachy);
+		scroll
+			.getBehaviour<BehaviourHierachy>(BehaviourHierachy)
+			.onItemClick.Regist((sender, data) => {
+				this.onItemClick.Call(this, data);
+			}, null);
 
-
-		let hierachy = new StormObject();
-		hierachy.setRenderer(RendererContainer);
-		hierachy.transfrom.Parent = scroll.transfrom;
-		hierachy.transfrom.anchor.left.target = scroll.transfrom;
-		hierachy.transfrom.anchor.right.target = scroll.transfrom;
+		// let hierachy = new StormObject();
+		// hierachy.setRenderer(RendererContainer);
+		// hierachy.transfrom.Parent = scroll.transfrom;
+		// hierachy.transfrom.anchor.left.target = scroll.transfrom;
+		// hierachy.transfrom.anchor.right.target = scroll.transfrom;
 	}
 }

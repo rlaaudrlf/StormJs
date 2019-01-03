@@ -4,6 +4,7 @@ import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollVi
 import { EBorder } from "../../Core/Widgets/Anchor";
 import { RendererContainer, Border } from '../../Core/Renderer/Virtual/RendererContainer';
 import { Vector2 } from '../../Core/Math/Vector2';
+import { BehaviourWorkZone } from './Behaviours/BehaviourWorkZone';
 export class WorkZone {
 	init(parent: StormObject) {
 		let container = new StormObject();
@@ -40,7 +41,7 @@ export class WorkZone {
 		scroll.getRenderer<RendererScrollView>().showVerticalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().showHorizontalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().background.setHex(0x252526);
-
+		scroll.addBehaviour(BehaviourWorkZone);
 
 
 		let test=new StormObject()
