@@ -72,14 +72,19 @@ export class Transform {
 
 	destroy() {
 		if (this.parent != null) {
-			this.parent.Children.remove(this);
+			this.parent.child.remove(this);
 		}
 
 		this.parent = null;
 	}
 
-	get Children() {
-		return this.child;
+	get Children(): Transform[] {
+		let result = [];
+		for (const child of this.child) {
+			result.push(child);
+		}
+
+		return result;
 	}
 
 	set StormObject(value) {

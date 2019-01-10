@@ -108,8 +108,6 @@ export class StormObject {
 	}
 
 	destroy() {
-		this.transfrom.destroy();
-
 		for (const child of this.transfrom.Children) {
 			child.StormObject.destroy();
 		}
@@ -121,6 +119,8 @@ export class StormObject {
 		if (this.renderer != undefined) {
 			this.renderer.destroy();
 		}
+
+		this.transfrom.destroy();
 	}
 
 	static Instantiate(widget: StormObject): StormObject {
@@ -149,4 +149,6 @@ export class StormObject {
 
 export class DragDrop {
 	id: string;
+	canDrag: boolean = false;
+	canDropId: string[] = [];
 }

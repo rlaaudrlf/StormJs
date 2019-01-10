@@ -58,7 +58,7 @@ export class WebRenderer extends Renderer {
 		}
 	}
 
-	private executeBehaviourLateUpdate(stormObject: StormObject) {
+	private executeBehaviourUpdate(stormObject: StormObject) {
 		let stormList: StormObject[] = [];
 		stormList.push(stormObject);
 
@@ -106,7 +106,7 @@ export class WebRenderer extends Renderer {
 		}
 	}
 
-	private executeBehaviour(stormObject: StormObject) {
+	private executeInitBehaviour(stormObject: StormObject) {
 		let stormList: StormObject[] = [];
 		stormList.push(stormObject);
 
@@ -159,8 +159,8 @@ export class WebRenderer extends Renderer {
 		stormList.push(stormObject);
 		let currentStorm = stormList.pop();
 
-		this.executeBehaviour(stormObject);
-		this.executeBehaviourLateUpdate(stormObject);
+		this.executeInitBehaviour(stormObject);
+		this.executeBehaviourUpdate(stormObject);
 
 		stormObject.transfrom.updateWorldTransform();
 		this.executeUpdateAnchor(stormObject);

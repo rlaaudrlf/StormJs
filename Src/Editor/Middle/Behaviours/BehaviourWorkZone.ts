@@ -13,7 +13,8 @@ export class BehaviourWorkZone extends StormComponent {
 	}
 
 	HandleItemClick(sender, data) {
-		this.onItemClick.Call(this, data);
+        this.onItemClick.Call(this, data);
+        
 	}
 
 	onFocustItem(item) {

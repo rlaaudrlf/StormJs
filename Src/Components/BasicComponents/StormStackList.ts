@@ -3,7 +3,6 @@ import { ListAlignment } from "../../Core/Widgets/ListAlignment";
 import { StormComponent } from "../../Core/StormComponent";
 import { Vector2 } from "../../Core/Math/Vector2";
 import { UIEventListhenner } from "./UIEventListhenner";
-import { StyleAttributes } from "../../Core/Attributes/StyleAttributes";
 import { EventManager } from "../../Core/EventManager";
 
 export class StormStackList extends StormComponent {
