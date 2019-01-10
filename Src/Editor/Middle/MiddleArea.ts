@@ -4,6 +4,7 @@ import { EBorder } from "../../Core/Widgets/Anchor";
 import { Hierachy } from "./Hierachy";
 import { WorkZone } from "./WorkZone";
 import { AttribbutesZone } from "./AttribbutesZone";
+import { InputEvent } from '../../Core/InputEvent';
 export class MiddleArea {
 	init(parent: StormObject) {
 		let middle = new StormObject();
@@ -48,8 +49,8 @@ export class MiddleArea {
 		let attribbutesZone = new AttribbutesZone();
 		attribbutesZone.init(right);
 
-		hierachy.onItemClick.Regist((sender, data) => {
-			attribbutesZone.onFocustItem(data);
+		workZone.onItemClick.Regist((sender, data) => {
+			attribbutesZone.onFocustItem((<InputEvent>data).objects[1]);
 		}, null);
 	}
 }

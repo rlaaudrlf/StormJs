@@ -2,10 +2,15 @@ import { StormObject } from "../../Core/Widgets/StormObject";
 import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
 import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollView";
 import { EBorder } from "../../Core/Widgets/Anchor";
-import { RendererContainer, Border } from '../../Core/Renderer/Virtual/RendererContainer';
-import { Vector2 } from '../../Core/Math/Vector2';
-import { BehaviourWorkZone } from './Behaviours/BehaviourWorkZone';
+import {
+	RendererContainer,
+	Border
+} from "../../Core/Renderer/Virtual/RendererContainer";
+import { Vector2 } from "../../Core/Math/Vector2";
+import { BehaviourWorkZone } from "./Behaviours/BehaviourWorkZone";
+import { EventManager } from "../../Core/EventManager";
 export class WorkZone {
+	onItemClick: EventManager = new EventManager();
 	init(parent: StormObject) {
 		let container = new StormObject();
 		container.setRenderer(RendererContainer);
@@ -24,7 +29,7 @@ export class WorkZone {
 
 		label.transfrom.Parent = parent.transfrom;
 		label.getRenderer<RendererLabel>().text = "拖放区";
-		label.getRenderer<RendererLabel>().color.setHex(0xeeeeee)
+		label.getRenderer<RendererLabel>().color.setHex(0xeeeeee);
 		label.transfrom.anchor.top.target = parent.transfrom;
 		label.transfrom.Height = 30;
 		label.transfrom.anchor.left.target = parent.transfrom;
@@ -43,10 +48,14 @@ export class WorkZone {
 		scroll.getRenderer<RendererScrollView>().background.setHex(0x252526);
 		scroll.addBehaviour(BehaviourWorkZone);
 
+		let a = scroll.getBehaviour<BehaviourWorkZone>(BehaviourWorkZone);
+		a.onItemClick.Regist((sender, data) => {
+			this.onItemClick.Call(this, data);
+		}, null);
 
-		let test=new StormObject()
-		test.transfrom.Parent=scroll.transfrom
-		test.transfrom.LocalPositon=new Vector2(10,10)
-		test.setRenderer(RendererContainer)
+		let test = new StormObject();
+		test.transfrom.Parent = scroll.transfrom;
+		test.transfrom.LocalPositon = new Vector2(10, 10);
+		test.setRenderer(RendererContainer);
 	}
 }

@@ -14,12 +14,14 @@ export class WebLabel extends WebItemEmpty {
 	labelElement: HTMLElement;
 	init() {
 		this.element = document.createElement("div");
+
 		this.labelElement = document.createElement("div");
 		this.element.appendChild(this.labelElement);
 		this.labelElement.style.padding = "0";
 		this.labelElement.style.margin = "0";
 		this.labelElement.style.position = "relative";
 		this.initElement();
+
 	}
 
 	setStyle() {}

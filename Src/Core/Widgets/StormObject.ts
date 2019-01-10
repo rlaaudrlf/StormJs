@@ -19,7 +19,7 @@ export class StormObject {
 	private active: boolean = true;
 	behaviours: Behaviour[] = [];
 	hash: GUID = new GUID();
-	name: string = "";
+	name: string = "StormObject";
 	transfrom: Transform;
 	drag: DragDrop | null = null;
 	drop: DragDrop | null = null;
@@ -45,9 +45,10 @@ export class StormObject {
 		return renderer;
 	}
 
-	setRenderer<T extends RendererEmpty>(c: new () => T) {
+	setRenderer<T extends RendererEmpty>(c: new () => T): T {
 		this.renderer = new c();
 		this.renderer.setStromObject(this);
+		return <T>this.renderer;
 	}
 
 	getRenderer<T extends RendererEmpty>() {
