@@ -4,7 +4,6 @@ import { InputEvent } from "../../InputEvent";
 export class WebEvent {
 	static reigst(element: HTMLElement, stormObject: StormObject) {
 		element.onclick = (mouseEvent: MouseEvent) => {
-			console.log(mouseEvent)
 			let inputEvent: InputEvent = new InputEvent();
 			inputEvent.x = mouseEvent.x;
 			inputEvent.y = mouseEvent.y;

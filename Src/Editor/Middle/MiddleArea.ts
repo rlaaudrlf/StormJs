@@ -50,7 +50,7 @@ export class MiddleArea {
 		attribbutesZone.init(right);
 
 		workZone.onItemClick.Regist((sender, data) => {
-			attribbutesZone.onFocustItem((<InputEvent>data).objects[1]);
+			attribbutesZone.onFocustItem((<InputEvent>data).objects[0]);
 		}, null);
 	}
 }

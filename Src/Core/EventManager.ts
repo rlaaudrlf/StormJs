@@ -1,8 +1,22 @@
+import { GUID } from "./Utils/GUID";
+let currentCallers = {};
+let currentCaller: EventManager;
 export class EventManager {
 	callbacks: CallbackInfo[] = [];
 	onRegist: EventManager | null = null;
+	hash: GUID = new GUID();
 
 	public Call(sender: any, ...datas: any[] | undefined) {
+		if (currentCallers[this.hash.toString()] != undefined) {
+			return;
+		}
+
+		if (currentCaller == undefined) {
+			currentCaller = this;
+		}
+
+		currentCallers[this.hash.toString()] = 1;
+
 		let tempCallback: CallbackInfo[] = [];
 		for (const callbackInfo of this.callbacks) {
 			tempCallback.push(callbackInfo);
@@ -39,6 +53,11 @@ export class EventManager {
 					);
 				}
 			}
+		}
+
+		if (currentCaller.hash.toString() == this.hash.toString()) {
+			currentCaller = undefined;
+			currentCallers = [];
 		}
 
 		return result;

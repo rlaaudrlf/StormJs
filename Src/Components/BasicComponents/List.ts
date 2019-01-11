@@ -22,7 +22,7 @@ export class List extends StormComponent {
 	}
 
 	setData(data: any) {
-		this.data = <any[] | null>DoubleBind.DataToBind(data);
+		this.data = <any[] | null>(<any>DoubleBind.DataToBind(data));
 		this.render();
 	}
 

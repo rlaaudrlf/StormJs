@@ -63,5 +63,6 @@ export class WorkZone {
 		test.transfrom.Parent = scroll.transfrom;
 		test.transfrom.LocalPositon = new Vector2(100, 10);
 		test.setRenderer(RendererText);
+		test.name='11123'
 	}
 }

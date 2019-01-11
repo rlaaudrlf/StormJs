@@ -1,8 +1,17 @@
 interface Array<T> {
+	addRange(list: T[]);
 	remove(T: any): Array<T>;
 	first(): T;
 	copy(): T[];
 }
+
+Array.prototype.addRange = function<T>(this: T[], list: T[]) {
+	for (const item of list) {
+		this.push(item);
+	}
+
+	return this;
+};
 
 Array.prototype.remove = function<T>(this: T[], element: T): T[] {
 	var index = this.indexOf(element);

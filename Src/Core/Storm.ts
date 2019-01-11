@@ -16,11 +16,11 @@ export class Storm {
 		var bindmodel = DoubleBind.DataToBind(model);
 		stormData.data = bindmodel;
 
-		(<BindData>bindmodel).___eventListener.Regist(() => {
-			element.textContent = textParser.parse(bindmodel);
-		}, null);
-		this.model = bindmodel;
-		element.textContent = textParser.parse(bindmodel);
+		// (<BindData>bindmodel).___eventListener.Regist(() => {
+		// 	element.textContent = textParser.parse(bindmodel);
+		// }, null);
+		// this.model = bindmodel;
+		// element.textContent = textParser.parse(bindmodel);
 	}
 
 	getModel() {

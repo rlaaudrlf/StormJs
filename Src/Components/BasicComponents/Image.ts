@@ -12,7 +12,7 @@ export class Image extends StormComponent {
 	src: string = "";
 
 	setData(data: any) {
-		this.src = <string>DoubleBind.DataToBind(data);
+		this.src = data;
 		this.render();
 	}
 

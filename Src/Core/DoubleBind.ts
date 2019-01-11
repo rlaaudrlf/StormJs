@@ -1,223 +1,296 @@
 ﻿import { EventManager } from "./EventManager";
 import { isArray } from "util";
+import { GUID } from "./Utils/GUID";
+import { StormObject } from "./Widgets/StormObject";
 
-export class BindEvent {
-	path: string | null = null;
-	value: object | number | string | boolean | null = null;
-	action: string | null = null;
-	key: string | number | null = null;
-}
+// export class BindDataImpl {
+// 	static FindFormPath(dict: BindData, path: string) {
+// 		let paths = path.split["."];
 
-export interface Dict extends Object {
-	setValue(key: any, value: any): any;
-}
+// 		let result = dict;
 
-export interface BindData extends Dict {
-	___IsBindData: boolean;
-	___eventListener: EventManager;
-	___path: string;
-	___timeOut: any;
-	___Cached: BindEvent[];
-	___parentEvent: EventManager;
-	___Root: object | string | any[] | null;
-	___timeOutFunc: () => void | null;
-	FindFromPath: () => void;
-}
+// 		for (const p of paths) {
+// 			result = result[p];
+// 		}
 
-export class DictImpl {
-	static Implement(dict: BindData) {
-		dict.setValue = (key, value) => {
-			dict[key] = value;
-			BindDataImpl.defineProperty(dict, dict, key);
-
-			let bindEvent = new BindEvent();
-			bindEvent.action = "addNew";
-			bindEvent.value = value;
-			dict.___eventListener.Call(bindEvent);
-			if (dict.___parentEvent != null) {
-				dict.___parentEvent.Call(bindEvent);
-			}
-		};
-	}
-}
-
-export class BindDataImpl {
-	static FindFormPath(dict: BindData, path: string) {
-		let paths = path.split["."];
-
-		let result = dict;
-
-		for (const p of paths) {
-			result = result[p];
-		}
-
-		return result;
-	}
-
-	static Implement(
-		dict: BindData,
-		path: string,
-		eventDispather: EventManager | null
-	) {
-		dict.___eventListener = new EventManager();
-		dict.___path = path;
-		dict.___timeOut = null;
-		dict.___Cached = [];
-		dict.___IsBindData = true;
-		dict.FindFromPath = () => {
-			return BindDataImpl.FindFormPath(<BindData>dict.___Root, dict.___path);
-		};
-
-		if (path == "") {
-			dict.___Root = null;
-		} else {
-			dict.___Root = dict.___Root;
-		}
-
-		if (eventDispather != null) {
-			dict.___parentEvent = eventDispather;
-		}
-
-		DictImpl.Implement(dict);
-	}
-
-	static defineProperty(object: any, target: BindData, key: string) {
-		Object.defineProperty(object, key, {
-			set: newValue => {
-				object["_____!" + key] = newValue;
-				let newPath = target.___path + key;
-				let bindEvent = new BindEvent();
-				bindEvent.path = newPath;
-				bindEvent.key = key;
-				bindEvent.value = newValue;
-				bindEvent.action = "set";
-				target.___Cached.push(bindEvent);
-				target.___timeOutFunc = () => {
-					target.___eventListener.Call(target.___Cached);
-					if (target.___parentEvent != null) {
-						target.___parentEvent.Call(target.___Cached);
-					}
-
-					target.___Cached = [];
-					target.___timeOut = null;
-					target.___timeOutFunc = <any>null;
-				};
-
-				if (target.___timeOut != null) {
-					clearTimeout(target.___timeOut);
-				}
-
-				target.___timeOut = setTimeout(() => {
-					if (target.___timeOut != undefined) {
-						target.___timeOutFunc();
-					}
-				}, 100);
-			},
-			get: () => {
-				if (target.___timeOut != null) {
-					clearTimeout(target.___timeOut);
-				}
-
-				if (target.___timeOutFunc != null) {
-					let func = target.___timeOutFunc;
-					target.___timeOutFunc = null;
-					func();
-				}
-
-				return object["_____!" + key];
-			}
-		});
-	}
-}
-
-export class BindArrayImpl {
-	static Implement(array: any[]) {
-		let push = array.push;
-		let pop = array.pop;
-		let shift = array.shift;
-		let unshift = array.unshift;
-
-		let dict = <BindData>(<Object>array);
-
-		array.push = (...items) => {
-			let bindEvent = new BindEvent();
-			bindEvent.action = "push";
-			bindEvent.value = items;
-
-			dict.___eventListener.Call(bindEvent);
-			if (dict.___parentEvent != null) {
-				dict.___parentEvent.Call(bindEvent);
-			}
-
-			return push.call(array, ...items);
-		};
-
-		array.pop = () => {
-			let bindEvent = new BindEvent();
-			bindEvent.action = "push";
-			dict.___eventListener.Call(bindEvent);
-			if (dict.___parentEvent != null) {
-				dict.___parentEvent.Call(bindEvent);
-			}
-			return pop.call(array);
-		};
-
-		array.shift = () => {
-			let bindEvent = new BindEvent();
-			bindEvent.action = "push";
-			dict.___eventListener.Call(bindEvent);
-			if (dict.___parentEvent != null) {
-				dict.___parentEvent.Call(bindEvent);
-			}
-			return shift.call(array);
-		};
-
-		array.unshift = (...items) => {
-			let bindEvent = new BindEvent();
-			bindEvent.action = "push";
-			bindEvent.value = items;
-			dict.___eventListener.Call(bindEvent);
-			if (dict.___parentEvent != null) {
-				dict.___parentEvent.Call(bindEvent);
-			}
-			return unshift.call(array, ...items);
-		};
-	}
-}
+// 		return result;
+// 	}
+// }
 
 export class DoubleBind {
-	static DataToBind(
-		object: object | string | any[],
-		path = "",
-		eventDispather: EventManager | null = null
-	) {
-		let target = <BindData>object;
-
-		if (target.___IsBindData === true) {
-			return object;
+	static DataToBind(obj: object): BindData {
+		if (obj == null) {
+			return null;
 		}
 
-		BindDataImpl.Implement(target, path, eventDispather);
-		if (isArray(object)) {
-			BindArrayImpl.Implement(object);
+		if ((<BindData>obj).___DoubleBind != undefined) {
+			return <BindData>obj;
 		}
-		const keys = Object.keys(object);
-		for (let key of keys) {
-			if (key[0] == "_" && key[1] == "_" && key[2] == "_") {
-				continue;
+
+		let keys = Reflect.ownKeys(obj);
+		let binder = this.MakeDoubleBind(obj);
+
+		if (obj instanceof EventManager) {
+			return binder;
+		}
+
+		binder.___DoubleBind.___CallBackFunc = () => {
+			binder.___DoubleBind.___EventManager.Call(binder);
+		};
+
+		for (const key of keys) {
+			let srcValue = obj[key];
+			let srcValueType = typeof srcValue;
+
+			this.DefineProperty(obj, key, binder, srcValue);
+			if (
+				srcValueType == "object" &&
+				srcValue != null &&
+				!(srcValue instanceof EventManager)
+			) {
+				let subBinder: BindData;
+				if (isArray(srcValue)) {
+					subBinder = this.MakeArrayBinder(srcValue);
+				} else {
+					subBinder = this.DataToBind(srcValue);
+				}
+
+				subBinder.___DoubleBind.___EventManager.Regist(
+					binder.___DoubleBind.___CallBackFunc,
+					null
+				);
+			}
+		}
+
+		this.MakeAddDelete(binder);
+
+		return binder;
+	}
+
+	private static MakeDoubleBind(obj: object): BindData {
+		let binder = <BindData>obj;
+		if (binder.___DoubleBind == undefined) {
+			binder.___DoubleBind = {
+				___EventManager: new EventManager(),
+				___path: "",
+				___CallBackFunc: undefined
+			};
+		}
+
+		return binder;
+	}
+
+	private static MakeAddDelete(binder) {
+		binder.___SetNewValue = (key, value) => {
+			binder[key] = value;
+			this.DefineProperty(binder, key, binder, value);
+			if (
+				typeof value == "object" &&
+				value != null &&
+				!(value instanceof EventManager)
+			) {
+				let subBinder = this.DataToBind(value);
+				subBinder.___DoubleBind.___EventManager.Regist(
+					binder.___DoubleBind.___CallBackFunc,
+					null
+				);
+			}
+			binder.___DoubleBind.___EventManager.Call(binder);
+		};
+
+		binder.___DeleteKeyValue = key => {
+			let value = binder[key];
+			if (typeof value == "object" && value != null) {
+				(<BindData>value).___DoubleBind.___EventManager.remove(
+					binder.___DoubleBind.___CallBackFunc
+				);
+			}
+			binder.___DoubleBind.___EventManager.Call(binder);
+		};
+	}
+
+	private static MakeArrayBinder(srcValue: any[]): BindData {
+		let subBinder = this.DataToBind(srcValue);
+		let push = srcValue.push;
+		srcValue.push = (...items): number => {
+			if (items.length == 0) {
+				return;
+			}
+			for (const item of items) {
+				if (
+					typeof item == "object" &&
+					item != null &&
+					!(item instanceof EventManager)
+				) {
+					let itemBind = this.DataToBind(item);
+					itemBind.___DoubleBind.___EventManager.Regist(
+						subBinder.___DoubleBind.___CallBackFunc,
+						null
+					);
+				}
 			}
 
-			let value = object[key];
-			object["_____!" + key] = value;
+			let value = push.call(srcValue, items);
+
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+			return value;
+		};
+
+		let unshift = srcValue.unshift;
+		srcValue.unshift = (...items): number => {
+			if (items.length == 0) {
+				return;
+			}
+			for (const item of items) {
+				if (
+					typeof item == "object" &&
+					item != null &&
+					!(item instanceof EventManager)
+				) {
+					let itemBind = this.DataToBind(item);
+					itemBind.___DoubleBind.___EventManager.Regist(
+						subBinder.___DoubleBind.___CallBackFunc,
+						null
+					);
+				}
+			}
+			let value = unshift(...items);
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+			return value;
+		};
+
+		let shift = srcValue.shift;
+
+		srcValue.shift = () => {
+			let value = shift();
 
 			if (typeof value == "object" && value != null) {
-				DoubleBind.DataToBind(value, key + "." + path, target.___eventListener);
+				let valueBinder = <BindData>value;
+				valueBinder.___DoubleBind.___EventManager.remove(
+					subBinder.___DoubleBind.___CallBackFunc
+				);
+			}
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+			return value;
+		};
+
+		let pop = srcValue.pop;
+
+		srcValue.pop = () => {
+			let value = pop();
+			if (typeof value == "object" && value != null) {
+				let valueBinder = <BindData>value;
+				valueBinder.___DoubleBind.___EventManager.remove(
+					subBinder.___DoubleBind.___CallBackFunc
+				);
+			}
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+			return value;
+		};
+
+		let first = srcValue.first;
+
+		srcValue.first = () => {
+			let value = first();
+			if (typeof value == "object" && value != null) {
+				let valueBinder = <BindData>value;
+				valueBinder.___DoubleBind.___EventManager.remove(
+					subBinder.___DoubleBind.___CallBackFunc
+				);
+			}
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+			return value;
+		};
+
+		let remove = srcValue.remove;
+
+		srcValue.remove = (item: any) => {
+			remove(item);
+			if (typeof item == "object" && item != null) {
+				let valueBinder = <BindData>item;
+				valueBinder.___DoubleBind.___EventManager.remove(
+					subBinder.___DoubleBind.___CallBackFunc
+				);
+			}
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+			return srcValue;
+		};
+
+		let addRange = srcValue.addRange;
+
+		srcValue.addRange = (list: any[]) => {
+			for (const item of list) {
+				if (
+					typeof item == "object" &&
+					item != null &&
+					!(item instanceof EventManager)
+				) {
+					let itemBind = this.DataToBind(item);
+					itemBind.___DoubleBind.___EventManager.Regist(
+						subBinder.___DoubleBind.___CallBackFunc,
+						null
+					);
+				}
 			}
 
-			BindDataImpl.defineProperty(object, target, key);
+			addRange(list);
+			subBinder.___DoubleBind.___EventManager.Call(subBinder);
+		};
+
+		return subBinder;
+	}
+
+	private static DefineProperty(obj, key, binder: BindData, srcValue) {
+		if (srcValue instanceof GUID) {
+			return;
 		}
 
-		return object;
+		if (isArray(obj) && key == "length") {
+			return;
+		}
+
+		binder.___DoubleBind[key] = srcValue;
+		Object.defineProperty(obj, key, {
+			set: value => {
+				if (binder.___DoubleBind[key] == value) {
+					return;
+				}
+
+				if (value == null || value == undefined) {
+					value = obj.___DoubleBind[key];
+					if (typeof value == "object" && value != null) {
+						let subBinder = <BindData>value;
+						subBinder.___DoubleBind.___EventManager.remove(
+							binder.___DoubleBind.___CallBackFunc
+						);
+					}
+
+					obj.___DoubleBind[key] = null;
+				}
+
+				if (typeof value == "object" && !(value instanceof EventManager)) {
+					let subBinder = this.DataToBind(value);
+
+					subBinder.___DoubleBind.___EventManager.remove(
+						binder.___DoubleBind.___CallBackFunc
+					);
+
+					subBinder.___DoubleBind.___EventManager.Regist(
+						binder.___DoubleBind.___CallBackFunc,
+						null
+					);
+
+					obj.___DoubleBind[key] = subBinder;
+				} else {
+					obj.___DoubleBind[key] = value;
+				}
+
+				binder.___DoubleBind.___EventManager.Call(binder, key, value);
+			},
+			get: () => {
+				return binder.___DoubleBind[key];
+			}
+		});
 	}
 
 	static Bind2Data() {}
@@ -232,11 +305,11 @@ let a = {
 	f: [1, 2, 3]
 };
 
-let db: any = DoubleBind.DataToBind(a);
+let db: any = <BindData>DoubleBind.DataToBind(a);
 
-db.___eventListener.Regist((key: any, value: any) => {
+db.___DoubleBind.___EventManager.Regist((key: any, value: any) => {
 	console.log(key);
-});
+}, null);
 
 db.a = 2;
 db.e.a = 1;
@@ -245,5 +318,16 @@ db.f[0] = 2;
 db.f[0] = 2;
 db.f[0] = 2;
 db.f.push(1);
-db.setValue(1, 1);
 console.log(a);
+
+export interface BindDataInner {
+	___EventManager: EventManager;
+	___path: string;
+	___CallBackFunc: () => void;
+}
+export interface BindData {
+	___DoubleBind: BindDataInner;
+	___SetNewValue: (key: string, value: any) => void;
+	___DeleteKeyValue: (key: string) => void;
+	___SetValueByPath: (path: string, value: any) => void;
+}
