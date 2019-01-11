@@ -8,11 +8,11 @@ export class AutoResizer extends Behaviour {
 		let width = 0;
 		let height = 0;
 		for (const child of this.transform.Children) {
-			width += child.Width;
-			height += child.Height;
+			width = Math.max(width, child.LocalPositon.x + child.Width);
+			height = Math.max(height, child.LocalPositon.y + child.Height);
 		}
 
 		this.transform.Width = width;
-        this.transform.Height = height;
+		this.transform.Height = height;
 	}
 }
