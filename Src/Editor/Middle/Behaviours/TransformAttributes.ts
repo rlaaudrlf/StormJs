@@ -13,7 +13,7 @@ import { ListAlignment } from "../../../Core/Widgets/ListAlignment";
 import { RendererText } from "../../../Core/Renderer/Virtual/RendererText";
 import { Input } from "../../../Core/Input";
 import { Text } from "../../../Components/BasicComponents/Text";
-import { RendererEmpty } from '../../../Core/Renderer/Virtual/RendererEmpty';
+import { RendererEmpty } from "../../../Core/Renderer/Virtual/RendererEmpty";
 export class TransformAttributes {
 	namearea;
 	render(transform: Transform, obj: StormObject) {
@@ -54,18 +54,6 @@ export class TransformAttributes {
 		this.namearea.setCompData("position:");
 
 		sobj = new StormObject();
-		renderer = sobj.setRenderer(RendererLabel);
-		sobj.transfrom.Parent = stack.transfrom;
-		sobj.transfrom.Width = 100;
-		sobj.transfrom.Height = 30;
-		sobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
-		this.namearea = sobj.addBehaviour<Label>(Label);
-		renderer.color.setHex(0xffffff);
-		this.namearea.setCompData(
-			"x:" + obj.transfrom.LocalPositon.x + " y:" + obj.transfrom.LocalPositon.y
-		);
-
-		sobj = new StormObject();
 		sobj.transfrom.Parent = stack.transfrom;
 		sobj.transfrom.Height = 30;
 		sobj.setRenderer(RendererEmpty);
@@ -90,9 +78,9 @@ export class TransformAttributes {
 		insobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
 		this.namearea = insobj.addBehaviour<Text>(Text);
 		// rendererInput.color.setHex(0xffffff);
-        this.namearea.setCompData(123);
-        
-        bbb = new StormObject();
+		this.namearea.setCompData(obj.transfrom.LocalPositon.x);
+
+		bbb = new StormObject();
 		renderer = bbb.setRenderer(RendererLabel);
 		bbb.transfrom.Parent = sobj.transfrom;
 		bbb.transfrom.Width = 30;
@@ -110,7 +98,7 @@ export class TransformAttributes {
 		insobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
 		this.namearea = insobj.addBehaviour<Text>(Text);
 		// rendererInput.color.setHex(0xffffff);
-		this.namearea.setCompData(123);
+		this.namearea.setCompData(obj.transfrom.LocalPositon.y);
 
 		sobj = new StormObject();
 		renderer = sobj.setRenderer(RendererLabel);
