@@ -11,6 +11,7 @@ import { Anchor } from "../../Widgets/Anchor";
 import { RendererPanel } from "../Virtual/RendererPanel";
 import { RendererEmpty } from "../Virtual/RendererEmpty";
 import { Dictionary } from "../../Utils/Dictionary ";
+import { RendererMask } from "../Virtual/RendererMask";
 
 export const enum EStormLifeCycle {
 	awake = 1,
@@ -268,6 +269,16 @@ export class WebRenderer extends Renderer {
 
 	recordTime: number = 0;
 
+	maskCount = 0;
+	masks: StormObject[] = [];
+	setMask(count: number) {
+		this.maskCount = count;
+	}
+
+	getMask(index: number) {
+		return this.masks[index];
+	}
+
 	Render(renderer: RendererPanel) {
 		if (this.parent != undefined) {
 			renderer.transform.Width = this.parent.offsetWidth;
@@ -280,7 +291,16 @@ export class WebRenderer extends Renderer {
 			// this.parent.removeChild(this.root.element);
 			this.RenderImp(renderer.stormObject);
 			// this.parent.appendChild(this.root.element);
-		},null);
+		}, null);
+
+		for (let index = 0; index < this.maskCount; index++) {
+			let mask = new StormObject();
+			mask.name = "MaskLayer";
+			mask.name = "maskLayer" + index;
+			mask.setRenderer(RendererMask);
+			mask.transfrom.Parent = renderer.transform;
+			this.masks.push(mask);
+		}
 
 		WebEvent.reigst(this.root.element, renderer.stormObject);
 		Updater.instance.start();

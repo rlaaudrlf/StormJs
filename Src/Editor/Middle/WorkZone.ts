@@ -9,6 +9,7 @@ import {
 import { Vector2 } from "../../Core/Math/Vector2";
 import { BehaviourWorkZone } from "./Behaviours/BehaviourWorkZone";
 import { EventManager } from "../../Core/EventManager";
+import { RendererText } from "../../Core/Renderer/Virtual/RendererText";
 export class WorkZone {
 	onItemClick: EventManager = new EventManager();
 	init(parent: StormObject) {
@@ -57,5 +58,10 @@ export class WorkZone {
 		test.transfrom.Parent = scroll.transfrom;
 		test.transfrom.LocalPositon = new Vector2(10, 10);
 		test.setRenderer(RendererContainer);
+
+		test = new StormObject();
+		test.transfrom.Parent = scroll.transfrom;
+		test.transfrom.LocalPositon = new Vector2(100, 10);
+		test.setRenderer(RendererText);
 	}
 }

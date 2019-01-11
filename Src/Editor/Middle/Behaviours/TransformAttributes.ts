@@ -10,6 +10,9 @@ import { Label } from "../../../Components/BasicComponents/Label";
 import { LayoutStack } from "../../../Components/BasicComponents/LayoutStack";
 import { AutoResizer } from "../../../Components/BasicComponents/AutoResizer";
 import { ListAlignment } from "../../../Core/Widgets/ListAlignment";
+import { RendererText } from "../../../Core/Renderer/Virtual/RendererText";
+import { Input } from "../../../Core/Input";
+import { Text } from "../../../Components/BasicComponents/Text";
 export class TransformAttributes {
 	namearea;
 	render(transform: Transform, obj: StormObject) {
@@ -60,6 +63,16 @@ export class TransformAttributes {
 		this.namearea.setCompData(
 			"x:" + obj.transfrom.LocalPositon.x + " y:" + obj.transfrom.LocalPositon.y
 		);
+
+		let insobj = new StormObject();
+		let rendererInput = sobj.setRenderer(RendererText);
+		insobj.transfrom.Parent = sobj.transfrom;
+		insobj.transfrom.Width = 100;
+		insobj.transfrom.Height = 30;
+		insobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
+		this.namearea = sobj.addBehaviour<Text>(Text);
+		// rendererInput.color.setHex(0xffffff);
+		this.namearea.setCompData(123);
 
 		sobj = new StormObject();
 		renderer = sobj.setRenderer(RendererLabel);

@@ -83,16 +83,6 @@ export class PanelMain {
 		bottom.transfrom.Parent = panel.transfrom;
 		bottomBar.transfrom.Parent = panel.transfrom;
 
-		let maskLayer = new StormObject();
-		maskLayer.name = "maskLayer";
-		maskLayer.setRenderer(RendererEmpty);
-		maskLayer.transfrom.anchor.left.target = panel.transfrom;
-		maskLayer.transfrom.anchor.right.target = panel.transfrom;
-		maskLayer.transfrom.anchor.top.target = panel.transfrom;
-		maskLayer.transfrom.anchor.bottom.target = panel.transfrom;
-		maskLayer.transfrom.Parent = panel.transfrom;
-		PanelMain.maskLayer = maskLayer;
-
 		let middleArea = new MiddleArea();
 		middleArea.init(middle);
 
@@ -101,6 +91,8 @@ export class PanelMain {
 
 		let wr = new WebRenderer();
 		wr.mount(element.id);
+		wr.setMask(1);
 		wr.Render(panel.getRenderer());
+		PanelMain.maskLayer = wr.getMask(0);
 	}
 }

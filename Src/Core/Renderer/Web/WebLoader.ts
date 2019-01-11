@@ -6,7 +6,8 @@ import { WebLabel } from "./WebLabel";
 import { WebItemEmpty } from "./WebItemEmpty";
 import { WebPage } from "./WebPage";
 import { WebScrollView } from "./WebScrollView";
-import { WebPanel } from './WebPanel';
+import { WebPanel } from "./WebPanel";
+import { WebMask } from "./WebMask";
 
 export class WebLoader {
 	load() {
@@ -18,6 +19,7 @@ export class WebLoader {
 		WebItemEmpty.load();
 		WebPage.load();
 		WebScrollView.load();
-		WebPanel.load()
+		WebPanel.load();
+		WebMask.load();
 	}
 }

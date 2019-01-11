@@ -7,6 +7,7 @@ export const enum RendererType {
 	Text,
 	Page,
 	ScrollView,
-	Panel
+	Panel,
+	Mask
 }
 
