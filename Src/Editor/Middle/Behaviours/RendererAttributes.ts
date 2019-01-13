@@ -10,49 +10,70 @@ import { RendererLabel } from "../../../Core/Renderer/Virtual/RendererLabel";
 import { AutoResizer } from "../../../Components/BasicComponents/AutoResizer";
 import { LayoutStack } from "../../../Components/BasicComponents/LayoutStack";
 import { ListAlignment } from "../../../Core/Widgets/ListAlignment";
+import { RendererText } from "../../../Core/Renderer/Virtual/RendererText";
+import { Binder } from "../../../Components/Binder";
+import { Text } from "../../../Components/BasicComponents/Text";
+import { DefineAttributesRenderer, SelectRenderer } from "./AttributesRenderer";
 export class RendererAttributes {
 	namearea;
 	render(transform: Transform, obj: StormObject) {
 		let render = obj.getRenderer();
 		if (render != null) {
-			let stack = new StormObject();
-			stack.addBehaviour(AutoResizer);
-			let currentHeight = 0;
-			let container = stack.setRenderer(RendererContainer);
-			stack.addBehaviour(LayoutStack);
-			stack.getBehaviour<LayoutStack>(LayoutStack).alignment =
-				ListAlignment.column;
-			stack.addBehaviour(AutoResizer);
-			stack.transfrom.Parent = transform;
-			stack.transfrom.Width = 100;
-			stack.transfrom.Height = 30 * 2;
-			stack.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
-			container.border = new Border();
-			container.border.color.setHex(0xffffff);
-			container.background.setHex(0x000000);
-			stack.transfrom.anchor.left.target = transform;
-			stack.transfrom.anchor.right.target = transform;
-			let proto: Object = Reflect.getPrototypeOf(render);
+			let proto = Reflect.getPrototypeOf(render);
+			let value = SelectRenderer(proto.constructor);
+			value["render"](transform, render);
 
-			let sobj = new StormObject();
-			let renderer = sobj.setRenderer(RendererLabel);
-			sobj.transfrom.Parent = stack.transfrom;
-			sobj.transfrom.Width = 100;
-			sobj.transfrom.Height = 30;
-			sobj.transfrom.LocalPositon = new Vector2(0, currentHeight);
-			this.namearea = sobj.addBehaviour<Label>(Label);
-			renderer.color.setHex(0xffffff);
-			this.namearea.setCompData("renderer");
+			// let stack = new StormObject();
+			// stack.addBehaviour(AutoResizer);
+			// let currentHeight = 0;
+			// let container = stack.setRenderer(RendererContainer);
+			// stack.addBehaviour(LayoutStack);
+			// stack.getBehaviour<LayoutStack>(LayoutStack).alignment =
+			// 	ListAlignment.column;
+			// stack.addBehaviour(AutoResizer);
+			// stack.transfrom.Parent = transform;
+			// stack.transfrom.Width = 100;
+			// stack.transfrom.Height = 30 * 2;
+			// stack.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
+			// container.border = new Border();
+			// container.border.color.setHex(0xffffff);
+			// container.background.setHex(0x000000);
+			// stack.transfrom.anchor.left.target = transform;
+			// stack.transfrom.anchor.right.target = transform;
+			// let binder = stack.addBehaviour(Binder);
+			// let proto: Object = Reflect.getPrototypeOf(render);
 
-			sobj = new StormObject();
-			renderer = sobj.setRenderer(RendererLabel);
-			sobj.transfrom.Parent = stack.transfrom;
-			sobj.transfrom.Width = 100;
-			sobj.transfrom.Height = 30;
-			sobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
-			this.namearea = sobj.addBehaviour<Label>(Label);
-			renderer.color.setHex(0xffffff);
-			this.namearea.setCompData("name:" + proto.constructor.name);
+			// let sobj = new StormObject();
+			// let renderer = sobj.setRenderer(RendererLabel);
+			// sobj.transfrom.Parent = stack.transfrom;
+			// sobj.transfrom.Width = 100;
+			// sobj.transfrom.Height = 30;
+			// sobj.transfrom.LocalPositon = new Vector2(0, currentHeight);
+			// this.namearea = sobj.addBehaviour<Label>(Label);
+			// renderer.color.setHex(0xffffff);
+			// this.namearea.setCompData("renderer");
+
+			// sobj = new StormObject();
+			// renderer = sobj.setRenderer(RendererLabel);
+			// sobj.transfrom.Parent = stack.transfrom;
+			// sobj.transfrom.Width = 100;
+			// sobj.transfrom.Height = 30;
+			// sobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
+			// this.namearea = sobj.addBehaviour<Label>(Label);
+			// renderer.color.setHex(0xffffff);
+			// this.namearea.setCompData("name:" + proto.constructor.name);
+
+			// let insobj = new StormObject();
+			// let rendererInput = insobj.setRenderer(RendererText);
+			// insobj.transfrom.Parent = sobj.transfrom;
+			// insobj.transfrom.Width = 30;
+			// insobj.transfrom.Height = 30;
+			// insobj.transfrom.LocalPositon = new Vector2(0, (currentHeight += 30));
+			// this.namearea = insobj.addBehaviour<Text>(Text);
+			// // rendererInput.color.setHex(0xffffff);
+			// this.namearea.setCompData(obj.transfrom.LocalPositon.y);
+			// binder.pathcer.Add("text", this.namearea);
+			// binder.setCompData(renderer);
 		}
 	}
 }

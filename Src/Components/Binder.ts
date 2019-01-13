@@ -17,6 +17,13 @@ export class Binder extends StormComponent {
 		this.setInnerData();
 	}
 
+	update() {
+		for (const key of this.pathcer.Keys()) {
+			let component = this.pathcer.Get(key);
+			component.setCompData(this.data[key]);
+		}
+	}
+
 	setInnerData() {
 		for (const key of this.pathcer.Keys()) {
 			let component = this.pathcer.Get(key);
