@@ -272,7 +272,7 @@ export class WebRenderer extends Renderer {
 	maskCount = 0;
 	masks: StormObject[] = [];
 	setMask(count: number) {
-		this.maskCount = count;
+		this.maskCount = Math.max(count, 3);
 	}
 
 	getMask(index: number) {
@@ -299,6 +299,10 @@ export class WebRenderer extends Renderer {
 			mask.name = "maskLayer" + index;
 			mask.setRenderer(RendererMask);
 			mask.transfrom.Parent = renderer.transform;
+			mask.transfrom.anchor.left.target=renderer.transform
+			mask.transfrom.anchor.right.target=renderer.transform
+			mask.transfrom.anchor.top.target=renderer.transform
+			mask.transfrom.anchor.bottom.target=renderer.transform
 			this.masks.push(mask);
 		}
 

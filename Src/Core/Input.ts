@@ -15,6 +15,22 @@ export class IMouseUp {
 	onMouseUP(inputEvent: InputEvent) {}
 }
 
+export class IDragStart {
+	onDragStart(inputEvent: InputEvent) {}
+}
+
+export class IDragMove {
+	onDragMove(inputEvent: InputEvent) {}
+}
+
+export class IDrop {
+	onDrop(inputEvent: InputEvent) {}
+}
+
+export class IMouseMove {
+	onMouseMove(inputEvent: InputEvent) {}
+}
+
 export class StormIter {
 	private count = -2;
 	public children: StormIter[] = [];
@@ -39,7 +55,14 @@ class InputTargetFinder {
 	objects: StormObject[] = [];
 }
 
+export class InputInfo {
+	target: StormObject;
+	DragStartTarget: StormObject | null = null;
+	inputEvent: InputEvent;
+}
+
 export class Input {
+	public static CurrentInputTarget = new InputInfo();
 	public static instance: Input = new Input();
 
 	private constructor() {}
@@ -116,6 +139,9 @@ export class Input {
 			.first();
 
 		if (obj != null) {
+			Input.CurrentInputTarget = new InputInfo();
+			Input.CurrentInputTarget.target = (<Behaviour>(<any>obj)).stormObject;
+			Input.CurrentInputTarget.inputEvent = inputEvent;
 			obj.onClick(inputEvent);
 		}
 	}
@@ -131,7 +157,11 @@ export class Input {
 			.first();
 
 		if (obj != null) {
+			Input.CurrentInputTarget = new InputInfo();
+			Input.CurrentInputTarget.target = (<Behaviour>(<any>obj)).stormObject;
+			Input.CurrentInputTarget.inputEvent = inputEvent;
 			obj.onMouseDown(inputEvent);
+			this.HandleDragStart(stormObject, inputEvent);
 		}
 	}
 
@@ -146,7 +176,87 @@ export class Input {
 			.first();
 
 		if (obj != null) {
+			Input.CurrentInputTarget = new InputInfo();
+			Input.CurrentInputTarget.target = (<Behaviour>(<any>obj)).stormObject;
+			Input.CurrentInputTarget.inputEvent = inputEvent;
 			obj.onMouseUP(inputEvent);
+			this.HandleDrop(stormObject, inputEvent);
+		}
+	}
+
+	HandleMouseMove(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IMouseMove>(stormObject, inputEvent);
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IMouseMove[]>(<any>inputEvent.behaviours))
+			.filter(item => {
+				return item.onMouseMove != undefined;
+			})
+			.first();
+
+		if (obj != null) {
+			Input.CurrentInputTarget = new InputInfo();
+			Input.CurrentInputTarget.target = (<Behaviour>(<any>obj)).stormObject;
+			Input.CurrentInputTarget.inputEvent = inputEvent;
+			obj.onMouseMove(inputEvent);
+			this.HandleDragMove(stormObject, inputEvent);
+		}
+	}
+
+	HandleDragStart(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IDragStart>(stormObject, inputEvent);
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IDragStart[]>(<any>inputEvent.behaviours))
+			.filter(item => {
+				return item.onDragStart != undefined;
+			})
+			.first();
+
+		if (obj != null) {
+			Input.CurrentInputTarget = new InputInfo();
+			Input.CurrentInputTarget.target = (<Behaviour>(<any>obj)).stormObject;
+			Input.CurrentInputTarget.inputEvent = inputEvent;
+			Input.CurrentInputTarget.DragStartTarget =
+				Input.CurrentInputTarget.target;
+
+			obj.onDragStart(inputEvent);
+		}
+	}
+
+	HandleDragMove(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IDragMove>(stormObject, inputEvent);
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IDragMove[]>(<any>inputEvent.behaviours))
+			.filter(item => {
+				return item.onDragMove != undefined;
+			})
+			.first();
+
+		if (obj != null) {
+			if (obj == <any>Input.CurrentInputTarget.target) {
+				Input.CurrentInputTarget.inputEvent = inputEvent;
+				obj.onDragMove(inputEvent);
+			}
+		}
+	}
+
+	HandleDrop(stormObject: StormObject, inputEvent: InputEvent) {
+		let objs = this.FindTopObject<IDrop>(stormObject, inputEvent);
+		inputEvent.behaviours = <Behaviour[]>(<any>objs.behaviours);
+		inputEvent.objects = objs.objects;
+		let obj = (<IDrop[]>(<any>inputEvent.behaviours))
+			.filter(item => {
+				return item.onDrop != undefined;
+			})
+			.first();
+
+		if (obj != null) {
+			if (obj == <any>Input.CurrentInputTarget.target) {
+				Input.CurrentInputTarget.inputEvent = inputEvent;
+				obj.onDrop(inputEvent);
+			}
 		}
 	}
 }

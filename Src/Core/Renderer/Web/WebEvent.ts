@@ -26,5 +26,13 @@ export class WebEvent {
 			inputEvent.mouseKey = mouseEvent.buttons;
 			Input.instance.HandleMouseUp(stormObject, inputEvent);
 		};
+
+		element.onmousemove = (mouseEvent: MouseEvent) => {
+			let inputEvent: InputEvent = new InputEvent();
+			inputEvent.x = mouseEvent.x;
+			inputEvent.y = mouseEvent.y;
+			inputEvent.mouseKey = mouseEvent.buttons;
+			Input.instance.HandleMouseMove(stormObject, inputEvent);
+		};
 	}
 }

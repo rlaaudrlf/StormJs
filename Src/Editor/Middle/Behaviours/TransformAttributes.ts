@@ -14,9 +14,11 @@ import { RendererText } from "../../../Core/Renderer/Virtual/RendererText";
 import { Text } from "../../../Components/BasicComponents/Text";
 import { RendererEmpty } from "../../../Core/Renderer/Virtual/RendererEmpty";
 import { Binder } from "../../../Components/Binder";
+import { Load } from "./Loader";
 export class TransformAttributes {
 	namearea;
 	render(transform: Transform, obj: StormObject) {
+		Load()
 		let stack = new StormObject();
 		stack.transfrom.Parent = transform;
 		stack.transfrom.anchor.left.target = transform;
