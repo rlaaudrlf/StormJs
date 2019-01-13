@@ -10,11 +10,16 @@ export class BehaviourWorkZone extends StormComponent {
 			.OnMouseDown.Regist((sender, data) => {
 				this.HandleItemClick(sender, data);
 			}, null);
+
+		this.stormObject
+			.getBehaviour<UIEventListhenner>(UIEventListhenner)
+			.OnMouseUp.Regist((sender, data) => {
+				console.log(123);
+			}, null);
 	}
 
 	HandleItemClick(sender, data) {
-        this.onItemClick.Call(this, data);
-        
+		this.onItemClick.Call(this, data);
 	}
 
 	onFocustItem(item) {
