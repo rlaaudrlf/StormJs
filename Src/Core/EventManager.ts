@@ -1,6 +1,9 @@
 import { GUID } from "./Utils/GUID";
+import { Serializable } from "./Serializer";
 let currentCallers = {};
 let currentCaller: EventManager;
+
+@Serializable()
 export class EventManager {
 	callbacks: CallbackInfo[] = [];
 	onRegist: EventManager | null = null;

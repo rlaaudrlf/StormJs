@@ -19,6 +19,11 @@
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.9.tgz#a07bfa74331471e1dc22a47eb72026843f7b95c8"
   integrity sha1-oHv6dDMUceHcIqR+tyAmhD97lcg=
 
+"@types/node@^10.12.18":
+  version "10.12.18"
+  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
+  integrity sha1-HTynZHGJFVhPzZ9jRGIbdnJmXGc=
+
 "@types/node@^8.0.24":
   version "8.10.38"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-8.10.38.tgz#e05c201a668492e534b48102aca0294898f449f6"
@@ -1110,12 +1115,21 @@ electron-download@^4.1.0:
     semver "^5.4.1"
     sumchecker "^2.0.2"
 
-electron@*, electron@^3.0.9:
+electron@*:
   version "3.0.9"
   resolved "http://registry.npm.taobao.org/electron/download/electron-3.0.9.tgz#79bd25dfd5496918a00d579e702fb83082f1a036"
   integrity sha1-eb0l39VJaRigDVeecC+4MILxoDY=
   dependencies:
     "@types/node" "^8.0.24"
+    electron-download "^4.1.0"
+    extract-zip "^1.0.3"
+
+electron@^4.0.0:
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/electron/download/electron-4.0.1.tgz#c41eaee9e081c2e5e4a4a4a761b7577a77d2eb18"
+  integrity sha1-xB6u6eCBwuXkpKSnYbdXenfS6xg=
+  dependencies:
+    "@types/node" "^10.12.18"
     electron-download "^4.1.0"
     extract-zip "^1.0.3"
 

@@ -150,7 +150,7 @@ function isSerializable(type: any): boolean {
 }
 
 /**
- * Function to transform the JsonProperty value into an object like {name: string, type: Function}
+ * Function to transform the JsonProperty value into an object like {name: string, valueType: Function}
  */
 function getJsonPropertyValue(key: string, args: string | { name?: string, type: Function }): { name: string, type: Function } {
     if (args) {
@@ -167,7 +167,7 @@ function getJsonPropertyValue(key: string, args: string | { name?: string, type:
 }
 
 /**
- * Function to cast simple type data into the real class property type
+ * Function to cast simple valueType data into the real class property valueType
  */
 function castSimpleData(type: string, data: any): any {
     type = type.toLowerCase();

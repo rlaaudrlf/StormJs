@@ -1,4 +1,6 @@
 import { MathEx } from "./MathEx";
+import { Serializable } from "../Serializer";
+@Serializable()
 export class Matrix3 {
 	elements: number[] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 

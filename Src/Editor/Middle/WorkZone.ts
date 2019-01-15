@@ -10,6 +10,9 @@ import { Vector2 } from "../../Core/Math/Vector2";
 import { BehaviourWorkZone } from "./Behaviours/BehaviourWorkZone";
 import { EventManager } from "../../Core/EventManager";
 import { RendererText } from "../../Core/Renderer/Virtual/RendererText";
+import { serialize } from "../../Core/SerializeHelper";
+import { Serializer } from "../../Core/Serializer";
+import { writeFileSync } from "fs";
 export class WorkZone {
 	onItemClick: EventManager = new EventManager();
 	init(parent: StormObject) {
@@ -63,6 +66,14 @@ export class WorkZone {
 		test.transfrom.Parent = scroll.transfrom;
 		test.transfrom.LocalPositon = new Vector2(100, 10);
 		test.setRenderer(RendererText);
-		test.name='11123'
+		test.name = "11123";
+
+		let c = Serializer.Serialize(test);
+		console.log(c);
+
+		writeFileSync("d:\\test.json", JSON.stringify(c));
+		console.log(Serializer.Deserialize(JSON.parse(JSON.stringify(c))))
+
+		console.log(JSON.parse(JSON.stringify(c)))
 	}
 }

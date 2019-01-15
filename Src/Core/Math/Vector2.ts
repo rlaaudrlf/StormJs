@@ -1,5 +1,6 @@
 import { Matrix3 } from "./Matrix3";
 import { Vector3 } from "./Vector3";
+import { Serializable } from "../Serializer";
 
 export class EditableVector2 {
 	x: number;
@@ -44,6 +45,7 @@ export class EditableVector2 {
 	}
 }
 
+@Serializable()
 export class Vector2 extends EditableVector2 {
 	readonly x: number = 0;
 	readonly y: number = 0;

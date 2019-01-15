@@ -12,8 +12,10 @@ import {
 	BehaviourLifeCycle,
 	EStormLifeCycle
 } from "../Renderer/Web/WebRenderer";
+import { Serializable } from "../Serializer";
 
 @HierachyItem("StormObject")
+@Serializable()
 export class StormObject {
 	private renderer: RendererEmpty | undefined = undefined;
 	private active: boolean = true;

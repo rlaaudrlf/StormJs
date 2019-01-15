@@ -28,11 +28,6 @@ export class Main {
 		let panel = new PanelMain();
 		panel.start(document.getElementById("middle"));
 
-		let id = new GUID();
-		let a = {};
-		a[id.toString()] = id;
-		console.log(a[id.toString()]);
-
 
 		// Enviroment.rendererTarget = RendererTarget.Web;
 		// new WebLoader().load();

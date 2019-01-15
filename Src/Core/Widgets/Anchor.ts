@@ -1,5 +1,8 @@
 import { Transform, TransFormAttributes } from "../Attributes/Transform";
 import { EditableVector2, Vector2 } from "../Math/Vector2";
+import { Serializable } from '../Serializer';
+
+@Serializable()
 export class Anchor {
 	left: AnchorTarget = new AnchorTarget();
 	right: AnchorTarget = new AnchorTarget();
@@ -158,6 +161,7 @@ export enum EBorder {
 	bottom
 }
 
+@Serializable()
 export class AnchorTarget {
 	border: EBorder = EBorder.left;
 	target: Transform | null = null;

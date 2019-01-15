@@ -4,6 +4,7 @@ import { Matrix3 } from "../Math/Matrix3";
 import { Anchor } from "../Widgets/Anchor";
 import { Rect } from "../Math/Rect";
 import { GUID } from "../Utils/GUID";
+import { Serializable } from "../Serializer";
 
 // 	updateMatrix() {
 // 		if (this.mountedElement == undefined) {
@@ -52,6 +53,7 @@ export interface TransFormAttributes {
 	WorldHeight;
 }
 
+@Serializable()
 export class Transform {
 	private worldPosition: Vector2 = new Vector2(0, 0);
 	private worldScale: Vector2 = new Vector2(1, 1);
