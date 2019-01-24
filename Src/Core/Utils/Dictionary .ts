@@ -1,13 +1,14 @@
-import { ObjectMarker, MarkedObject } from "./ObjectMarker";
+import {MarkedObject, ObjectMarker} from "./ObjectMarker";
 
 export class Dictionary<
 	TType extends number | object | string,
 	TValue extends any
 > {
 	private keys: TType[] = [];
+
 	private values: TValue[] = [];
 
-	Add(key: TType, value: TValue): void {
+	Add (key: TType, value: TValue): void {
 		if (key == null || key == undefined) {
 			return;
 		}
@@ -15,7 +16,8 @@ export class Dictionary<
 		let strKey: string;
 
 		if (typeof key == "object") {
-			let obj = ObjectMarker.MarkObject(<object>key);
+			const obj = ObjectMarker.MarkObject(<object>key);
+
 			strKey = obj.___Hash___;
 		} else {
 			strKey = key.toString();
@@ -26,30 +28,30 @@ export class Dictionary<
 		this.values.push(value);
 	}
 
-	private getKeyStr(key: TType): string {
+	private getKeyStr (key: TType): string {
 		if (typeof key == "object") {
 			if (ObjectMarker.IsMarkedObject(<object>key)) {
 				return (<MarkedObject>key).___Hash___;
 			}
 
 			return undefined;
-		} else {
-			return key.toString();
 		}
+
+		return key.toString();
 	}
 
-	Get(key: TType): TValue {
-		let strKey = this.getKeyStr(key);
+	Get (key: TType): TValue {
+		const strKey = this.getKeyStr(key);
 
 		return this[strKey];
 	}
 
-	Remove(key: TType): void {
+	Remove (key: TType): void {
 		if (key == null || key == undefined) {
 			return;
 		}
 
-		let strKey = this.getKeyStr(key);
+		const strKey = this.getKeyStr(key);
 
 		if (this[strKey] == undefined) {
 			return;
@@ -57,7 +59,7 @@ export class Dictionary<
 
 		delete this[strKey];
 
-		var index = this.keys.indexOf(key, 0);
+		const index = this.keys.indexOf(key, 0);
 
 		if (index >= 0 && index < this.keys.length) {
 			this.keys.splice(index, 1);
@@ -65,27 +67,28 @@ export class Dictionary<
 		}
 	}
 
-	Keys(): TType[] {
+	Keys (): TType[] {
 		return this.keys.copy();
 	}
 
-	Values(): TValue[] {
+	Values (): TValue[] {
 		return this.values.copy();
 	}
 
-	ContainsKey(key: TType): boolean {
-		let strKey = this.getKeyStr(key);
+	ContainsKey (key: TType): boolean {
+		const strKey = this.getKeyStr(key);
 
 		return this[strKey] != undefined;
 	}
 
-	ToList() {
-		let result = [];
+	ToList () {
+		const result = [];
 
 		for (let index = 0; index < this.keys.length; index++) {
 			const key = this.keys[index];
 			const value = this.values[index];
-			let keyValuePair = new KeyValuePair<TType, TValue>();
+			const keyValuePair = new KeyValuePair<TType, TValue>();
+
 			keyValuePair.key = key;
 			keyValuePair.value = value;
 			result.push(keyValuePair);
@@ -97,5 +100,6 @@ export class Dictionary<
 
 export class KeyValuePair<TType, TValue> {
 	key: TType;
+
 	value: TValue;
 }

@@ -1,9 +1,12 @@
-import { Storage } from "../../Storage";
+import { GlobalData } from "../../Storage";
 import { writeFileSync } from "fs";
 import { serialize } from "../../Core/SerializeHelper";
 import { saveFormat } from "../../Core/SaveFormat";
 import { Main } from "../../main";
+import { Inject } from "../Core/Decorators/Inject";
 export class DataTranslater {
+	@Inject(GlobalData)
+	globalData:GlobalData
 	public AutoSave() {
 		setTimeout(() => {
 			let data = this.Save();
@@ -12,8 +15,8 @@ export class DataTranslater {
 	}
 
 	public TranslateData(data: string) {
-		let pathStorm = Storage.instance.tempPath + "/temp.storm";
-		let pathJs = Storage.instance.tempPath + "/index.js";
+		let pathStorm = this.globalData.tempPath + "/temp.storm";
+		let pathJs = this.globalData.tempPath + "/index.js";
 
 		writeFileSync(pathStorm, data);
 	}

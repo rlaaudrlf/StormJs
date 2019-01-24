@@ -1,19 +1,25 @@
-import { GetComponentList } from '../Components/BasicComponents/ComponentList';
+import {GetComponentList} from "../Components/BasicComponents/ComponentList";
 export class ElementList {
 	element: HTMLElement | null = null;
+
 	div: HTMLElement | null = null;
+
 	width: string = "60";
+
 	buttonHeight: number = 30;
+
 	onClick: (name: any) => void | null = <any>null;
-	public Create(element: any) {
+
+	public Create (element: any) {
 		this.element = element;
 
-		let list = GetComponentList();
-		this.element.onmousedown = e => {
+		const list = GetComponentList();
+
+		this.element.onmousedown = (e) => {
 			console.log(e.which);
 			if (e.which == 3) {
-				var x = e.pageX - 10;
-				var y = e.pageY - 10;
+				const x = e.pageX - 10;
+				const y = e.pageY - 10;
 
 				this.div = document.createElement("div");
 				this.div.style.width = this.width;
@@ -34,8 +40,9 @@ export class ElementList {
 		};
 	}
 
-	private AddItem(name: string) {
-		var button = document.createElement("button");
+	private AddItem (name: string) {
+		const button = document.createElement("button");
+
 		button.style.display = "block";
 		button.style.width = "120";
 		button.style.height = this.buttonHeight.toString();
@@ -52,7 +59,7 @@ export class ElementList {
 		};
 	}
 
-	public Destroy() {
+	public Destroy () {
 		this.element.removeChild(this.div);
 	}
 }

@@ -1,32 +1,36 @@
-import { StormObject } from "./Widgets/StormObject";
-import { Transform } from "./Attributes/Transform";
-import { GUID } from "./Utils/GUID";
+import {StormObject} from "./Widgets/StormObject";
+import {Transform} from "./Attributes/Transform";
+import {GUID} from "./Utils/GUID";
 export class Behaviour {
 	isDisposed: boolean = false;
-	stormObject: StormObject;
-	transform: Transform;
-	_hash: GUID = new GUID();
-	constructor() {}
 
-	get hash(): GUID {
+	stormObject: StormObject;
+
+	transform: Transform;
+
+	_hash: GUID = new GUID();
+
+	constructor () {}
+
+	get hash (): GUID {
 		return this._hash;
 	}
 
-	awake() {}
+	awake () {}
 
-	start() {}
+	start () {}
 
-	onEnable() {}
+	onEnable () {}
 
-	onDisable() {}
+	onDisable () {}
 
 	// update() {}
 
 	// lateUpdate() {}
 
-	onDestroy() {}
+	onDestroy () {}
 
-	destroy() {
+	destroy () {
 		this.onDestroy();
 		this.isDisposed = true;
 	}

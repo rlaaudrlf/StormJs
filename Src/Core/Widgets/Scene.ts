@@ -1,8 +1,8 @@
-import { StormObject } from "./StormObject";
-import { RendererContainer } from "../Renderer/Virtual/RendererContainer";
+import {StormObject} from "./StormObject";
+import {RendererContainer} from "../Renderer/Virtual/RendererContainer";
 
 export class Scene extends StormObject {
-	constructor() {
+	constructor () {
 		super();
 		this.setRenderer(RendererContainer);
 	}

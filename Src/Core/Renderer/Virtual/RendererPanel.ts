@@ -1,18 +1,23 @@
-import { RendererEmpty } from "./RendererEmpty";
-import { RenderItemConstructor, RenderItemBase } from "../RenderItemBase";
-import { CallMapper } from "../../Mapper";
-import { Enviroment } from "../../../Components/Enviroment";
-import { RendererType } from "./RendererType";
-import { Color } from "../../Math/Color";
+import {Enviroment} from "../../../Components/Enviroment";
+import {CallMapper} from "../../Mapper";
+import {Color} from "../../Math/Color";
+import {RenderItemBase, RenderItemConstructor} from "../RenderItemBase";
+import {RendererEmpty} from "./RendererEmpty";
+import {RendererType} from "./RendererType";
 
 export class RendererPanel extends RendererEmpty {
+	depth: number = 0;
+
 	background: Color = new Color();
-	renderItem(): RenderItemBase {
-		let constructor = CallMapper<RenderItemConstructor>(
+
+	isScrollable:boolean=false
+
+	renderItem (): RenderItemBase {
+		const constructor = CallMapper<RenderItemConstructor>(
 			RendererType.Panel,
 			Enviroment.rendererTarget
 		);
-		let element = new constructor();
+		const element = new constructor();
 
 		return element;
 	}

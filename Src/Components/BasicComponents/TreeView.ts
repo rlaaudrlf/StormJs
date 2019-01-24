@@ -4,7 +4,8 @@ import { StormObject } from "../../Core/Widgets/StormObject";
 import { Vector2 } from "../../Core/Math/Vector2";
 import { UIEventListhenner } from "./UIEventListhenner";
 import { isArray } from "util";
-
+import { HierachyItem } from "../HierachyItem";
+@HierachyItem("TreeView")
 export class TreeView extends StormComponent {
 	datas: any;
 	zonePrefab;
@@ -47,6 +48,7 @@ export class TreeView extends StormComponent {
 		}
 	}
 }
+
 
 export class TreeItem {
 	isZoneItem: boolean = false;

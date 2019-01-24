@@ -68,7 +68,7 @@ export class EventManager {
 
 	public Regist(
 		callback: Function,
-		target: object,
+		target: object|undefined,
 		...args: any[] | undefined
 	) {
 		let callbackInfo = new CallbackInfo();

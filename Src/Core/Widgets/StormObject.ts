@@ -1,44 +1,54 @@
-import { Behaviour } from "../Behaviours";
+import {Behaviour} from "../Behaviours";
 
-import { DeepCloner } from "./DeepCloner";
-import { GUID } from "../Utils/GUID";
-import { RendererEmpty } from "../Renderer/Virtual/RendererEmpty";
-import { Transform } from "../Attributes/Transform";
-import { Layer } from "../Layer";
-import { EventManager } from "../EventManager";
-import { HierachyItem } from "../../Components/HierachyItem";
+import {DeepCloner} from "./DeepCloner";
+import {GUID} from "../Utils/GUID";
+import {RendererEmpty} from "../Renderer/Virtual/RendererEmpty";
+import {Transform} from "../Attributes/Transform";
+import {Layer} from "../Layer";
+import {EventManager} from "../EventManager";
+import {HierachyItem} from "../../Components/HierachyItem";
 
 import {
 	BehaviourLifeCycle,
 	EStormLifeCycle
 } from "../Renderer/Web/WebRenderer";
-import { Serializable } from "../Serializer";
+import {Serializable} from "../Serializer";
+import {RendererPanel} from "../Renderer/Virtual/RendererPanel";
 
 @HierachyItem("StormObject")
 @Serializable()
 export class StormObject {
 	private renderer: RendererEmpty | undefined = undefined;
+
 	private active: boolean = true;
-	behaviours: Behaviour[] = [];
+
+	behaviours: Array<Behaviour> = [];
+
 	hash: GUID = new GUID();
+
 	name: string = "StormObject";
+
 	transfrom: Transform;
+
 	drag: DragDrop | null = null;
+
 	drop: DragDrop | null = null;
+
 	layer: Layer = Layer.default;
+
 	onActiveChange: EventManager = new EventManager();
 
-	constructor() {
+	constructor () {
 		this.transfrom = new Transform();
 		this.transfrom.StormObject = this;
 	}
 
-	getParentRenderer(): RendererEmpty {
+	getParentRenderer (): RendererEmpty {
 		if (this.transfrom.Parent == undefined) {
 			return undefined;
 		}
 
-		let renderer: RendererEmpty = this.transfrom.Parent.StormObject.renderer;
+		let {renderer} = this.transfrom.Parent.StormObject;
 
 		if (renderer == undefined) {
 			renderer = this.transfrom.Parent.StormObject.getRenderer();
@@ -47,17 +57,39 @@ export class StormObject {
 		return renderer;
 	}
 
-	setRenderer<T extends RendererEmpty>(c: new () => T): T {
+	getScrollableRenderer ():RendererPanel {
+		const result = this.getRenderer();
+
+
+		return result;
+	}
+
+	findParent (where:(obj:StormObject)=>boolean):StormObject {
+		let result:StormObject = this.transfrom.StormObject;
+
+		while (!where(result)) {
+			if (result == undefined) {
+				return undefined;
+			}
+
+			result = result.transfrom.Parent.StormObject;
+		}
+
+		return result;
+	}
+
+	setRenderer<T extends RendererEmpty> (c: new () => T): T {
 		this.renderer = new c();
 		this.renderer.setStromObject(this);
-		return <T>this.renderer;
+
+		return <T> this.renderer;
 	}
 
-	getRenderer<T extends RendererEmpty>() {
-		return <T>(<any>this.renderer);
+	getRenderer<T extends RendererEmpty> () {
+		return <T>(<any> this.renderer);
 	}
 
-	setActive(visible: boolean) {
+	setActive (visible: boolean) {
 		if (visible == this.active) {
 			return;
 		}
@@ -65,7 +97,8 @@ export class StormObject {
 		this.active = visible;
 
 		for (const behaviour of this.behaviours) {
-			let behaviourLifeCycle = <BehaviourLifeCycle>(<any>behaviour);
+			const behaviourLifeCycle = <BehaviourLifeCycle>(<any>behaviour);
+
 			if (
 				behaviourLifeCycle.__currentLife == undefined ||
 				behaviourLifeCycle.__currentLife <= EStormLifeCycle.enable
@@ -82,12 +115,13 @@ export class StormObject {
 		this.onActiveChange.Call(this, this.active);
 	}
 
-	getActive() {
+	getActive () {
 		return this.active;
 	}
 
-	addBehaviour<T extends Behaviour>(c: new () => T): T {
-		let behaviour = new c();
+	addBehaviour<T extends Behaviour> (c: new () => T): T {
+		const behaviour = new c();
+
 		behaviour.stormObject = this;
 		behaviour.transform = this.transfrom;
 		this.behaviours.push(behaviour);
@@ -95,7 +129,7 @@ export class StormObject {
 		return behaviour;
 	}
 
-	getBehaviour<T extends Behaviour>(type): undefined | T {
+	getBehaviour<T extends Behaviour> (type): undefined | T {
 		for (const behaviour of this.behaviours) {
 			if (behaviour instanceof type) {
 				return <T>behaviour;
@@ -105,11 +139,11 @@ export class StormObject {
 		return undefined;
 	}
 
-	getBehaviours() {
+	getBehaviours () {
 		return this.behaviours;
 	}
 
-	destroy() {
+	destroy () {
 		for (const child of this.transfrom.Children) {
 			child.StormObject.destroy();
 		}
@@ -125,8 +159,8 @@ export class StormObject {
 		this.transfrom.destroy();
 	}
 
-	static Instantiate(widget: StormObject): StormObject {
-		let obj = DeepCloner.Clone(widget);
+	static Instantiate (widget: StormObject): StormObject {
+		const obj = DeepCloner.Clone(widget);
 
 		return <StormObject>obj;
 	}
@@ -151,6 +185,8 @@ export class StormObject {
 
 export class DragDrop {
 	id: string;
+
 	canDrag: boolean = false;
-	canDropId: string[] = [];
+
+	canDropId: Array<string> = [];
 }

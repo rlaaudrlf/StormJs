@@ -1,10 +1,10 @@
-import { Vector2 } from "../Math/Vector2";
-import { StormObject } from "../Widgets/StormObject";
-import { Matrix3 } from "../Math/Matrix3";
-import { Anchor } from "../Widgets/Anchor";
-import { Rect } from "../Math/Rect";
-import { GUID } from "../Utils/GUID";
-import { Serializable } from "../Serializer";
+import {Vector2} from "../Math/Vector2";
+import {StormObject} from "../Widgets/StormObject";
+import {Matrix3} from "../Math/Matrix3";
+import {Anchor} from "../Widgets/Anchor";
+import {Rect} from "../Math/Rect";
+import {GUID} from "../Utils/GUID";
+import {Serializable} from "../Serializer";
 
 // 	updateMatrix() {
 // 		if (this.mountedElement == undefined) {
@@ -47,7 +47,7 @@ export interface TransFormAttributes {
 	world2LocalMatrix: Matrix3;
 	stormObject: StormObject | null;
 	parent: Transform | null;
-	child: Transform[];
+	child: Array<Transform>;
 	isDirty: boolean;
 	WorldWidth;
 	WorldHeight;
@@ -56,23 +56,38 @@ export interface TransFormAttributes {
 @Serializable()
 export class Transform {
 	private worldPosition: Vector2 = new Vector2(0, 0);
+
 	private worldScale: Vector2 = new Vector2(1, 1);
+
 	private worldDegree: number = 0;
+
 	private localPositon: Vector2 = new Vector2(0, 0);
+
 	private localScale: Vector2 = new Vector2(1, 1);
+
 	private localDegree: number = 0;
+
 	Width: number = 100;
+
 	Height: number = 100;
+
 	private local2WorldMatrix: Matrix3 = new Matrix3();
+
 	private world2LocalMatrix: Matrix3 = new Matrix3();
+
 	private stormObject: StormObject | null = null;
+
 	private parent: Transform | null = null;
-	private child: Transform[] = [];
+
+	private child: Array<Transform> = [];
+
 	private isDirty: boolean = false;
+
 	readonly anchor: Anchor = new Anchor();
+
 	hash: GUID = new GUID();
 
-	destroy() {
+	destroy () {
 		if (this.parent != null) {
 			this.parent.child.remove(this);
 		}
@@ -80,8 +95,9 @@ export class Transform {
 		this.parent = null;
 	}
 
-	get Children(): Transform[] {
-		let result = [];
+	get Children (): Array<Transform> {
+		const result = [];
+
 		for (const child of this.child) {
 			result.push(child);
 		}
@@ -89,7 +105,7 @@ export class Transform {
 		return result;
 	}
 
-	set StormObject(value) {
+	set StormObject (value) {
 		if (this.stormObject == null) {
 			this.stormObject = value;
 		}
@@ -97,75 +113,93 @@ export class Transform {
 		this.anchor.transform = this;
 	}
 
-	get StormObject() {
+	get StormObject () {
 		return this.stormObject;
 	}
 
-	get Parent() {
+	get Parent () {
 		return this.parent;
 	}
 
-	set Parent(value) {
+	set Parent (value) {
 		if (this.parent != null) {
-			(<Array<Transform>>this.parent.child).remove(this);
+			(<Array<Transform>> this.parent.child).remove(this);
 		}
 
 		this.parent = value;
 		this.parent.child.push(this);
 		this.isDirty = true;
+		if (this.stormObject.getRenderer() != undefined) {
+			this.stormObject.getRenderer().awake();
+		}
+		this.updateRenderer(this);
 	}
 
-	appendChild(obj: Transform) {
+	private updateRenderer (target:Transform) {
+		for (const child of target.child) {
+			if (child.stormObject.getRenderer() != undefined) {
+				child.stormObject.getRenderer().awake();
+			}
+
+			this.updateRenderer(child);
+		}
+	}
+
+	appendChild (obj: Transform) {
 		if (obj.parent != undefined) {
 			obj.parent.child.remove(obj);
 		}
 
 		obj.parent = this;
 		this.child.push(obj);
+		obj.stormObject.getRenderer().awake();
+		this.updateRenderer(obj);
 	}
 
-	get IsDirty() {
+	get IsDirty () {
 		return this.isDirty;
 	}
 
-	get Local2WorldMatrix() {
+	get Local2WorldMatrix () {
 		this.UpdateMatrixUp();
+
 		return this.local2WorldMatrix;
 	}
 
-	get World2LocalMatrix() {
+	get World2LocalMatrix () {
 		this.UpdateMatrixUp();
+
 		return this.world2LocalMatrix;
 	}
 
-	get LocalDegree() {
+	get LocalDegree () {
 		return this.localDegree;
 	}
 
-	set LocalDegree(value) {
+	set LocalDegree (value) {
 		this.localDegree = value;
 		this.isDirty = true;
 	}
 
-	set LocalScale(value) {
+	set LocalScale (value) {
 		this.localScale = value;
 		this.isDirty = true;
 	}
 
-	get LocalScale() {
+	get LocalScale () {
 		return this.localScale;
 	}
 
-	set LocalPositon(value) {
+	set LocalPositon (value) {
 		this.localPositon = value;
 		this.isDirty = true;
 	}
 
-	get LocalPositon() {
+	get LocalPositon () {
 		return this.localPositon;
 	}
 
-	updateWorldTransform() {
+	updateWorldTransform () {
 		if (this.parent != null) {
 			this.worldPosition = this.parent.worldPosition.add(this.localPositon);
 			this.worldDegree = this.parent.worldDegree + this.localDegree;
@@ -181,8 +215,8 @@ export class Transform {
 		}
 	}
 
-	UpdateLocalTransform() {
-		let stack = [];
+	UpdateLocalTransform () {
+		const stack = [];
 		let current = this;
 
 		while (current != undefined) {
@@ -191,9 +225,7 @@ export class Transform {
 			}
 
 			if (current.parent != null) {
-				current.localPositon = current.worldPosition.sub(
-					current.parent.worldPosition
-				);
+				current.localPositon = current.worldPosition.sub(current.parent.worldPosition);
 				current.localDegree = current.worldDegree - current.parent.worldDegree;
 				current.localScale = current.worldScale.div(current.parent.worldScale);
 			} else {
@@ -206,7 +238,7 @@ export class Transform {
 		}
 	}
 
-	UpdateMatrixUp() {
+	UpdateMatrixUp () {
 		if (this.parent != null) {
 			this.parent.UpdateMatrixUp();
 		}
@@ -214,16 +246,16 @@ export class Transform {
 		this.UpdateMatrix();
 	}
 
-	UpdateMatrixDown() {
+	UpdateMatrixDown () {
 		this.UpdateMatrix();
 		for (const child of this.child) {
 			child.UpdateMatrixDown();
 		}
 	}
 
-	UpdateMatrix() {
-		let world2Local = new Matrix3();
-		let local2World = new Matrix3();
+	UpdateMatrix () {
+		const world2Local = new Matrix3();
+		const local2World = new Matrix3();
 
 		local2World.translate(-this.localPositon.x, -this.localPositon.y);
 		local2World.Rotate(-this.LocalDegree);
@@ -240,7 +272,7 @@ export class Transform {
 		this.local2WorldMatrix = local2World;
 	}
 
-	updateWorldPosition() {
+	updateWorldPosition () {
 		if (this.parent != null) {
 			this.parent.updateWorldPosition();
 			this.worldPosition = this.parent.worldPosition.add(this.localPositon);
@@ -249,7 +281,7 @@ export class Transform {
 		}
 	}
 
-	updateW2LPostion() {
+	updateW2LPostion () {
 		if (this.parent != null) {
 			this.localPositon = this.worldPosition.sub(this.parent.worldPosition);
 		} else {
@@ -257,7 +289,7 @@ export class Transform {
 		}
 	}
 
-	updateW2LScale() {
+	updateW2LScale () {
 		if (this.parent != null) {
 			this.localScale = this.worldScale.div(this.parent.worldScale);
 		} else {
@@ -265,7 +297,7 @@ export class Transform {
 		}
 	}
 
-	updateW2LDegree() {
+	updateW2LDegree () {
 		if (this.parent != null) {
 			this.localDegree = this.worldDegree - this.parent.worldDegree;
 		} else {
@@ -273,7 +305,7 @@ export class Transform {
 		}
 	}
 
-	set WorldPosition(value) {
+	set WorldPosition (value) {
 		this.updateWorldPosition();
 		this.worldPosition = value;
 		this.updateW2LPostion();
@@ -281,12 +313,13 @@ export class Transform {
 		this.isDirty = true;
 	}
 
-	get WorldPosition() {
+	get WorldPosition () {
 		this.updateWorldPosition();
+
 		return this.worldPosition;
 	}
 
-	updateWorldDegree() {
+	updateWorldDegree () {
 		if (this.parent != null) {
 			this.parent.updateWorldDegree();
 			this.worldDegree = this.parent.worldDegree + this.localDegree;
@@ -295,11 +328,13 @@ export class Transform {
 		}
 	}
 
-	get WorldDegree() {
+	get WorldDegree () {
 		this.updateWorldDegree();
+
 		return this.worldDegree;
 	}
-	set WorldDegree(value) {
+
+	set WorldDegree (value) {
 		this.updateWorldDegree();
 		this.worldDegree = value;
 		this.updateW2LDegree();
@@ -307,7 +342,7 @@ export class Transform {
 		this.isDirty = true;
 	}
 
-	updateWorldScale() {
+	updateWorldScale () {
 		if (this.parent != null) {
 			this.parent.updateWorldScale();
 			this.worldScale = this.parent.worldScale.mul(this.localScale);
@@ -316,7 +351,7 @@ export class Transform {
 		}
 	}
 
-	set WorldScale(value) {
+	set WorldScale (value) {
 		this.updateWorldScale();
 		this.worldScale = value;
 		this.updateW2LScale();
@@ -324,23 +359,24 @@ export class Transform {
 		this.isDirty = true;
 	}
 
-	get WorldScale() {
+	get WorldScale () {
 		this.updateWorldScale();
+
 		return this.worldScale;
 	}
 
-	get WorldHeight() {
+	get WorldHeight () {
 		return this.worldScale.y * this.Height;
 	}
 
-	get WorldWidth() {
+	get WorldWidth () {
 		return this.worldScale.x * this.Width;
 	}
 
-	getGlobalRect() {
-		let position = this.WorldPosition;
-		let scale = this.WorldScale;
-		let rect = new Rect(
+	getGlobalRect () {
+		const position = this.WorldPosition;
+		const scale = this.WorldScale;
+		const rect = new Rect(
 			position.x,
 			position.y,
 			this.WorldWidth * scale.x,

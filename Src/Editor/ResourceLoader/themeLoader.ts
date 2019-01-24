@@ -15,21 +15,21 @@ export class ThemeLoader {
 
 	themes: { [key: string]: string } = {};
 	public Load() {
-		let components: any[] = [];
-		var filePath = path.resolve(process.cwd(), "./themes");
+		// let components: any[] = [];
+		// var filePath = path.resolve(process.cwd(), "./themes");
 
-		const files = readdirSync(filePath);
-		var self = this;
-		files.forEach(function(item, index) {
-			const fpath = filePath + "\\" + item;
-			let stat = lstatSync(fpath);
-			if (stat.isFile() === true) {
-				components.push(item);
-				var file = readFileSync(fpath);
-				self.themes[item] = file.toString();
-				StyleCacher.instance.AddStyle(item, file.toString());
-			}
-		});
+		// const files = readdirSync(filePath);
+		// var self = this;
+		// files.forEach(function(item, index) {
+		// 	const fpath = filePath + "\\" + item;
+		// 	let stat = lstatSync(fpath);
+		// 	if (stat.isFile() === true) {
+		// 		components.push(item);
+		// 		var file = readFileSync(fpath);
+		// 		self.themes[item] = file.toString();
+		// 		StyleCacher.instance.AddStyle(item, file.toString());
+		// 	}
+		// });
 	}
 
 	public getTheme(name: string) {

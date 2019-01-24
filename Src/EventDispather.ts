@@ -16,6 +16,7 @@ export class EventDispather {
 				}
 			}
 		};
+		
 	}
 
 	public listhen(message: any, func: any) {
@@ -23,7 +24,7 @@ export class EventDispather {
 		if (calls == null) {
 			calls = [];
 		}
-
+		
 		calls.push(func);
 	}
 }

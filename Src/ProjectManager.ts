@@ -1,13 +1,16 @@
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import { Storage } from "./Storage";
+import { GlobalData } from "./Storage";
+import { Inject } from "./Editor/Core/Decorators/Inject";
 const { ipcRenderer } = require("electron");
 
 export class ProjectManager {
+	@Inject(GlobalData)
+	globalData:GlobalData
 	public NewProject() {
 		ipcRenderer.send("open-file-dialog");
 		ipcRenderer.on("selected-directory", (event, path) => {
 			console.log("opend:" + path);
-			Storage.instance.projectPath = path;
+			this.globalData.projectPath = path;
 			var pathAssets = path + "/" + "assets";
 			if (!existsSync(pathAssets)) {
 				mkdirSync(pathAssets);
@@ -26,7 +29,7 @@ export class ProjectManager {
 		ipcRenderer.send("open-file-dialog");
 		ipcRenderer.on("selected-directory", (event, path) => {
 			console.log("opend:" + path);
-			Storage.instance.projectPath = path;
+			this.globalData.projectPath = path;
 			var pathAssets = path + "/" + "assets";
 			if (!existsSync(pathAssets)) {
 				console.log("not storm Project Directory");
@@ -45,10 +48,10 @@ export class ProjectManager {
 	}
 
 	public Save() {
-		if ((Storage.instance.projectPath = "")) {
+		if ((this.globalData.projectPath = "")) {
 			return;
 		}
-		var path = Storage.instance.projectPath;
+		var path = this.globalData.projectPath;
 		var pathTemp = path + "/" + "temp";
 		if (!existsSync(pathTemp)) {
             mkdirSync(pathTemp);

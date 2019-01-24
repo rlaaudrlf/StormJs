@@ -1,12 +1,12 @@
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import { Storage } from "../../Storage";
+import { GlobalData } from "../../Storage";
 import { Main } from "../../main";
 
 export class ProjectBuilder {
 	pid = -1;
 	nodeCmd = require("node-cmd");
 	public Build(pathTemp, pathAssets) {
-		Storage.instance.tempPath = pathTemp;
+		GlobalData.instance.tempPath = pathTemp;
 		if (!existsSync(pathTemp)) {
 			mkdirSync(pathTemp);
 		}

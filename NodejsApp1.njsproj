@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{0b7002ae-9614-4852-b170-08d987e88227}</ProjectGuid>
+        <ProjectHome>.</ProjectHome>
+        <ProjectView>ShowAllFiles</ProjectView>
+        <StartupFile>global.d.ts</StartupFile>
+        <WorkingDirectory>.</WorkingDirectory>
+        <OutputPath>.</OutputPath>
+        <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+        <EnableTypeScript>true</EnableTypeScript>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+    <ItemGroup>
+        <Content Include="index.html" />
+        <Content Include="test.html" />
+        <Content Include="logo.png" />
+        <Content Include=".eslintrc.json" />
+        <Content Include="package.json" />
+        <Content Include="task.json" />
+        <None Include="tsconfig.json" />
+        <Content Include="README.md" />
+        <None Include="global.d.ts" />
+        <Content Include="colorPicker-master\info.txt" />
+        <Content Include="colorPicker-master\index.html" />
+        <Content Include="colorPicker-master\index.css" />
+        <Content Include="colorPicker-master\package.json" />
+        <Content Include="colorPicker-master\LICENSE.md" />
+        <Content Include="colorPicker-master\README.md" />
+        <None Include="Src\EventDispather.ts" />
+        <None Include="Src\GlobalData.ts" />
+        <None Include="Src\main.ts" />
+        <None Include="Src\ProjectManager.ts" />
+        <None Include="Src\Storage.ts" />
+        <None Include="Src\toorbar.ts" />
+        <None Include="Src\WorkItem.ts" />
+        <Content Include="colorPicker-master\developer\colorPicker.html" />
+        <Content Include="colorPicker-master\developer\fusion.html" />
+        <Content Include="colorPicker-master\developer\patches.html" />
+        <Content Include="colorPicker-master\developer\colorPicker.css" />
+        <Content Include="colorPicker-master\developer\colorPicker.sys.css" />
+        <Content Include="colorPicker-master\developer\_bgs.png" />
+        <Content Include="colorPicker-master\developer\_blank.png" />
+        <Content Include="colorPicker-master\developer\_horizontal.png" />
+        <Content Include="colorPicker-master\developer\_icons.png" />
+        <Content Include="colorPicker-master\developer\_patches.png" />
+        <Content Include="colorPicker-master\developer\_vertical.png" />
+        <Content Include="colorPicker-master\images\screen-shot-all.png" />
+        <Content Include="colorPicker-master\images\screen-shot-L.png" />
+        <Content Include="colorPicker-master\images\screen-shot-M.png" />
+        <Content Include="colorPicker-master\images\screen-shot-XS.png" />
+        <Content Include="colorPicker-master\images\screen-shot-XXS.png" />
+        <Content Include="colorPicker-master\images\_bgs.png" />
+        <Content Include="colorPicker-master\images\_blank.png" />
+        <Content Include="colorPicker-master\images\_horizontal.png" />
+        <Content Include="colorPicker-master\images\_icons.png" />
+        <Content Include="colorPicker-master\images\_patches.png" />
+        <Content Include="colorPicker-master\images\_vertical.png" />
+        <Content Include="colorPicker-master\images\favicon.ico" />
+        <Content Include="colorPicker-master\javascript_implementation\index.html" />
+        <Content Include="colorPicker-master\javascript_implementation\jsColor.css" />
+        <Content Include="colorPicker-master\javascript_implementation\README.md" />
+        <Content Include="colorPicker-master\jQuery_implementation\index.html" />
+        <Content Include="colorPicker-master\jQuery_implementation\jqColor.css" />
+        <Content Include="colorPicker-master\jQuery_implementation\README.md" />
+        <Content Include="Src\Assets\html.txt" />
+        <Content Include="Src\Assets\package.txt" />
+        <Content Include="Src\Assets\webpackConfig.txt" />
+        <None Include="Src\Components\AutoContainer.ts" />
+        <None Include="Src\Components\Binder.ts" />
+        <None Include="Src\Components\Carousel.ts" />
+        <None Include="Src\Components\Cascader.ts" />
+        <None Include="Src\Components\Collapse.ts" />
+        <None Include="Src\Components\ColorPicker.ts" />
+        <None Include="Src\Components\Component.ts" />
+        <None Include="Src\Components\DatePicker.ts" />
+        <None Include="Src\Components\ElementBase.ts" />
+        <None Include="Src\Components\Enviroment.ts" />
+        <None Include="Src\Components\HierachyItem.ts" />
+        <None Include="Src\Components\InputNumber.ts" />
+        <None Include="Src\Components\ListViewBase.ts" />
+        <None Include="Src\Components\MessageBox.ts" />
+        <None Include="Src\Components\Notification.ts" />
+        <None Include="Src\Components\Pagination.ts" />
+        <None Include="Src\Components\ProgressBar.ts" />
+        <None Include="Src\Components\Rate.ts" />
+        <None Include="Src\Components\Slider.ts" />
+        <None Include="Src\Components\StackPanel.ts" />
+        <None Include="Src\Components\steps.ts" />
+        <None Include="Src\Components\Table.ts" />
+        <None Include="Src\Components\ToolTip.ts" />
+        <None Include="Src\Components\TreeView.ts" />
+        <None Include="Src\Core\Behaviours.ts" />
+        <None Include="Src\Core\Core.ts" />
+        <None Include="Src\Core\DomElement.ts" />
+        <None Include="Src\Core\DoubleBind.ts" />
+        <None Include="Src\Core\EventManager.ts" />
+        <None Include="Src\Core\Input.ts" />
+        <None Include="Src\Core\InputEvent.ts" />
+        <None Include="Src\Core\Layer.ts" />
+        <None Include="Src\Core\main.ts" />
+        <None Include="Src\Core\Mapper.ts" />
+        <None Include="Src\Core\SaveFormat.ts" />
+        <None Include="Src\Core\SerializeHelper.ts" />
+        <None Include="Src\Core\Serializer.ts" />
+        <None Include="Src\Core\Storm.ts" />
+        <None Include="Src\Core\StormComponent.ts" />
+        <None Include="Src\Core\StormLoader.ts" />
+        <None Include="Src\Core\StormObject.ts" />
+        <None Include="Src\Core\StormPool.ts" />
+        <None Include="Src\Core\StyleCacher.ts" />
+        <None Include="Src\Core\TextParser.ts" />
+        <None Include="Src\Core\Time.ts" />
+        <None Include="Src\Core\UIEvent.ts" />
+        <None Include="Src\Editor\ElementList.ts" />
+        <None Include="Src\Editor\PanelAttributes.ts" />
+        <None Include="Src\Editor\PanelBase.ts" />
+        <None Include="Src\Editor\PanelComponent.ts" />
+        <None Include="Src\Editor\PanelLog.ts" />
+        <None Include="Src\Editor\PanelMain.ts" />
+        <None Include="Src\Editor\panelRoot.ts" />
+        <None Include="Src\Editor\PanelRuntime.ts" />
+        <None Include="Src\Editor\PanelWorking.ts" />
+        <Content Include="Src\Assets\icon\directory.png" />
+        <Content Include="Src\Assets\icon\directoryOpen.png" />
+        <Content Include="Src\Assets\icon\file.png" />
+        <None Include="Src\Components\BasicComponents\AutoResizer.ts" />
+        <None Include="Src\Components\BasicComponents\Button.ts" />
+        <None Include="Src\Components\BasicComponents\CheckBoxGroup.ts" />
+        <None Include="Src\Components\BasicComponents\CheckBoxList.ts" />
+        <None Include="Src\Components\BasicComponents\ComponentList.ts" />
+        <None Include="Src\Components\BasicComponents\DropDownList.ts" />
+        <None Include="Src\Components\BasicComponents\Image.ts" />
+        <None Include="Src\Components\BasicComponents\Label.ts" />
+        <None Include="Src\Components\BasicComponents\LayoutGrid.ts" />
+        <None Include="Src\Components\BasicComponents\LayoutStack.ts" />
+        <None Include="Src\Components\BasicComponents\List.ts" />
+        <None Include="Src\Components\BasicComponents\StormCheckBox.ts" />
+        <None Include="Src\Components\BasicComponents\StormCollector.ts" />
+        <None Include="Src\Components\BasicComponents\StormList.ts" />
+        <None Include="Src\Components\BasicComponents\StormStackList.ts" />
+        <None Include="Src\Components\BasicComponents\Text.ts" />
+        <None Include="Src\Components\BasicComponents\TreeView.ts" />
+        <None Include="Src\Components\BasicComponents\UIEventListhenner.ts" />
+        <None Include="Src\Core\Action\Action.ts" />
+        <None Include="Src\Core\Action\StormAction.ts" />
+        <None Include="Src\Core\Animation\AnimationAlpha.ts" />
+        <None Include="Src\Core\Animation\AnimationBase.ts" />
+        <None Include="Src\Core\Animation\AnimationColor.ts" />
+        <None Include="Src\Core\Animation\AnimationData.ts" />
+        <None Include="Src\Core\Animation\AnimationMove.ts" />
+        <None Include="Src\Core\Animation\AnimationScale.ts" />
+        <None Include="Src\Core\Attributes\StyleAttributes.ts" />
+        <None Include="Src\Core\Attributes\Transform.ts" />
+        <None Include="Src\Core\Behaviour\BehaviourBase.ts" />
+        <None Include="Src\Core\Behaviour\BehaviourColloctor.ts" />
+        <None Include="Src\Core\Behaviour\BehaviourRequest.ts" />
+        <None Include="Src\Core\Behaviour\BehaviourRoute.ts" />
+        <None Include="Src\Core\Controller\Controller.ts" />
+        <None Include="Src\Core\Math\Color.ts" />
+        <None Include="Src\Core\Math\MathEx.ts" />
+        <None Include="Src\Core\Math\Matrix3.ts" />
+        <None Include="Src\Core\Math\Rect.ts" />
+        <None Include="Src\Core\Math\Vector2.ts" />
+        <None Include="Src\Core\Math\Vector3.ts" />
+        <None Include="Src\Core\Renderer\Renderer.ts" />
+        <None Include="Src\Core\Renderer\RendererTarget.ts" />
+        <None Include="Src\Core\Renderer\RenderItemBase.ts" />
+        <None Include="Src\Core\State\State.ts" />
+        <None Include="Src\Core\State\StateManager.ts" />
+        <None Include="Src\Core\Utils\ArrrayUtils.d.ts" />
+        <None Include="Src\Core\Utils\ArrrayUtils.ts" />
+        <None Include="Src\Core\Utils\ConsoleUtils.ts" />
+        <None Include="Src\Core\Utils\Dictionary .ts" />
+        <None Include="Src\Core\Utils\GUID.ts" />
+        <None Include="Src\Core\Utils\ObjectMarker.ts" />
+        <None Include="Src\Core\Utils\Updater.ts" />
+        <None Include="Src\Core\Widgets\Anchor.ts" />
+        <None Include="Src\Core\Widgets\DeepCloner.ts" />
+        <None Include="Src\Core\Widgets\ListAlignment.ts" />
+        <None Include="Src\Core\Widgets\PageRouter.ts" />
+        <None Include="Src\Core\Widgets\Scene.ts" />
+        <None Include="Src\Core\Widgets\StormObject.ts" />
+        <None Include="Src\Core\Widgets\StormPage.ts" />
+        <None Include="Src\Core\Widgets\StormPageRouter.ts" />
+        <None Include="Src\Core\Widgets\WidgetLifeCycle.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererButton.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererContainer.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererEmpty.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererImage.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererLabel.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererMask.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererPanel.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererScrollView.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererText.ts" />
+        <None Include="Src\Core\Renderer\Virtual\RendererType.ts" />
+        <None Include="Src\Core\Renderer\Web\WebButton.ts" />
+        <None Include="Src\Core\Renderer\Web\WebContainer.ts" />
+        <None Include="Src\Core\Renderer\Web\WebEvent.ts" />
+        <None Include="Src\Core\Renderer\Web\WebImage.ts" />
+        <None Include="Src\Core\Renderer\Web\WebInput.ts" />
+        <None Include="Src\Core\Renderer\Web\WebItemEmpty.ts" />
+        <None Include="Src\Core\Renderer\Web\WebLabel.ts" />
+        <None Include="Src\Core\Renderer\Web\WebLoader.ts" />
+        <None Include="Src\Core\Renderer\Web\WebMask.ts" />
+        <None Include="Src\Core\Renderer\Web\WebPage.ts" />
+        <None Include="Src\Core\Renderer\Web\WebPanel.ts" />
+        <None Include="Src\Core\Renderer\Web\WebRenderer.ts" />
+        <None Include="Src\Core\Renderer\Web\WebScrollView.ts" />
+        <None Include="Src\Editor\Behaviours\NavBarButtonGroup.ts" />
+        <None Include="Src\Editor\Bottom\BottomArea.ts" />
+        <None Include="Src\Editor\Bottom\DirectoryDisplayer.ts" />
+        <None Include="Src\Editor\Bottom\FileDisplayer.ts" />
+        <None Include="Src\Editor\Bottom\LogDisplayer.ts" />
+        <None Include="Src\Editor\Middle\AttribbutesZone.ts" />
+        <None Include="Src\Editor\Middle\Hierachy.ts" />
+        <None Include="Src\Editor\Middle\MiddleArea.ts" />
+        <None Include="Src\Editor\Middle\WorkZone.ts" />
+        <None Include="Src\Editor\Modules\AutoSaver.ts" />
+        <None Include="Src\Editor\Modules\Container.ts" />
+        <None Include="Src\Editor\Modules\DataTranslater.ts" />
+        <None Include="Src\Editor\Modules\ProjectBuilder.ts" />
+        <None Include="Src\Editor\PanelExplorer\ComponentDirectory.ts" />
+        <None Include="Src\Editor\PanelExplorer\ComponentFile.ts" />
+        <None Include="Src\Editor\PanelExplorer\PanelExplorer.ts" />
+        <None Include="Src\Editor\ResourceLoader\themeLoader.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\AttributesBase.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\AttributesRenderer.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\BehaviourAttributes.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\BehaviourHierachy.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\BehaviourWorkZone.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Loader.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\RendererAttributes.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\TransformAttributes.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttributesBase.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererButton.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererContainer.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererEmpty.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererImage.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererLabel.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererMask.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererPanel.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererScrollView.ts" />
+        <None Include="Src\Editor\Middle\Behaviours\Attributes\Renderer\AttriebutesRendererText.ts" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="build" />
+        <Folder Include="build\dist" />
+        <Folder Include="colorPicker-master" />
+        <Folder Include="colorPicker-master\developer" />
+        <Folder Include="colorPicker-master\images" />
+        <Folder Include="colorPicker-master\javascript_implementation" />
+        <Folder Include="colorPicker-master\jQuery_implementation" />
+        <Folder Include="NodejsApp1" />
+        <Folder Include="NodejsApp1\NodejsApp1" />
+        <Folder Include="Src" />
+        <Folder Include="Src\Assets" />
+        <Folder Include="Src\Assets\icon" />
+        <Folder Include="Src\Components" />
+        <Folder Include="Src\Components\BasicComponents" />
+        <Folder Include="Src\Core" />
+        <Folder Include="Src\Core\Action" />
+        <Folder Include="Src\Core\Animation" />
+        <Folder Include="Src\Core\Attributes" />
+        <Folder Include="Src\Core\Behaviour" />
+        <Folder Include="Src\Core\Controller" />
+        <Folder Include="Src\Core\Math" />
+        <Folder Include="Src\Core\Renderer" />
+        <Folder Include="Src\Core\Renderer\Virtual" />
+        <Folder Include="Src\Core\Renderer\Web" />
+        <Folder Include="Src\Core\State" />
+        <Folder Include="Src\Core\Utils" />
+        <Folder Include="Src\Core\Widgets" />
+        <Folder Include="Src\Editor" />
+        <Folder Include="Src\Editor\Behaviours" />
+        <Folder Include="Src\Editor\Bottom" />
+        <Folder Include="Src\Editor\Middle" />
+        <Folder Include="Src\Editor\Middle\Behaviours" />
+        <Folder Include="Src\Editor\Middle\Behaviours\Attributes" />
+        <Folder Include="Src\Editor\Middle\Behaviours\Attributes\Behaviour" />
+        <Folder Include="Src\Editor\Middle\Behaviours\Attributes\Renderer" />
+        <Folder Include="Src\Editor\Modules" />
+        <Folder Include="Src\Editor\PanelExplorer" />
+        <Folder Include="Src\Editor\ResourceLoader" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+    <ProjectExtensions>
+        <VisualStudio>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+            <WebProjectProperties>
+              <UseIIS>False</UseIIS>
+              <AutoAssignPort>True</AutoAssignPort>
+              <DevelopmentServerPort>0</DevelopmentServerPort>
+              <DevelopmentServerVPath>/</DevelopmentServerVPath>
+              <IISUrl>http://localhost:48022/</IISUrl>
+              <NTLMAuthentication>False</NTLMAuthentication>
+              <UseCustomServer>True</UseCustomServer>
+              <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+              <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+            </WebProjectProperties>
+          </FlavorProperties>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+            <WebProjectProperties>
+              <StartPageUrl>
+              </StartPageUrl>
+              <StartAction>CurrentPage</StartAction>
+              <AspNetDebugging>True</AspNetDebugging>
+              <SilverlightDebugging>False</SilverlightDebugging>
+              <NativeDebugging>False</NativeDebugging>
+              <SQLDebugging>False</SQLDebugging>
+              <ExternalProgram>
+              </ExternalProgram>
+              <StartExternalURL>
+              </StartExternalURL>
+              <StartCmdLineArguments>
+              </StartCmdLineArguments>
+              <StartWorkingDirectory>
+              </StartWorkingDirectory>
+              <EnableENC>False</EnableENC>
+              <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+            </WebProjectProperties>
+          </FlavorProperties>
+        </VisualStudio>
+    </ProjectExtensions>
+</Project>

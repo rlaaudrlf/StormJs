@@ -2,6 +2,8 @@ import { DoubleBind } from "../../Core/DoubleBind";
 import { Vector2, EditableVector2 } from "../../Core/Math/Vector2";
 import { StormComponent } from "../../Core/StormComponent";
 import { StormObject } from "../../Core/Widgets/StormObject";
+import { Updater } from "../../Core/Utils/Updater";
+import { UIEventListhenner } from "./UIEventListhenner";
 
 export class List extends StormComponent {
 	data: any[] | null = null;
@@ -26,7 +28,12 @@ export class List extends StormComponent {
 		this.render();
 	}
 
+	update() {
+		// this.render();
+	}
+
 	render() {
+
 		this.computeSize();
 		this.renderItems();
 	}
@@ -62,19 +69,24 @@ export class List extends StormComponent {
 		let parentRect = this.stormObject.transfrom.Parent.getGlobalRect();
 
 		let visibleStartX =
-			clientRect.x > parentRect.x ? clientRect.x : parentRect.x - clientRect.x;
+			clientRect.x > parentRect.x ? clientRect.x : parentRect.x;
 		let visibleStartY =
-			clientRect.y > parentRect.y ? clientRect.y : parentRect.y - clientRect.y;
-		let visibleEndX = visibleStartX + clientRect.width;
-		let parentEndX = parentRect.x + parentRect.width;
-		if (visibleEndX > parentEndX) {
-			visibleEndX = parentEndX;
-		}
-		let visibleEndY = visibleStartY + clientRect.height;
-		let parentEndY = parentRect.y + parentRect.height;
-		if (visibleEndY > parentEndY) {
-			visibleEndY = parentEndY;
-		}
+			clientRect.y > parentRect.y ? clientRect.y : parentRect.y;
+
+		let visibleEndX =
+			clientRect.x + clientRect.width > parentRect.x + parentRect.width
+				? parentRect.x + parentRect.width
+				: clientRect.x + clientRect.width;
+
+		let visibleEndY =
+			clientRect.y + clientRect.height > parentRect.y + parentRect.height
+				? parentRect.y + parentRect.height
+				: clientRect.y + clientRect.height;
+
+		visibleStartX = visibleStartX - clientRect.x;
+		visibleStartY = visibleStartY - clientRect.y;
+		visibleEndX = visibleEndX - clientRect.x;
+		visibleEndY = visibleEndY - clientRect.y;
 
 		let visibleIndexs: Vector2[] = [];
 		let visibleIndexStartX = Math.floor(
@@ -92,8 +104,15 @@ export class List extends StormComponent {
 			(visibleEndY - this.itemHeight) / (this.itemHeight + this.paddingY)
 		);
 
-		for (let y = visibleIndexStartY; y <= visibleIndexEndY; y++) {
-			for (let x = visibleIndexStartX; x <= visibleIndexEndX; x++) {
+		// for (let y = visibleIndexStartY; y <= visibleIndexEndY; y++) {
+		// 	for (let x = visibleIndexStartX; x <= visibleIndexEndX; x++) {
+		// 		let value = new Vector2(x, y);
+		// 		visibleIndexs.push(value);
+		// 	}
+		// }
+
+		for (let y = 0; y <= (clientRect.height - this.itemHeight) / (this.itemHeight + this.paddingY); y++) {
+			for (let x = 0; x <= (clientRect.width - this.itemWidth) / (this.itemWidth + this.paddingX); x++) {
 				let value = new Vector2(x, y);
 				visibleIndexs.push(value);
 			}
@@ -103,9 +122,10 @@ export class List extends StormComponent {
 	}
 
 	renderItems() {
-		this.removeItems();
+		// this.removeItems();
 
 		let visibleIndexs = this.getVisibleIndex();
+
 		for (const index2d of visibleIndexs) {
 			let index = this.index2d2index(index2d);
 			this.addItem(this.data[index], index2d);
@@ -132,7 +152,9 @@ export class List extends StormComponent {
 		if (index >= this.data.length) {
 			return;
 		}
-		let itemWidget = this.selectItemStyleOnRender(data);
+		let itemWidget = StormObject.Instantiate(
+			this.selectItemStyleOnRender(data)
+		);
 		let item = itemWidget;
 		item.transfrom.Width = this.itemWidth;
 		item.transfrom.Height = this.itemHeight;
@@ -149,6 +171,16 @@ export class List extends StormComponent {
 			}
 		}
 
+		let event = item.addBehaviour<UIEventListhenner>(UIEventListhenner);
+		// console.log(data)
+		event.OnClick.Regist(
+			(a, b, item, index) => {
+				this.onItemClick(item, this.data[index]);
+			},
+			undefined,
+			item,
+			index
+		);
 		this.items.push(item);
 	}
 

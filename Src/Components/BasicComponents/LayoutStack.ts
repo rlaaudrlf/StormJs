@@ -5,6 +5,14 @@ export class LayoutStack extends Behaviour {
 	padding: number = 0;
 	alignment: ListAlignment = ListAlignment.horizontal;
 
+	awake() {
+		this.update();
+	}
+
+	start(){
+		this.update()
+	}
+
 	update() {
 		let children = this.transform.Children;
 

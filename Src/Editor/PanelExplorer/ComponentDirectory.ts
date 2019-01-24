@@ -1,6 +1,5 @@
 import { readdirSync, lstatSync } from "fs";
-import { Storage } from "../../Storage";
-import { TreeView } from "../../Components/TreeView";
+import { GlobalData } from "../../Storage";
 export class PanelFile {
 	element: HTMLElement | null = null;
 	treeView:  any= <any>null;
@@ -25,7 +24,7 @@ export class PanelFile {
 		let paths = [];
 		paths.push("assets");
 		let id: number = 0;
-		let basePath = Storage.instance.ProjectPath + "/";
+		let basePath = GlobalData.instance.projectPath + "/";
 		let currentPath: string | undefined = paths.pop();
 		let currentFileInfo = null;
 		let head: FileInfo = <any>null;
@@ -77,53 +76,53 @@ export class PanelFile {
 	}
 
 	public Render(items: FileInfo) {
-		let tv = new TreeView<FileInfo>();
-		tv.SetDiv(this.element);
-		tv.OnSelectStyle = data => {
-			return "directory.html";
-		};
-		tv.FilterItem = data => {
-			return data.isDir;
-		};
-		tv.size = 30;
-		let onClick = (
-			event: MouseEvent,
-			data: any,
-			element: HTMLElement,
-			state: any
-		) => {
-			if (data.child == null || data.child == []) {
-				return;
-			}
+		// let tv = new TreeView<FileInfo>();
+		// tv.SetDiv(this.element);
+		// tv.OnSelectStyle = data => {
+		// 	return "directory.html";
+		// };
+		// tv.FilterItem = data => {
+		// 	return data.isDir;
+		// };
+		// tv.size = 30;
+		// let onClick = (
+		// 	event: MouseEvent,
+		// 	data: any,
+		// 	element: HTMLElement,
+		// 	state: any
+		// ) => {
+		// 	if (data.child == null || data.child == []) {
+		// 		return;
+		// 	}
 
-			if (state.expanded == true) {
-				state.expanded = false;
-				(<HTMLElement>state.childElement).style.display = "none";
-			} else if (state.expanded == undefined) {
-				let tv = new TreeView();
-				tv.SetDiv(element);
-				tv.OnSelectStyle = data => {
-					return "directory.html";
-				};
-				tv.FilterItem = data => {
-					return data.isDir;
-				};
+		// 	if (state.expanded == true) {
+		// 		state.expanded = false;
+		// 		(<HTMLElement>state.childElement).style.display = "none";
+		// 	} else if (state.expanded == undefined) {
+		// 		let tv = new TreeView();
+		// 		tv.SetDiv(element);
+		// 		tv.OnSelectStyle = data => {
+		// 			return "directory.html";
+		// 		};
+		// 		tv.FilterItem = data => {
+		// 			return data.isDir;
+		// 		};
 
-				state.expanded = true;
-				state.childElement = tv.panel;
-				tv.panel.style.paddingLeft = "2%";
-				tv.size = 30;
-				console.log(data);
-				tv.onItemClick = onClick;
-				tv.SetData(data.child, FileInfo);
-			} else {
-				state.expanded = true;
-				(<HTMLElement>state.childElement).style.display = "";
-			}
-			this.onItemClick(data);
-		};
-		tv.onItemClick = onClick;
-		tv.SetData([items], FileInfo);
+		// 		state.expanded = true;
+		// 		state.childElement = tv.panel;
+		// 		tv.panel.style.paddingLeft = "2%";
+		// 		tv.size = 30;
+		// 		console.log(data);
+		// 		tv.onItemClick = onClick;
+		// 		tv.SetData(data.child, FileInfo);
+		// 	} else {
+		// 		state.expanded = true;
+		// 		(<HTMLElement>state.childElement).style.display = "";
+		// 	}
+		// 	this.onItemClick(data);
+		// };
+		// tv.onItemClick = onClick;
+		// tv.SetData([items], FileInfo);
 	}
 }
 

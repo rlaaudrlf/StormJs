@@ -1,0 +1,17 @@
+<div style=" width:100 ;height:100 ;background:black ;overflow-x: hidden; "> 
+    <div id="11" style="position: relative;left: 50; width:100 ;height:50 ;background:red "> 
+
+    </div>
+</div>
+
+<script type="text/javascript">
+setInterval(()=>{
+   let a= document.getElementById("11")
+   let str= a.style.left.substring(0,a.style.left.length-2);
+   let num=Number(str)-1
+   if(num==-100)
+    {num=100}
+   a.style.left=num+"px"
+},1)
+
+</script>

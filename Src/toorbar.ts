@@ -7,13 +7,16 @@ import {
 	mkdirSync,
 	existsSync
 } from "fs";
-import { Storage } from "./Storage";
+import { GlobalData } from "./Storage";
 import { Container } from "./Editor/Modules/Container";
 import { ThemeLoader } from "./editor/ResourceLoader/themeLoader";
+import { Inject } from './Editor/Core/Decorators/Inject';
 
 const path = require("path");
 
 export class ToolBar {
+	@Inject(GlobalData)
+	globalData:GlobalData
 	public element: HTMLElement;
 	private isMouseDown = false;
 
@@ -86,14 +89,14 @@ export class ToolBar {
 				}
 
 				writeFileSync(pathConfig, "");
-				Storage.instance.projectPath = pathAssets;
-				Storage.instance.ProjectPath = path;
+				this.globalData.projectPath = pathAssets;
+				this.globalData.ProjectPath = path;
 
 				console.log(pathAssets);
 
-				Storage.instance.tempPath = path + "/" + "Temp";
+				this.globalData.tempPath = path + "/" + "Temp";
 				Container.instance.ProjectBuilder.Build(
-					Storage.instance.tempPath,
+					this.globalData.tempPath,
 					pathAssets
 				);
 
@@ -157,7 +160,7 @@ export class ToolBar {
 
 		data = serialize(a);
 		writeFileSync(filePath, JSON.stringify(data));
-		const stylePath = Storage.instance.tempPath + "/styles.style";
+		const stylePath = this.globalData.tempPath + "/styles.style";
 		console.log(stylePath);
 
 		let sf: StyleFormat = new StyleFormat();

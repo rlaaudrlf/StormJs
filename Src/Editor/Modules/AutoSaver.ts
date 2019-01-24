@@ -2,10 +2,13 @@ import { saveFormat, StyleFormat, StyleFileInfo } from "../../Core/SaveFormat";
 import { Main } from "../../main";
 import { serialize } from "../../Core/SerializeHelper";
 import { writeFileSync } from "fs";
-import { Storage } from "../../Storage";
+import { GlobalData } from "../../Storage";
 import { ThemeLoader } from "../ResourceLoader/themeLoader";
+import { Inject } from "../Core/Decorators/Inject";
 
 export class AutoSaver {
+	@Inject(GlobalData)
+	globalData:GlobalData
 	public OnAutoSave: () => void;
 	public StartAutoSaveTask() {
 		setTimeout(() => {
@@ -18,7 +21,7 @@ export class AutoSaver {
 
 	public Save() {
 		const items = Main.main.panelWorking.workItems;
-		const filePath = Storage.instance.tempPath + "./test.storm";
+		const filePath = this.globalData.tempPath + "./test.storm";
 		const format = new saveFormat();
 		for (const item of items) {
 			format.objs.push(item.stormObj);
@@ -26,7 +29,7 @@ export class AutoSaver {
 
 		let data = serialize(format);
 		writeFileSync(filePath, JSON.stringify(data));
-		const stylePath = Storage.instance.tempPath + "/styles.style";
+		const stylePath = this.globalData.tempPath + "/styles.style";
 		console.log(stylePath);
 
 		let sf: StyleFormat = new StyleFormat();

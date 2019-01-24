@@ -1,15 +1,23 @@
-import { StormObject } from "../../Core/Widgets/StormObject";
-import { RendererLabel } from "../../Core/Renderer/Virtual/RendererLabel";
-import { EBorder } from "../../Core/Widgets/Anchor";
-import { RendererScrollView } from "../../Core/Renderer/Virtual/RendererScrollView";
-import { RendererContainer, Border } from '../../Core/Renderer/Virtual/RendererContainer';
+import {StormObject} from "../../Core/Widgets/StormObject";
+import {RendererLabel} from "../../Core/Renderer/Virtual/RendererLabel";
+import {EBorder} from "../../Core/Widgets/Anchor";
+import {RendererScrollView} from "../../Core/Renderer/Virtual/RendererScrollView";
+import {
+	Border,
+	RendererContainer
+} from "../../Core/Renderer/Virtual/RendererContainer";
+import {ComponentFile} from "./ComponentFile";
+import {List} from "../../Components/BasicComponents/List";
+import {MathEx} from "../../Core/Math/MathEx";
 export class FileDisplayer {
-	init(parent: StormObject) {
-		let container = new StormObject();
+	init (parent: StormObject) {
+		const container = new StormObject();
+
 		container.setRenderer(RendererContainer);
 		container.transfrom.Parent = parent.transfrom;
 		container.getRenderer<RendererContainer>().background.setHex(0x252526);
-		let border = new Border();
+		const border = new Border();
+
 		container.getRenderer<RendererContainer>().border = border;
 		border.color.setHex(0x353536);
 		container.transfrom.anchor.top.target = parent.transfrom;
@@ -17,8 +25,8 @@ export class FileDisplayer {
 		container.transfrom.anchor.right.target = parent.transfrom;
 		container.transfrom.Height = 30;
 
+		const label = new StormObject();
 
-		let label = new StormObject();
 		label.setRenderer(RendererLabel);
 
 		label.transfrom.Parent = parent.transfrom;
@@ -28,7 +36,8 @@ export class FileDisplayer {
 		label.transfrom.anchor.left.target = parent.transfrom;
 		label.transfrom.anchor.right.target = parent.transfrom;
 
-		let scroll = new StormObject();
+		const scroll = new StormObject();
+
 		scroll.setRenderer(RendererScrollView);
 		scroll.transfrom.anchor.top.target = label.transfrom;
 		scroll.transfrom.anchor.top.border = EBorder.bottom;
@@ -38,5 +47,13 @@ export class FileDisplayer {
 		scroll.transfrom.Parent = parent.transfrom;
 		scroll.getRenderer<RendererScrollView>().showVerticalScrolBar = true;
 		scroll.getRenderer<RendererScrollView>().background.setHex(0x252526);
+
+		const list = new StormObject();
+		const bList = list.addBehaviour<List>(List);
+		const cmpFile = list.addBehaviour<ComponentFile>(ComponentFile);
+
+		console.log(MathEx.getPercentage(1, 10, 2));
+		console.log(MathEx.getPercentage(10, 1, 2));
+		list.transfrom.Parent = scroll.transfrom;
 	}
 }

@@ -1,8 +1,14 @@
-export class Storage {
-	public static instance: Storage = new Storage();
+import {StormObject} from "./Core/Widgets/StormObject";
+import {Storage} from "./Editor/Core/Decorators/Storage";
+@Storage()
+export class GlobalData {
+	public projectPath = "";
 
-	private constructor() {}
-	projectPath = "";
-	tempPath = "";
-	ProjectPath=""
+	public tempPath = "";
+
+	public ProjectPath = "";
+
+	public currentSelectStormObject: StormObject | undefined = undefined;
+
+	public root: StormObject;
 }

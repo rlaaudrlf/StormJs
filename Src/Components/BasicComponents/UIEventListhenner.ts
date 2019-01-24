@@ -1,21 +1,30 @@
-import { StormComponent } from "../../Core/StormComponent";
-import { IClickable, IMouseDown, IMouseUp } from "../../Core/Input";
-import { EventManager } from "../../Core/EventManager";
-import { InputEvent } from "../../Core/InputEvent";
+import {StormComponent} from "../../Core/StormComponent";
+import {IClickable, IMouseDown, IMouseMove, IMouseUp} from "../../Core/Input";
+import {EventManager} from "../../Core/EventManager";
+import {InputEvent} from "../../Core/InputEvent";
 export class UIEventListhenner extends StormComponent
-	implements IClickable, IMouseDown, IMouseUp {
+	implements IClickable, IMouseDown, IMouseUp, IMouseMove {
 	OnClick: EventManager = new EventManager();
+
 	OnMouseUp: EventManager = new EventManager();
+
 	OnMouseDown: EventManager = new EventManager();
 
-	onClick(inputEvent: InputEvent) {
+	OnMouseMove: EventManager = new EventManager();
+
+	onClick (inputEvent: InputEvent) {
 		this.OnClick.Call(this, inputEvent);
 	}
-	onMouseUP(inputEvent: InputEvent) {
+
+	onMouseUP (inputEvent: InputEvent) {
 		this.OnMouseUp.Call(this, inputEvent);
 	}
 
-	onMouseDown(inputEvent: InputEvent) {
+	onMouseDown (inputEvent: InputEvent) {
 		this.OnMouseDown.Call(this, inputEvent);
+	}
+
+	onMouseMove (inputEvent: InputEvent) {
+		this.OnMouseMove.Call(this, inputEvent);
 	}
 }

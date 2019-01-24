@@ -1,35 +1,47 @@
-import { PanelComponent } from "./Editor/PanelComponent";
-import { PanelWorking } from "./Editor/PanelWorking";
-import { PanelAttribute } from "./Editor/PanelAttributes";
-import { ToolBar } from "./toorbar";
-import { PanelRoot } from "./Editor/panelRoot";
-import { consoleUtils } from "./Core/Utils/ConsoleUtils";
-import { PanelLog } from "./Editor/PanelLog";
-import { PanelRuntime } from "./Editor/PanelRuntime";
-import { PanelExplorer } from "./Editor/PanelExplorer/PanelExplorer";
-import { PanelMain } from "./Editor/PanelMain";
-import { GUID } from "./Core/Utils/GUID";
-import { EventManager } from "./Core/EventManager";
+import {PanelComponent} from "./Editor/PanelComponent";
+import {PanelWorking} from "./Editor/PanelWorking";
+import {PanelAttribute} from "./Editor/PanelAttributes";
+import {ToolBar} from "./toorbar";
+import {PanelRoot} from "./Editor/panelRoot";
+import {consoleUtils} from "./Core/Utils/ConsoleUtils";
+import {PanelLog} from "./Editor/PanelLog";
+import {PanelRuntime} from "./Editor/PanelRuntime";
+import {PanelExplorer} from "./Editor/PanelExplorer/PanelExplorer";
+import {PanelMain} from "./Editor/PanelMain";
+import {GUID} from "./Core/Utils/GUID";
+import {EventManager} from "./Core/EventManager";
+import { PluginLoader } from './Editor/Plugin/PluginLoader';
 require("./Core/Utils/ArrrayUtils");
 
 export class Main {
 	public panelComponent: PanelComponent;
+
 	public panelWorking: PanelWorking;
+
 	public panelAttribute: PanelAttribute;
+
 	public panelRoot: PanelRoot;
+
 	public toobar: ToolBar;
+
 	public panelLog: PanelLog;
+
 	public panelRuntime: PanelRuntime;
+
 	public static main: Main;
+
 	public panelExplorer: PanelExplorer;
 
-	public start() {
+	public start () {
+		console.
+			log(123);
 		this.RegistTools();
-		let panel = new PanelMain();
+		const panel = new PanelMain();
+
 		panel.start(document.getElementById("middle"));
+		const pluginLoader = new PluginLoader();
 
-
-		// Enviroment.rendererTarget = RendererTarget.Web;
+		// enviroment.rendererTarget = RendererTarget.Web;
 		// new WebLoader().load();
 
 		// let panel = new StormObject();
@@ -89,17 +101,18 @@ export class Main {
 		// 	this.HandlePanelWorkingItemClick(item)
 		// );
 
-		// Main.main = this;
+		// main.main = this;
 	}
 
-	private RegistTools() {
+	private RegistTools () {
 		consoleUtils.console.Start();
 	}
 
-	public HandlePanelWorkingItemClick(item: any) {
+	public HandlePanelWorkingItemClick (item: any) {
 		this.panelAttribute.Update(item);
 	}
 }
 
-var main = new Main();
+const main = new Main();
+
 main.start();

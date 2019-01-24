@@ -71,6 +71,7 @@ export class BehaviourHierachy extends StormComponent implements IMouseDown {
 			this.onItemClick.Call(this,data)
 		},null)
 		this.treeView.leafPadding = 10;
+		this.treeView.setCompData(GetHierachyItem().ToList())
 	}
 
 	onMouseDown(inputEvent: InputEvent) {
@@ -135,6 +136,7 @@ export class BehaviourHierachy extends StormComponent implements IMouseDown {
 		}, null);
 
 		stormStack.size = 30;
+		console.log(GetHierachyItem().ToList())
 		stormStack.setCompData(GetHierachyItem().ToList());
 
 		this.panel = background;
