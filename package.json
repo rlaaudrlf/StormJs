@@ -21,7 +21,7 @@
     "assets-webpack-plugin": "^3.9.10",
     "babel-plugin-transform-inline-imports-commonjs": "^1.2.0",
     "clean-webpack-plugin": "^3.0.0",
-    "electron": "^5.0.3",
+    "electron": "^13.6.6",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-autofix": "^0.0.9",
